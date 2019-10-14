@@ -1,0 +1,14 @@
+angular.module('constant', []);
+angular.module('login', ['ui.router', 'constant']);
+angular.module('solicitudPrestamo', ['ui.router', 'naif.base64', 'constant']);
+angular.module('home', ['ui.router', 'ng.deviceDetector', 'constant']);
+angular.module('client', ['ui.router']);
+angular.module('communicationKit', ['btford.socket-io']);
+angular.module('chat', ['ui.router', 'communicationKit']);
+angular.module('datosPersonales', ['ui.router', 'constant']);
+angular.module('homeRecontratacion', ['ui.router', 'constant']);
+angular.module('homeHistoricoPrestamo', ['ui.router', 'constant']);
+angular.module('simulador', ['ui.router', 'constant']);
+angular.module('profile', ['ui.router', 'constant']);
+angular.module('buscador', ['ui.router', 'constant']);
+angular.module('notificaciones', ['ui.router', 'constant']);

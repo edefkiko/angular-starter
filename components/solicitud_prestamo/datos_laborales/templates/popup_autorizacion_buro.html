@@ -1,0 +1,41 @@
+<form name="autorizacionForm" ng-submit="continuarAutorizacion( password )" method="post">
+    <div class="dialogCuerpo sinAspa">
+        <!-- <i class="yei icon-candado texto-limon x4"></i> -->
+        <div class="avisoBuro">
+            <div class="small-12 medium-12 large-12 small-centered">
+                <h5>Autorización para la consulta de tus datos
+                    en el Buró de Crédito</h5>
+                    <p class="texto-gris">
+                        <strong>AUTORIZACIÓN PARA SOLICITAR REPORTES DE CRÉDITO PERSONAS FÍSICAS.</strong>
+                        <br/>
+                        <br/>
+                        <span>Autorizo expresamente a ORION FINTECH, SA de CV, SOFOM, ENR, para que lleve a cabo investigaciones sobre mi comportamiento crediticio en SIC que estime conveniente. Conozco la naturaleza y alcance de la información que se solicitará, del uso que se le dará y que se podrán realizar consultas periódicas de mi historial crediticio, consiento que esta autorización tenga una vigencia de 3 años contados a partir de hoy, y en su caso mientras mantengamos relación jurídica.Estoy consciente y acepto que este documento quede bajo custodia de ORION FINTECH, SA de CV, SOFOM, ENR, para efectos de control y cumplimiento del Artículo 28 de la Ley para Regular las Sociedades de Información Crediticia
+                                </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center tituloImagen">
+                <p class="text-center">Para autorizar, ingresar nuevamente su contraseña:</p>
+                </div>
+                <div class="space-blank diez"></div>
+
+                <div class="input-field con-mensaje small-10 medium-6 large-6 small-offset-1 medium-offset-3 large-offset-3">
+                    <input id="password" name="password" type="password" maxlength="30" ng-model="password" required>
+                    <label for="password">Contraseña*</label>
+                    <span class="posfix"><img src="assets/img/logoOrionNaranja.png"></span>
+                    <span>Este proceso puede tardar unos minutos.</span>
+                    <span ng-show="invalido" class="mensaje">¡Verificar datos! {{mensaje}}</span>
+                </div>
+                <div class="input-field con-mensaje text-left">
+                    <span ng-show="intentos > 0" class="mensaje">Si no aceptas la autorización para consultar tu buró, no podrás continuar con la contratación de tu crédito.</span>
+                </div>
+
+            </div>
+            <div class="margin-bottom separador-orion"></div>
+            <div class="dialogFooter text-center">
+                <a class="button" ng-click="noAcepto()" ng-disabled="dataloading">No acepto<i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></a>
+                <div class="space-blank hide-for-medium"></div>
+                <button class="button" type="submit" ng-disabled="dataloading">Autorizar<i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+            </div>
+        </form>

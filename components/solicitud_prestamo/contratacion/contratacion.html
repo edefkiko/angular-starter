@@ -1,0 +1,180 @@
+<section class="row" ng-init="setStatusView({statusView:'paso3'})">
+    <div class="small-10 medium-8 large-10 columns small-centered text-center">
+        <h3>Tus documentos</h3>
+        <p>
+            Por favor sube los siguientes documentos para completar tu solicitud de préstamo, puedes arrastrar los archivos a la ventana o seleccionarlos desde tu computadora/dispositivo.
+        </p>
+        <div class="space-blank veinte"></div>
+        <!-- SELFIE -->
+        <div class="wow fadeIn">
+
+            <div class="small-12 medium-6 large-4 columns" ng-show="mostrarSelfie">
+                <div class="numeros">
+                    <!-- <span></span> -->
+                    <p><span>{{posicionSelfie}})</span> Tómate una selfie con la palabra que se muestra abajo.</p>
+                </div>
+                <div id="ayudaPalabra" class="contenedorDocumentos">
+                    <div class="contenedorZonas selfie">
+                        <div class="zonaDrag" id="file-drop" target="selfie" imagedrop on-image-drop="imageDropped()">
+                            <div class="imagenSelfie">
+                                <img src="assets/img/selfie.png" ng-hide="documentos.selfie.data" />
+                                <img data-ng-src="{{documentos.selfie.data}}" ng-show="documentos.selfie.data" />
+                                <div class="fraseAleatoria" ng-hide="selfieAdded">{{palabraSelfie}}</div>
+                            </div>
+                            <div class="contenedorPreloader" ng-show="selfieDataloading">
+                                <div class="preloader">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zonaBotones">
+                            <button type="button" class="button solo-icono has-tip top botonSelfie" ng-click="takePicture('selfie')" ng-disabled="selfieDataloading" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Tomar una foto" ng-hide="ocultarBotonCamara  || isMobile">
+                                <i class="material-icons x3">add_a_photo</i>
+                            </button>
+                            <input type="file" name="selfie" id="selfie" ng-model="documentos.selfie" on-after-validate="uploadImage" base-sixty-four-input do-not-parse-if-oversize required ng-disabled="selfieDataloading" class="inputfile" />
+                            <label for="selfie" class="button solo-icono has-tip top" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Subir un archivo"><i class="material-icons x3">{{isMobile ? 'add_a_photo': 'attach_file'}}</i></label>
+                        </div>
+                    </div>
+                    <div ng-show="selfieAdded" class="subidaCorrecta animated zoomIn delay2">
+                        <i class="material-icons x2">check</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-blank diez show-for-small-only"></div>
+
+            <!-- IDENTIFICACIÓN INE / IFE -->
+
+            <div class="small-12 medium-6 large-4 columns" ng-show="mostrarIfeIne">
+                <div class="numeros">
+                    <!-- <span></span> -->
+                    <p><span>{{posicionIne}})</span> Adjunta o arrastra aquí tu INE/IFE por ambos lados.</p>
+                </div>
+                <div class="contenedorDocumentos">
+                    <div class="contenedorZonas identificacion">
+                        <div class="zonaDrag" id="file-drop" target="ineFrente" imagedrop on-image-drop="imageDropped()">
+                            <label>INE / IFE Frente</label>
+                            <!--<img src="assets/img/ine.png" ng-hide="documentos.ineFrente.data"/>-->
+                            <img data-ng-src="{{documentos.ineFrente.data}}" ng-show="documentos.ineFrente.data" />
+                            <div class="contenedorPreloader" ng-show="ineFrenteDataloading">
+                                <div class="preloader">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zonaBotones">
+                            <button type="button" class="button solo-icono has-tip top botonSelfie" ng-click="takePicture('ineFrente')" ng-disabled="selfieDataloading" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Tomar una foto" ng-hide="ocultarBotonCamara  || isMobile">
+                                <i class="material-icons x3">add_a_photo</i>
+                            </button>
+                            <input type="file" name="ineFrente" id="ineFrente" ng-model="documentos.ineFrente" on-after-validate="uploadImage" base-sixty-four-input do-not-parse-if-oversize required ng-disabled="ineFrenteDataloading" class="inputfile" />
+                            <label for="ineFrente" class="button solo-icono has-tip top" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Subir un archivo"><i class="material-icons x3">{{ineFrenteAdded ? 'refresh' : isMobile ? 'add_a_photo': 'attach_file'}}</i></label>
+                        </div>
+                        <div ng-show="ineFrenteAdded" class="subidaCorrecta animated zoomIn delay2">
+                            <i class="material-icons x2">check</i>
+                        </div>
+                    </div>
+                    <div class="contenedorZonas identificacion">
+                        <div class="zonaDrag" class="zonaDrag" id="file-drop" target="ineReverso" imagedrop on-image-drop="imageDropped()">
+                            <label>INE / IFE Vuelta</label>
+                            <img data-ng-src="{{documentos.ineReverso.data}}" />
+                            <div class="contenedorPreloader" ng-show="ineReversoDataloading">
+                                <div class="preloader">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zonaBotones">
+                            <button type="button" class="button solo-icono has-tip top botonSelfie" ng-click="takePicture('ineReverso')" ng-disabled="selfieDataloading" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Tomar una foto" ng-hide="ocultarBotonCamara  || isMobile">
+                                <i class="material-icons x3">add_a_photo</i>
+                            </button>
+                            <input type="file" name="ineReverso" id="ineReverso" ng-model="documentos.ineReverso" on-after-validate="uploadImage" base-sixty-four-input do-not-parse-if-oversize required ng-disabled="ineReversoDataloading" class="inputfile" />
+                            <label for="ineReverso" class="button solo-icono has-tip top" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Subir un archivo"><i class="material-icons x3">{{ineReversoAdded ? 'refresh' : isMobile ? 'add_a_photo': 'attach_file'}}</i></label>
+                        </div>
+                        <div ng-show="ineReversoAdded" class="subidaCorrecta animated zoomIn delay2">
+                            <i class="material-icons x2">check</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-blank diez show-for-small-only"></div>
+            <!-- COMPROBANTE DE DOMICILIO -->
+
+            <div class="small-12 medium-12 large-4 columns" ng-show="mostrarComprobante">
+                <div class="numeros">
+                    <!-- <span></span> -->
+                    <p><span>{{posicionComprobante}})</span> Adjunta o arrastra tu comprobante de domicilio mas reciente.</p>
+                </div>
+                <div id="ayudaArrastrar" class="contenedorDocumentos">
+                    <div class="contenedorZonas comprobante">
+                        <div class="zonaDrag" id="file-drop" target="comprobante" imagedrop on-image-drop="imageDropped()">
+                            <img data-ng-src="{{documentos.comprobante.data}}" />
+                            <div class="contenedorPreloader" ng-show="comprobanteDataloading">
+                                <div class="preloader">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zonaBotones">
+                         <button type="button" class="button solo-icono has-tip top botonSelfie" ng-click="takePicture('comprobante')" ng-disabled="selfieDataloading" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Tomar una foto" ng-hide="ocultarBotonCamara  || isMobile">
+                                <i class="material-icons x3">add_a_photo</i>
+                            </button>
+                            <input type="file" name="comprobante" id="comprobante" ng-model="documentos.comprobante" on-after-validate="uploadImage" base-sixty-four-input do-not-parse-if-oversize required ng-disabled="comprobanteDataloading" class="inputfile" />
+                            <label id="ayudaAdjuntar" for="comprobante" class="button solo-icono has-tip top" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Volver a subir el archivo"><i class="material-icons x3">{{comprobanteAdded ? 'refresh' : isMobile ? 'add_a_photo': 'attach_file'}}</i></label>
+                        </div>
+                    </div>
+                    <div ng-show="comprobanteAdded" class="subidaCorrecta animated zoomIn delay2">
+                        <i class="material-icons x2">check</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-blank diez show-for-small-only"></div>
+            <!-- Estado de Cuenta -->
+
+            <div class="small-12 medium-12 large-4 columns" ng-show="mostrarEdoCuenta">
+                <div class="numeros">
+                    <!-- <span></span> -->
+                    <p><span>{{posicionEdoCuenta}})</span> Adjunta o arrastra tu estado de cuenta (Solo si deseas recibir el dinero por transferencia).</p>
+                </div>
+                <div id="ayudaArrastrarEdoCuenta" class="contenedorDocumentos">
+                    <div class="contenedorZonas comprobante">
+                        <div class="zonaDrag" id="file-drop-edoCuenta" target="edoCuenta" imagedrop on-image-drop="imageDropped()">
+                            <img data-ng-src="{{documentos.edoCuenta.data}}" />
+                            <div class="contenedorPreloader" ng-show="edoCuentaDataloading">
+                                <div class="preloader">
+                                    <div class="indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zonaBotones">
+                         <button type="button" class="button solo-icono has-tip top botonSelfie" ng-click="takePicture('edoCuenta')" ng-disabled="selfieDataloading" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Tomar una foto" ng-hide="ocultarBotonCamara  || isMobile">
+                                <i class="material-icons x3">add_a_photo</i>
+                            </button>
+                            <input type="file" name="edoCuenta" id="edoCuenta" ng-model="documentos.edoCuenta" on-after-validate="uploadImage" base-sixty-four-input do-not-parse-if-oversize required ng-disabled="edoCuentaDataloading" class="inputfile" />
+                            <label id="EdoCuenta" for="edoCuenta" class="button solo-icono has-tip top" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Volver a subir el archivo"><i class="material-icons x3">{{edoCuentaAdded ? 'refresh' : isMobile ? 'add_a_photo': 'attach_file'}}</i></label>
+                        </div>
+                    </div>
+                    <div ng-show="edoCuentaAdded" class="subidaCorrecta animated zoomIn delay2">
+                        <i class="material-icons x2">check</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear padding-top-bottom"></div>
+
+        </div>
+        <div class="wow fadeIn text-left texto-gris" ng-hide="mostrarBoton">
+            <p>
+                <input class="filled-in checkDocs" type="checkbox" id="checkbox" ng-model="aceptoEnviarDocs"  required/>
+                <label for="checkbox" class="texto-normal labelDocs">Manifiesto de manera expresa que el envío de los datos y documentos por este medio constituyen mi consentimiento a ORION FINTECH S.A. de C.V., SOFOM, E.N.R. para que mi imagen sea grabada al establecerse esta comunicación a través de un medio audiovisual y en tiempo real entre ellas.</label>
+            </p>
+        </div>
+        <div class="space-blank veinte"></div>
+
+        <div class="center columns">
+            <button class="button large" ng-show="aceptoEnviarDocs && ((ineFrenteAdded && ineReversoAdded && selfieAdded && comprobanteAdded) || mostrarBoton)" ng-click="finalizarSolicitud()">Continuar</button>
+        </div>
+    </div>
+</section>
+<div class="space-blank veinte"></div>

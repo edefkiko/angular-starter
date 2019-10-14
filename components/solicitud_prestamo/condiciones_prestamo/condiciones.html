@@ -1,0 +1,92 @@
+<section class="row" ng-init="setStatusView({statusView:'paso2Intermedio'})">
+    <h3 class="text-center">Condiciones del préstamo</h3>
+
+    <!-- form -->
+    <form name="formCondiciones" ng-submit="guardar(datosCondiciones)">
+
+        <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+            <p>¿Cómo deseas recibir el dinero de tu préstamo?*</p>
+            <input type="radio" name="transferencia" id="electronica" value="electronica" ng-model="datosCondiciones.dispersionCuentas"
+                ng-change="activaTransferencia(datosCondiciones.dispersionCuentas)" required />
+            <label for="electronica" data-tooltip aria-haspopup="true" class="has-tip right" title="Te transferiremos tu dinero a la cuenta que nos indiques">Transferencia
+                electrónica</label>
+            <br />
+            <input type="radio" name="transferencia" id="ordenPago" value="ordenPago" ng-model="datosCondiciones.dispersionCuentas"
+                ng-change="activaOrdenPago(datosCondiciones.dispersionCuentas)" required />
+            <label for="ordenPago" data-tooltip aria-haspopup="true" class="has-tip right" title="Puedes pasar por tu dinero en efectivo al banco">Orden
+                de pago</label>
+            <div class="space-blank veinte"></div>
+            <div class="" ng-show="datosCondiciones.dispersionCuentas === 'electronica'">
+                <div class="input-field">
+                    <select class="browser-default" name="banco" ng-disabled="desabilitarTransferencia" ng-model="datosCondiciones.banco"
+                        ng-options="item as item for item in bancoDispersion.values" ng-change="limpiarCuenta()"
+                        ng-required="datosCondiciones.dispersionCuentas === 'electronica'">
+                        <option value=''>Seleccionar</option>
+                    </select>
+                    <label>Banco destino*</label>
+                </div>
+                <div class="input-field" ng-show="datosCondiciones.banco">
+                    <div data-tooltip aria-haspopup="true" class="has-tip right large-12 columns" title="La CLABE interbancaria es de 18 dígitos o 11 digitos para BBVA">
+                        <input stopccp id="clabe" class="validate" name="clabe" ng-disabled="desabilitarTransferencia"
+                            ng-model="datosCondiciones.clabeCuenta" type="text" ng-class="{'focus.invalid' : clabeValida == true, 'invalid' : clabeValida == true}"
+                            replace="[^0-9]" onkeypress="return isNumeric(event)" with="" maxlength="{{maxClabe}}"
+                            minlength="{{minClabe}}" autocomplete="off" ng-required="datosCondiciones.dispersionCuentas === 'electronica'"
+                            ng-pattern-restrict="^[0-9]*$" required />
+                        <label for="clabe" ng-class="{'active': activedDesertor}">{{clabeOCuenta}}</label>
+                    </div>
+                    <!--  <span ng-if="clabeValida">Intordusca 11 caracteres</span> -->
+                </div>
+            </div>
+            <div class="space-blank diez"></div>
+            <!-- domiciliacion -->
+            <div ng-show="formCondiciones.clabe.$valid && datosCondiciones.dispersionCuentas === 'electronica'">
+                <div class="" ng-disabled="desabilitarTransferencia" ng-hide="mostrarPreguntaDomiciliacion">
+                    <p>¿Quieres domiciliar el pago de tu préstamo a esta cuenta?</p>
+                    <input type="radio" name="domiciliacion" id="domiciliacion" ng-disabled="desabilitarTransferencia"
+                        value="siDomiciliacion" ng-model="datosCondiciones.pagoPrestamoDomiciliacion" />
+                    <label data-tooltip aria-haspopup="true" class="has-tip right" title="Tus pagos se cargarán automáticamente a tu cuenta de banco"
+                        for="domiciliacion">Si</label>
+                    <br />
+                    <input type="radio" ng-disabled="desabilitarTransferencia" id="domiciliacion2" name="domiciliacion"
+                        value="no" ng-model="datosCondiciones.domiciliacion" ng-click="desactivarDomiciliacion()" />
+                    <label data-tooltip aria-haspopup="true" class="has-tip right" title="No olvides hacer tus pagos a tiempo"
+                        for="domiciliacion2">No</label>
+                </div>
+            </div>
+            <div class="space-blank diez"></div>
+            <!--div class="" ng-show="datosCondiciones.dispersionCuentas == 'ordenPago' || mostrarPagoPrestamo">
+                            <p>¿Cómo deseas pagar el préstamo?*</p>
+                            <p class="margin-0" ng-show="datosCondiciones.dispersionCuentas === 'electronica'">
+                                <input type="radio" name="opcDomiciliacion" ng-disabled="desabilitarTransferencia || desactivarOpcionesPago" name="domiciliacion" value="opcDomiciliacion" ng-model="datosCondiciones.pagoPrestamo"/>
+                                <label for="opcTransferenciaElectronica">Domiciliación </label>
+                            </p>
+                            <p class="margin-0">
+                                <input type="radio" ng-change="newValue(datosCondiciones.pagoPrestamo)" name="opcTransferenciaElectronica" id="opcTransferenciaElectronica" value="opcTransferenciaElectronica" ng-disabled="desactivarOpcionesPago" ng-model="datosCondiciones.pagoPrestamo"/>
+                                <label for="opcTransferenciaElectronica">Transferencia electrónica</label>
+                            </p>
+                            <p class="margin-0">
+                                <input type="radio" name="opcDepositoReferenciado" id="opcDepositoReferenciado" value="opcDepositoReferenciado" ng-disabled="desactivarOpcionesPago" ng-model="datosCondiciones.pagoPrestamo"/>
+                                <label for="opcDepositoReferenciado">Depósito referenciado</label>
+                            </p>
+                            <p>
+                                <input type="radio" name="opcPagoOxxo" id="opcPagoOxxo" value="opcPagoOxxo" ng-disabled="desactivarOpcionesPago" ng-model="datosCondiciones.pagoPrestamo" />
+                                <label for="opcPagoOxxo">Pago en OXXO</label>
+                            </p>
+                        </div-->
+            <!-- muestra si es orden pago -->
+        </div>
+
+        <div class="space-blank veinte">
+
+        </div>
+        <!-- end transferencia Electronica -->
+        <div class="center columns">
+            <button type="submit" ng-disabled="formCondiciones.$invalid || dataloading" class="button large" value="Continuar">Continuar
+                <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+
+        </div>
+        </div>
+
+    </form>
+</section>
+<div class="space-blank veinte"></div>

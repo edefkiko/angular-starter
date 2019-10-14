@@ -1,0 +1,75 @@
+<div class="space-blank veinte"></div>
+<section class="column" ng-init="setStatusView({statusView:'paso2'})">
+    <div class="text-center">
+        <div class="delay2 animated rubberBand">
+            <i class="yei icon-aprobacion texto-limon x9"></i>
+        </div>
+        <div class="felicitacion vertical-center centered">
+            <div class="space-blank diez"></div>
+            <img src="assets/img/logoOrion.png">
+            <h3 class="texto-verdemarino">Tu solicitud de préstamo ha sido exitosa!</h3>
+            <div class="space-blank diez"></div>
+            <h3 class="texto-anaranjado-dark callout animated rubberBand delay3" ng-show="montoState === 'LESS' && tasaState === 'LESS'">
+            Tuvimos que reducir tu monto :(, pero para compensarte
+            <span class="texto-normal">hemos
+                <br/>
+                bajado tu tasa a {{producto.tasa}}%!!!
+            </span>
+            </h3>
+            <h3 class="texto-anaranjado-dark callout animated rubberBand delay3" ng-show="montoState === 'LESS' && tasaState !=='LESS' ">
+            Como apenas nos vamos conociendo se ha reducido tu monto.
+            </h3>
+            <div class="space-blank diez"></div>
+            <h3 class="texto-anaranjado-dark callout animated rubberBand delay3" ng-show="tasaState === 'LESS' && montoState !== 'LESS' ">
+            ¡Sorpresa! para empezar con el pie derecho, te
+            <span class="texto-normal">
+                bajaremos tu tasa a {{producto.tasa}}%!! Yei!!
+            </span>
+            </h3>
+        </div>
+        <div class="space-blank diez"></div>
+        <div class="space-blank diez"></div>
+        <!-- <div class="row">
+            <div class="callout primary text-center small-centered animated zoomIn columns large-6 small-10" ng-hide="montoState === 'EQUAL' && tasaState === 'EQUAL'">
+                <strong ng-show="montoState === 'LESS' ">Como apenas nos vamos conociendo se redujo el monto. <br/></strong>
+                <strong ng-show="montoState === 'HIGHER' ">Yei! debido a tu buen historial podrías pedir un monto mayor<br/></strong>
+                <strong ng-show="tasaState === 'LESS' ">Yei! se redujo la tasa a  {{producto.tasa}}%!. <br/></strong>
+                <strong ng-show="tasaState === 'HIGHER' ">y aumentó la tasa a {{producto.tasa}}%!. <br/></strong>
+            </div>
+        </div>  -->
+    </div>
+    <div class="space-blank"></div>
+    <loan-detail producto="producto">
+    </loan-detail>
+    <div class="small-12 medium-10 large-10 medium-centered large-centered calculoPrestamo" ng-show="modificarCondiciones">
+        <div class="space-blank"></div>
+        <simulator class="simuladorTemp" producto="producto" ng-show="dataloadingModificar"></simulator>
+    </div>
+    <div class="small-12 medium-10 large-8 medium-centered large-centered">
+        <form name="formDatosGenerales" ng-submit="guardar(generales)">
+            <!-- <p>
+                Al realizar pagos anticipados, ¿cuál sería tu preferencia?
+              
+            </p>
+            <input type="radio" name="plazo" value="plazo" id="plazo" ng-model="generales.pagosAnticipados" />
+            <label for="plazo" class="has-tip right" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Si pagas anticipadamente puedes reducir los pagos de tu préstamo!">Reducción en  número de pagos</label>
+            <br />
+            <input type="radio" name="monto" value="monto" id="monto" ng-model="generales.pagosAnticipados" />
+            <label for="monto" class="has-tip right" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Si pagas anticipadamente reduces el monto tus pagos siguientes!">Reducción en el monto de los pagos</label>
+            <div class="space-blank veinte"></div>-->
+            <div class="clear space-blank"></div> 
+            <div class="">
+                <p class="texto-gris text-center">Verifica las condiciones del préstamo, si estás de acuerdo, da clic en "Aceptar".
+                <br />Si deseas modificar las condiciones de tu préstamo, da clic en "Modificar".</p>
+            </div>
+            <div class="clear space-blank"></div>
+            <div class="small-12 medium-10 large-6 medium-centered large-centered">
+                <button type="button" class="button hollow turquesa float-left" ng-disabled="dataloadingModificar" value="Modificar Condiciones" ng-click="mostrarSimulador()">Modificar</button>
+                <button type="submit" id="paso5" class="button float-right" value="Aceptar" ng-disabled="dataloading">Aceptar <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+                <div class="clear"></div>
+            </div>
+            
+        </form>
+    </div>
+</section>
+<div class="space-blank veinte"></div>

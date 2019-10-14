@@ -1,0 +1,45 @@
+<div class="contenedorGrisPrivada">
+    <div class="contenedorLineaVerde">
+        <h4 class="texto-negro text-center">Reporta un problema</h4>
+        <div class="space-blank treinta"></div>
+        <form  class="small-10 small-centered medium-8 large-6" name="formIncidencia" data-ng-submit="guardar(incidencia)">
+            <div class="input-field">
+                <select class="browser-default" ng-model="incidencia.problema" name="problema" id="problema" ng-options="incidencia as incidencia.value for incidencia in incidencias" required>
+
+                </select>
+                <label for="problema">¿Que tipo de problema tienes?*</label>
+            </div>
+            <div class="space-blank"></div>
+            <div class="input-field">
+                <input id="asunto" name="asunto" ng-class="{ 'invalid':formIncidencia.asunto.$invalid && formIncidencia.asunto.$dirty && visitedAsunto}" type="text" ng-model="incidencia.asunto" maxlength="50" required ng-blur="visitedAsunto=true">
+                <label for="asunto">Asunto*</label>
+            </div>
+            <div class="input-field">
+                <br>
+                <textarea class="materialize-textarea" id="mensaje" ng-class="{'invalid':formIncidencia.mensaje.$invalid && formIncidencia.mensaje.$dirty && visitedMensaje}" name="mensaje" ng-model="incidencia.mensaje" maxlength="1500" required ng-blur="visitedMensaje=true">
+                </textarea>
+                <label for="mensaje">Describe tu problema*</label>
+            </div>
+            <div class="space-blank diez"></div>
+            <div class="adjuntar text-center">
+                <input class="inputfile" type="file" name="selfie" id="adjuntarArch" ng-model="incidencia.documentos" on-after-validate="uploadImage" base-sixty-four-input do-not-parse-if-oversize ng-disabled="selfieDataloading" class="inputfile" />
+                <label for="adjuntarArch" class="button hollow"><i class="material-icons">{{documentoAdded ? 'refresh' : 'attach_file'}}</i>{{documentoAdded ? ' Actualizar' : ' Adjuntar archivo'}}</label>
+            </div>
+            <div ng-show="documentoAdded" class="adjuntoCorrecto animated fadeIn delay1">
+                <i class="material-icons x2">check</i>
+                <p>Se ha adjuntado correctamente el archivo</p>
+            </div>
+            <div class="space-blank diez"></div>
+            <div class="text-center">
+                <button type="submit" class="button" data-ng-disabled="formIncidencia.$invalid || dataloading">Continuar <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+            </div>
+        </form>
+        <div class="space-blank diez"></div>
+        <div class="separador-orion"></div>
+        <div class="space-blank diez"></div>
+        <div class="text-center">
+            <p>También puedes comunicarte a nuestro Centro de Atención Telefónico al <span class="texto-bold">{{yeiInfo.phoneHelp}}</span></p>
+        </div>
+        <div class="space-blank diez"></div>
+    </div>
+</div>

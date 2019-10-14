@@ -1,0 +1,233 @@
+<section class="small-12 medium-9 large-9 columns">
+    <div id="ayudaProgreso" class="tabPrestamo text-center">
+        <div class="text-center">
+            <p>No. Préstamo: {{loan.loanId}}</p>
+            <!-- Tus pagos al {{hoy.dia}} de {{hoy.mes}} de {{hoy.agno}} -->
+        </div>
+        <div class="contenedorProgreso">
+            <div class="pagado animated flipInX delay3">
+                <div>
+                    <i class="material-icons">check</i>
+                    <p>Has pagado</p>
+                    <label><span>$</span>{{sumaTransacciones | number:2}}</label>
+                </div>
+            </div>
+            <div class="resta animated flipInX delay2" ng-class="{'morosidad': pagosVencidos.pagos.length > 0}">
+                <div class="monto">
+                    <p>Te resta por pagar</p>
+                    <label><span>$</span>{{saldoPendientesHoyTotal | number:2}}</label>
+                </div>
+                <div class="restoPrestamo">
+                    <progress-arc size="{{ progress.size }}" stroke="{{ progress.stroke }}" stroke-width="{{ progress.strokeWidth }}"
+                        complete="progress.progress" background="{{ progress.background }}" counter-clockwise="{{ progress.counterClockwise }}">
+                    </progress-arc>
+                    <!--input type="range" min="0" max="1" step="0.01" ng-model="progress" id="progress" /-->
+                </div>
+            </div>
+            <div class="porPagar animated flipInX delay4">
+                <div class="contenedorPagos">
+                    <div class="vencidoPago" ng-show="pagosVencidos.pagos.length > 0">
+                        <i class="material-icons">warning</i>
+                        <p class="advertencia">¡No incrementes tu deuda!
+                            <span>Paga lo antes posible para no generar más intereses</span>
+                        </p>
+
+                        <p>Total vencido:</p>
+                        <label class="pago">${{totalVencido | number:2}}</label>
+                    </div>
+                    <div class="separador-orion" ng-show="pagosVencidos.pagos.length > 0"></div>
+                    <div class="proximoPago">
+                        <i class="iconoCalendario yei icon-calendario texto-bold"></i>
+                        <p>Tu próximo pago es de </p>
+                        <label class="pago"><span>$</span>{{loan.proximoPago.restante | number:2}}</label>
+                        <label class="fecha"><span>el día </span>{{loan.proximoPago.proximoPagoFecha.dia}}<span> de</span>
+                            {{loan.proximoPago.proximoPagoFecha.mes}}<span> de </span>{{loan.proximoPago.proximoPagoFecha.agno}}</label>
+                        <div class="float-left">
+                            <button class="button icono-texto" ng-model="detalle" ng-click="detallePagos = !detallePagos">
+                                <span ng-show="!detallePagos"> Ver detalle <i class="fa fa-angle-down"></i></span>
+                                <span ng-show="detallePagos"> Ocultar detalle <i class="fa fa-angle-up"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<label ng-show="pagosVencidos.pagos.length > 0">pagos vencidos {{pagosVencidos.pagos.length}}</label>-->
+        <div>
+            <p>{{prestamo | currency}}</p>
+        </div>
+
+        <!--div class="large-1 columns">
+    <h6>Necesitas ayuda?</h6>
+  </div-->
+
+        <!-- <loan-table producto="producto"/> -->
+        <div class="verificaPrestamo home">
+            <!-- Moratorios -->
+            <div ng-show="detallePagos">
+                <p class="titulo tituloMoratorio" ng-show="pagosVencidos.pagos.length > 0">Modificaciones del préstamo
+                    por pagos vencidos</p>
+                <div class="calculoDetalle moratorio">
+                    <!-- <div ng-show="pagosVencidos.pagos.length > 0"> -->
+                    <div class="contenedorDetalle">
+                        <div class="detalle" ng-repeat="pago in pagosVencidos.pagos">
+                            <div class="suma" ng-show="pagosVencidos.pagos.length > 0">
+                                <div class="elemento">
+                                    <p>Días vencidos:</p>
+                                </div>
+                                <div class="separadorVertical-yei"></div>
+                                <div class="elemento">
+                                    <p>Amortización vencida:</p>
+                                </div>
+                                <span>+</span>
+                                <div class="elemento">
+                                    <p>Interés moratorio:</p>
+                                </div>
+                                <span>+</span>
+                                <div class="elemento">
+                                    <p>IVA del interés moratorio:</p>
+                                </div>
+                                <span>=</span>
+                                <div class="elemento">
+                                    <p>Total de amortización:</p>
+                                </div>
+                            </div>
+                            <!-- <div class="suma" ng-repeat="pago in pagosVencidos.pagos"> -->
+                            <div class="suma montos" ng-show="pagosVencidos.pagos.length > 0">
+                                <div class="elemento">
+                                    <label>{{pago.diasVencimiento}}</label>
+                                </div>
+                                <div class="separadorVertical-yei"></div>
+                                <div class="elemento">
+                                    <label>${{pago.amortVencida | number:2}}</label>
+                                </div>
+                                <span>+</span>
+                                <div class="elemento">
+                                    <label>${{pago.interesMoratorio | number:2}}</label>
+                                </div>
+                                <span>+</span>
+                                <div class="elemento">
+                                    <label>${{pago.ivaInteresMoratorio | number:2}}</label>
+                                </div>
+                                <span>=</span>
+                                <div class="elemento total">
+                                    <label>${{pago.totalAmort | number:2}}</label>
+                                </div>
+                            </div>
+                            <div class="clear space-line gris hide-for-medium"></div>
+                        </div>
+                    </div>
+                    <!--  <div class="pagoRealizado" ng-show="sumaTransacciones > 0 && pagosVencidos.pagos.length > 0"">
+                        <p>Pagos Realizados:</p>
+                         <label> - ${{sumaTransacciones | number:2}}</label>
+                    </div> -->
+                    <div class="clear"></div>
+                    <div class="resultado" ng-show="pagosVencidos.pagos.length > 0">
+                        <div class="separador-orion"></div>
+                        <p>Total vencido:</p>
+                        <label>${{totalVencido | number:2}}</label>
+                    </div>
+                    <div class="clear"></div>
+                    <div ng-show="detallePagos">
+                        <div class="margin-top-5 separador-orion" ng-show="pagosVencidos.pagos.length > 0"></div>
+                        <p>Detalle de préstamo con pagos</p>
+                        <div class="contenedorTabla">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Núm. de pago</th>
+                                        <th>Fecha</th>
+                                        <th>Capital</th>
+                                        <th>Interés</th>
+                                        <th>Saldo</th>
+                                        <th>IVA del interés</th>
+                                        <th>Pago Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="pago in pagos | startFromGrid: currentPage * pageSize | limitTo: pageSize">
+                                        <td>{{pago.num}}</td>
+                                        <td ng-show="pago.fechaPago">{{pago.fechaPago | date:'dd/MM/yyyy'}}</td>
+                                        <td ng-hide="pago.fechaPago">{{pago.fecha | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{pago.abono | number:2}}</td>
+                                        <td>{{pago.interes | number:2}}</td>
+                                        <td>{{pago.saldo | number:2}}</td>
+                                        <td>{{pago.ivaInteres | number:2}}</td>
+                                        <td>{{pago.total | number:2}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="right paginador">
+                            <!-- Navegar hacia atrás -->
+                            <button class="button sinFondo extremos" type='button' ng-disabled='currentPage == 0'
+                                ng-click='currentPage = currentPage - 1'><i class="material-icons">keyboard_arrow_left</i></button>
+
+                            <!-- Navegar a una página especifica-->
+                            <button class="button sinFondo" type='button' ng-disabled='currentPage == page.no - 1'
+                                ng-click='setPage(page.no)' ng-repeat='page in pages'>{{page.no}}</button>
+
+                            <!-- Navegar hacia adelante -->
+                            <button class="button sinFondo extremos" type='button' ng-disabled='currentPage >= pagos.length/pageSize - 1'
+                                ng-click='currentPage = currentPage + 1'><i class="material-icons">keyboard_arrow_right</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="verificaPrestamo home animated fadeIn delay3">
+            <p class="titulo">Datos generales del préstamo</p>
+            <div class="calculoDetalle">
+                <div class="suma">
+                    <div class="elemento">
+                        <p>Préstamo:</p>
+                        <label>{{producto.prestamo | number:2}}</label>
+                    </div>
+                    <span>+</span>
+                    <div class="elemento">
+                        <p>Interés:</p>
+                        <label>{{producto.interes | number:2}}</label>
+                    </div>
+                    <span>+</span>
+                    <div class="elemento">
+                        <p>IVA del interés:</p>
+                        <label>{{producto.ivaInteres | number:2}}</label>
+                    </div>
+                    <span>=</span>
+                    <div class="elemento">
+                        <p>Total a pagar:</p>
+                        <label>{{producto.total | number:2}}</label>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="margin-top-5 separador-orion"></div>
+                <div class="float-left">
+                    <h5 class="text-center"><span class="texto-bold">{{producto.plazo}}</span> Pagos <span class="texto-bold">{{producto.frecuencia
+                            | plural }}</span>
+                </div>
+                <div class="float-right" ng-show="false">
+                    <button class="button icono-texto" ui-sref="home.contrato">Detalle de préstamo</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <br />
+            <p class="titulo">Los pagos adelantados se abonarán a la fecha de corte en curso, en caso de
+                haber un
+                excedente se abonará a las últimas fechas y se recalculará la Tabla de Amortización.</p>
+            <p class="titulo">En caso de que tu fecha de pago caiga en fin de semana o día festivo tendremos tolerancia
+                hasta el
+                siguiente día hábil.</p>
+            <p class="titulo">En estos casos te recomendamos pagar el día hábil antes de tu fecha de corte.
+                ¡Recuerda que si adelantas pagos pagarás menos intereses!</p>
+        </div>
+    </div>
+</section>
+<section class="small-12 medium-3 large-3 column">
+    <payments pagos-realizados="payments.pagosRealizados" pagos-pendientes="payments.pagosPendientes" pagos-parciales="payments.pagosParciales"
+        pagos-tardios="payments.pagosVencidos" desplegar-realizados="payments.desplegarRealizados"
+        desplegar-transacciones="payments.desplegarTransacciones" transacciones-realizadas="payments.transaccionesRealizadas"
+        desplegar-pendientes="payments.desplegarPendientes" desplegar-parciales="payments.desplegarParciales"
+        desplegar-tardios="payments.desplegarTardios"></payments>
+</section>
+<div class="space-blank diez hide-for-medium"></div>

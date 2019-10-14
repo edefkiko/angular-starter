@@ -1,0 +1,29 @@
+<div class="dialogCuerpo">
+    <div class="small-10 medium-8 large-8 small-centered">
+        <p>Recuerda tener a la mano los siguientes requisitos.</p>
+    </div>
+	<div class="small-12 medium-10 large-9 small-centered">
+	    <div class="float-left icono-descripcion" ng-show="situacionCliente == 'Nuevo' || situacionCliente == 'Deudor' || situacionCliente == 'ifeVencida'">
+            <i class="yei icon-identificacion"></i>
+            <label>Identificación oficial</label>
+        </div>
+        <div class="float-right icono-descripcion" ng-show="situacionCliente == 'Nuevo' || situacionCliente == 'Deudor'">
+            <i class="yei icon-domicilio"></i>
+            <label>Comprobante de domicilio</label>
+            <span>(máx. 3 meses de antigüedad)</span>
+        </div>
+        <div class="clear"></div>
+        <div class="icono-descripcion margin-top-5" ng-show="situacionCliente == 'Nuevo' || situacionCliente == 'Deudor' || situacionCliente == 'ifeVencida'">
+            <!-- <i class="yei icon-ubicacion"></i> -->
+            <img width="70" src="assets/img/yei-ubicacion.svg" />
+            <label>Compartir tu ubicación</label>
+            <span>(solo una vez)</span>
+        </div>
+        <div class="clear"></div>
+	</div>
+</div>
+<div class="margin-bottom separador-orion"></div>
+<div class="dialogFooter small-12 medium-10 large-9 small-centered">
+	<button class="button float-right" ng-click="continuar()">Continuar</button>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,51 @@
+<section class="small-12 medium-9 large-9 columns">
+    <div class="tabPagos text-center">
+        <div class="text-center cuerpo">
+        <div hidden>
+            <h5 class="texto-normal texto-negro">
+            Pago en OXXO
+        </h5>
+            <p>Presenta el siguiente código de barras en cualquier OXXO. Puedes imprimirlo o mostrarlo desde tu celular.
+                <br />Este código de barras te servirá para realizar todos tus pagos.</p>
+            <div class="small-10 medium-8 large-6 small-offset-1 medium-offset-2 large-offset-3 contenedorVerde">
+                 <p>Total a pagar: <span class="texto-bold">{{proximoPago | currency}}</span></p> 
+                <br/>
+                <img data-ng-src="{{barCode}}" data-err-src="./assets/images/avatar_bar_code.jpg">
+                <div class="space-blank"></div>
+                <button class="button" ng-hide="true">Imprimir</button>
+                <button class="button" ng-show="false">Descargar</button>
+            </div>
+            <div class="space-blank diez"></div>
+            <div class="separador-orion small-12 medium-10 large-10 medium-offset-2 large-offset-2"></div>
+            <div class="space-blank diez"></div>
+         </div>     
+        <h5 class="texto-normal texto-negro">    
+            Pago en Banco
+        </h5>
+            <p>Acude a cualquier sucursal BBVA a realizar tu pago, sólo menciona los siguientes datos:</p>
+            <div class="small-10 medium-8 large-6 small-offset-1 medium-offset-2 large-offset-3 contenedorVerde">
+                <div class="space-blank"></div>
+                <p ng-show="pagosVencidos.pagos.length > 0">Total a pagar: <span class="texto-bold">{{totalVencido | currency}}</span></p>
+                <p ng-show="pagosVencidos.pagos.length == 0">Total a pagar: <span class="texto-bold">{{proximoPago | currency}}</span></p> 
+                <br/> 
+                <p>
+                    Banco: <span class="texto-bold">{{banco}}</span>
+                </p>
+                <p>
+                    Cuenta CLABE: <span class="texto-bold">{{clabe}}</span>
+                </p>
+                <p>
+                    Número de referencia: <span class="texto-bold">{{numReferencia}}</span>
+                </p>
+                <div class="space-blank"></div>
+                <button class="button" ng-hide="true">Imprimir</button>
+                <button class="button" ng-show="false">Descargar</button>
+            </div>
+            <div class="space-blank veinte"></div>
+        </div>
+    </div>
+</section>
+<section class="small-12 medium-3 large-3 column hide-for-small-only">
+    <payments pagos-realizados="payments.pagosRealizados" pagos-pendientes="payments.pagosPendientes" pagos-parciales="payments.pagosParciales" pagos-tardios="payments.pagosVencidos" desplegar-realizados="payments.desplegarRealizados" desplegar-transacciones="payments.desplegarTransacciones" transacciones-realizadas="payments.transaccionesRealizadas"  
+     desplegar-pendientes="payments.desplegarPendientes" desplegar-parciales="payments.desplegarParciales"  desplegar-tardios="payments.desplegarTardios"></payments> 
+</section>

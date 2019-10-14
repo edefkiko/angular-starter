@@ -1,0 +1,24 @@
+<div class="error-bg">
+	
+
+	<div class="space-blank cuarenta"></div>
+	<section class="row center">
+		<div class="animated delay2 fadeInDown">
+			<i class="yei icon-caraTriste x8 texto-blanco"></i>
+		</div>
+
+		<br>
+		<img class="animated delay1 tada" src="assets/img/oops.svg" alt="">
+		<br>
+		<div ng-hide="problema">
+			<p class="texto-blanco">Servidor fuera de servicio</p>
+			<a ui-sref="root">Reintentar...</a>
+		</div>
+		<div ng-show="problema === 'ERROR_WS' ">
+			<p class="texto-blanco">Houston, tenemos un problema técnico</p>
+			<a ui-sref="root">Regresar a casa...</a>
+		</div>
+	</section>
+	<div class="space-blank cuarenta"></div>
+	<div class="space-blank cuarenta"></div>
+</div>

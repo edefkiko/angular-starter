@@ -1,0 +1,30 @@
+<div class="space-blank cuarenta"></div>
+<section class="row">
+    <div class="small-12 medium-9 large-9 column">
+        <div class="tabsAnchor">
+        	<a ui-sref="profile#configuracion" ui-sref-active="tabActivo" ng-hide="user.situacion == 'Prospecto'">Configuración</a> 
+        	<a ui-sref="profile#contrasena" ui-sref-active="tabActivo" ng-click="mensajePassword()">Contraseña</a>
+        	<a ui-sref="profile#datosPersonales" ui-sref-active="tabActivo">Datos personales</a>
+            <a ui-sref="profile#contacto" ui-sref-active="tabActivo" ng-click="resetModificar()">Datos de contacto</a>
+        </div>
+    </div>
+    <div ui-view class="tabsYei"></div>
+    <section class="small-12 medium-3 large-3 column">    
+        <div class="contenedorPublicidad show-for-medium">
+        <div class="ads">
+                <img src="assets/img/publicidad.png" />
+                <div class="background-amarilloverdoso">
+                    <a><img class="float-left" src="assets/img/APPLE_STORE.png" style="width: 120px;"/></a>
+                    <a><img class="" src="assets/img/GOOGLE_STORE.png" style="width: 120px;"/></a>
+                </div>
+            </div>
+            <!-- <div class="ads">
+                <p>Publicidad</p>
+            </div> -->
+        </div>
+    </section>
+    <div class="clear space-blank diez"></div>
+    <div class="small-10 medium-10 large-8 small-centered">
+        <p class="text-center">Si necesitas cambiar algún otro dato <a ui-sref="chatdiv">Inicia nuestro chat</a> o llámanos al <strong>{{yeiInfo.phoneHelp}}</strong>, en un horario de 09:00 a 18:00 hrs de lunes a viernes, también puedes enviar tu petición a <a href="mailto:{{yeiInfo.email}}">{{yeiInfo.email}}</a></p>
+    </div>
+</section>

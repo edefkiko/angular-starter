@@ -1,0 +1,104 @@
+<div class="space-blank cincuenta show-for-medium"></div>
+<section class="row tabsYei">
+	<div class="small-12 medium-9 large-9 columns tabEstado">
+		<div class="accionRecontratar" ng-show="mostrarCreditoNuevo">
+			<h3 class="text-center">¡Pide un nuevo préstamo y disfruta de los beneficios!</h3>
+			<div class="space-blank"></div>
+			<div class="space-blank"></div>
+			<div class="row">
+				<div class="large-6 columns small-centered">
+					<a ui-sref="simuladorDesertor" class="button small-center"
+						onclick=" ga('send', 'event', 'login', 'Click', 'accionRecontratar');">Solicita un nuevo préstamo</a>
+				</div>
+			</div>
+			<div class="margin-top-bottom separador-orion"></div>
+		</div>
+		
+		<div class="space-blank"></div>
+		<div class="verificaPrestamo">
+			<div class="space-blank"></div>
+			<div class="space-blank"></div>
+			<div></div>
+			<h4 class="text-center"><span ng-hide = "tienePrestamoActivo">Actualmente no tienes préstamos,</span> Resumen del préstamo anterior</h4>
+			<div class="space-blank"></div>
+			<div class="calculoDetalle">
+				<div class="suma">
+					<div class="elemento">
+						<p>Préstamo:</p>
+						<label>{{producto.prestamo | currency:"$":0}}</label>
+					</div>
+					<span>+</span>
+					<div class="elemento">
+						<p>Interés:</p>
+						<label>{{producto.interes | currency:"$":0}}</label>
+					</div>
+					<span>+</span>
+					<div class="elemento">
+						<p>IVA del interés:</p>
+						<label>{{producto.ivaInteres | currency:"$":0}}</label>
+					</div>
+					<div class="elemento">
+						<p>Tasa fija:</p>
+						<label>{{producto.tasa}}%</label>
+					</div>
+					<div class="elemento" ng-show="mostrar">
+						<p>C.A.T.: </p>
+						<label>{{producto.cat}}%</label>
+					</div>
+				</div>
+			</div>
+			<div class="space-blank"></div>
+			<div class="space-blank"></div>
+		</div>
+		<div class="space-blank"></div>
+
+		<div class="contenedorTabla">
+			<table>
+				<thead>
+					<tr>
+						<th>Núm. de pago</th>
+						<th>Fecha</th>
+						<th>Abono</th>
+						<th>Interés</th>
+						<th ng-show="pagosVencidos.pagos.length > 0">Interés moratorio</th>
+						<th>Saldo</th>
+						<th>IVA del interés</th>
+						<th ng-show="pagosVencidos.pagos.length > 0">IVA interés moratorio</th>
+						<th>Pago Total</th>
+					</tr>
+				</thead> 
+				<tbody>
+					<tr ng-repeat="pago in pagos">
+						<td>{{pago.num}}</td>
+						<td ng-show="pago.fechaPago">{{pago.fechaPago | date:'dd/MM/yyyy'}}</td>
+						<td ng-hide="pago.fechaPago">{{pago.fecha | date:'dd/MM/yyyy'}}</td>
+						<td>{{pago.abono | number:2}}</td>
+						<td>{{pago.interes | number:2}}</td>
+						<td ng-show="pagosVencidos.pagos.length > 0"><span ng-if="pago.interesMoratorio > 0">{{pago.interesMoratorio | number:2}}</span></td>
+						<td>{{pago.saldo | number:2}}</td>
+						<td>{{pago.ivaInteres | number:2}}</td>
+						<td ng-show="pagosVencidos.pagos.length > 0"><span ng-if="pago.ivaInteresMoratorio > 0">{{pago.ivaInteresMoratorio | number:2}}</span></td>
+						<td>{{pago.total | number:2}}</td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+		<div class="space-blank diez hide-for-medium"></div>
+		<a ui-sref="homeHistoricoPrestamo" class="button float-right"  ng-hide="mostrarBtnhistorial" ng-click='currentPage = currentPage - 1' onclick=" ga('send', 'event', 'login', 'Click', 'verHistorial');">Ver Historial</a>
+	</div>
+	<section class="small-12 medium-3 large-3 column text-center">
+		<div class="contenedorPublicidadSinMargen show-for-medium">
+			<div class="ads">
+				<img src="assets/img/publicidad.png" />
+                <div class="background-amarilloverdoso">
+                    <a><img class="float-left" src="assets/img/APPLE_STORE.png" style="width: 120px;"/></a>
+                    <a><img class="" src="assets/img/GOOGLE_STORE.png" style="width: 120px;"/></a>
+                </div>
+			</div>
+		</div>
+	</section>
+</section>
+<script type="text/javascript">
+	ga('set', 'contentGroup3', 'Login');
+</script>

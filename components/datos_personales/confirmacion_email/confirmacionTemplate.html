@@ -1,0 +1,34 @@
+<form name="sendVerificaForm" ng-submit="verificaCodigo( cliente )" method="post">
+    <div class="dialogCuerpo sinAspa">
+        <div class="small-10 medium-8 large-8 small-centered" ng-show="canal ==='EMAIL' ">
+            <div class="animated delay1 zoomIn">
+                <i class="yei icon-correo texto-limon"></i>
+            </div>
+            <p class="text-center">Ingresa el código que te hemos enviado a tu correo electrónico:</p>
+            <p class="texto-bold text-center">{{emailAddress}}</p>
+        </div>
+        <div class="small-10 medium-8 large-8 small-centered" ng-show="canal ==='SMS' ">
+            <div class="animated delay1 zoomIn">
+                <i class="yei icon-mensaje texto-limon"></i>
+            </div>
+            <p class="text-center">Ingresa el código que te hemos enviado por SMS para confirmar tu teléfono:</p>
+            <p class="texto-bold text-center">{{mobilePhone1}}</p>
+        </div>
+        <div class="space-blank diez"></div>
+
+        <div class="input-field con-mensaje small-6 medium-4 large-4 small-offset-3 medium-offset-4 large-offset-4">
+            <input id="codigo" name="codigo" type="text" ng-model="cliente.codigo" ng-class="{'invalid':sendVerificaForm.codigo.$invalid && sendVerificaForm.codigo.$dirty && visitedCodigo}"
+                ng-blur="visitedCodigo = true" maxlength="10" style="text-transform:uppercase" required
+                ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9.-]*$" />
+            <label for="codigo">Código*</label>
+            <span class="mensaje sobreAncho">{{mensaje}}</span>
+        </div>
+        <label>Este mensaje podría tardar algunos minutos.</label><br />
+        <label>¿No lo recibiste?, <a ng-click="resend()">volver a enviar</a></label>
+    </div>
+    <div class="margin-top-bottom separador-orion"></div>
+    <div class="dialogFooter text-center">
+        <button class="button" type="submit" ng-disabled="sendVerificaForm.$invalid || dataloading">Continuar <i
+                ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+    </div>
+</form>

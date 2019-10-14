@@ -1,0 +1,51 @@
+<section class="row">
+	<div class="large-12 column medium-centered center">
+	<div class="space-blank"></div>
+		<h3 class="texto-turquesa text-center">Buzón de denuncias</h3>
+	</div>
+	<div class="clearfix"></div>
+		<form class="modal-form" name="msgForm" ng-submit="sendMessage( message )" method="post" novalidate autocomplete="off">
+				<!--<div class="input-field">
+					<input stopccp ng-class="{'invalid':msgForm.nombre.$invalid && msgForm.nombre.$dirty && visitedNombre}"
+					id="nombre" name="nombre" type="text" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$" ng-model="message.name"
+					maxlength="80" ng-blur="visitedNombre = true">
+				   <label for="nombre" >Nombre</label>
+				</div>-->
+				<!-- <div class="input-field">
+					<input class="" stopccp ng-class="{'invalid':msgForm.comment.$invalid && msgForm.comment.$dirty && visitedcomment}"
+					id="comment" name="comment" type="text" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]*$" ng-model="message.comment"
+					maxlength="250" ng-blur="visitedComment = true" required>
+					<label for="comment" ng-class="{ 'active': msgForm.comment.$valid === true || msgForm.comment.$dirty == true}">Denuncia*</label>
+				</div> -->
+				<label>Recuerde que este buzón es sólo para denuncias de operaciones con recursos de procedencia ilícita. Para permitirnos un mejor seguimiento a su denuncia, por favor incluya referencias como: nombre(s) de la persona(s) a la(s) que denuncia y una breve descripción del motivo de la denuncia.</label>
+				<div class="input-field">
+					<textarea class="materialize-textarea" stopccp ng-class="{'invalid':msgForm.comment.$invalid && msgForm.comment.$dirty && visitedcomment}"
+					id="comment" name="comment" type="text" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]*$" ng-model="message.comment"
+					maxlength="250" ng-blur="visitedComment = true" required></textarea>
+					<label for="comment">Denuncia*</label>
+				  </div>
+
+				<div class="text-center" ng-show="!succesMsg">
+					<button type="submit" class="button" ng-disabled="msgForm.$invalid || dataloading">Enviar  <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+				</div>
+				<div class="space-blank"></div>
+				<div class="lista-olvido-pass" ng-show="succesMsg">
+					<div class="callout success animated pulse">
+						<div class="alert text-center">
+							{{succesTxt}}
+						</div>
+					</div>
+					<div class="space-blank"></div>
+					<div  class="text-center">
+						<button class="button" ng-click="close()">Aceptar</button>
+					</div>
+				</div>
+				<div class="lista-olvido-pass" ng-show="errorMsg">
+					<div class="callout alert animated pulse">
+						<div class="alert text-center">
+							{{error}}
+						</div>
+					</div>
+				</div>
+		</form>
+</section>

@@ -1,0 +1,66 @@
+<div id="ayudaMovimientos" class="movimientosRecientes">
+
+    <div class="lista" ng-hide="pagosPendientes.length < 1">
+        <!-- <h6>Pagos pendientes</h6> -->
+     <div class="cabecera">
+        <p>Próximo Pago</p>
+    </div>
+        <ul>
+         <li class="animated delay1 flipInX" ng-repeat="pago in pagosParciales | limitTo: limit2">
+                <i class="icono yei proximo icon-reloj"></i>
+                <div class="datos">
+                    <label class="monto">${{pago.restante | number:2}}</label>
+                    <p>Próximo pago</p>
+                    <label class="fecha">{{pago.fecha | date:'dd/MM/yyyy'}}</label>
+                </div>
+            </li>
+            <li class="animated delay1 flipInX" ng-repeat="pago in pagosPendientes | limitTo: limit2">
+                <i class="icono yei proximo icon-reloj"></i>
+                <div class="datos">
+                    <label class="monto">${{pago.total | number:2}}</label>
+                    <p>Próximo pago</p>
+                    <label class="fecha">{{pago.fecha | date:'dd/MM/yyyy'}}</label>
+                </div>
+            </li>
+        </ul>
+        <button class="button icono-texto" ng-show="pagosPendientes.length > 1 && pagosPendientes.length != limit2" ng-click="desplieguePendientes()">Mostrar más</button>
+        <button class="button icono-texto" ng-show="pagosPendientes.length > 1 && pagosPendientes.length === limit2" ng-click="ocultarPendientes()">Mostrar menos</button>
+    </div>
+    <div class="lista" ng-hide="pagosTardios.length < 1">
+        <!-- <h6>Pagos atrasados</h6> -->
+    <div class="cabecera">
+        <p>¿Cuánto Debo?</p>
+    </div>
+        <ul>
+            <li class="animated delay1 flipInX" class="pagosVencidos" ng-repeat="pago in pagosTardios | limitTo: limit4">
+                <i class="icono vencido material-icons">close</i>
+                <div class="datos">
+                    <label class="monto">${{pago.totalAmort | number:2}}</label>
+                    <p>Pago vencido</p>
+                    <label class="fecha">{{pago.fecha | date:'dd/MM/yyyy'}}</label>
+                </div>
+            </li>
+        </ul>
+        <button class="button icono-texto" ng-show="pagosTardios.length > 3 && pagosTardios.length != limit4" ng-click="despliegueTardios()">Mostrar más</button>
+        <button class="button icono-texto" ng-show="pagosTardios.length > 3 && pagosTardios.length === limit4" ng-click="ocultarTardios()">Mostrar menos</button>
+    </div>
+
+     <div class="lista">
+    <div class="cabecera">
+       <p>Mis pagos</p>
+    </div>
+        <ul>
+            <li class="animated delay1 flipInX" ng-repeat="transaccion in transaccionesRealizadas | limitTo: limit1">
+            <i class="icono pagado material-icons">check</i>
+             <div class="datos">
+             <label class="monto">${{transaccion.montoTransaccion | number:2}}</label>
+                 <p>{{transaccion.transactionChannelName}}</p>
+            <label class="fecha">{{transaccion.fechaTransaccion | date:'dd/MM/yyyy'}}</label>
+            </div>
+            </li>
+        </ul>
+        <button class="button icono-texto" ng-show="transaccionesRealizadas.length > 3 && transaccionesRealizadas.length != limit1" ng-click="despliegueTransacciones()">Mostrar más</button>
+         <button class="button icono-texto" ng-show="transaccionesRealizadas.length > 3 && transaccionesRealizadas.length === limit1" ng-click="ocultarTransacciones()">Mostrar menos</button>
+    </div>
+    <div class="clear"></div>
+</div>

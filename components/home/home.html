@@ -1,0 +1,17 @@
+<div class="space-blank cuarenta"></div>
+<section class="row">
+    <div class="small-12 medium-9 large-9 column" ng-show="loan.loanId">
+        <div class="tabsAnchor">
+        	<a ui-sref="home.miPrestamo({loanId: loan.loanId})" onclick=" ga('send', 'event', 'login', 'Click', 'miPrestamo');" ui-sref-active="tabActivo">Tu préstamo</a> 
+        	<div ng-hide="isMobileApp" ng-class="isMobileApp?'displayFlex':'displayBlock'">
+                <a ui-sref="home.contrato" onclick=" ga('send', 'event', 'login', 'Click', 'tuContrato');" ui-sref-active="tabActivo">Tu Contrato</a>
+            	<a ui-sref="home.estadoCuenta" onclick=" ga('send', 'event', 'login', 'Click', 'estadoCuenta');" ui-sref-active="tabActivo">Estado de cuenta</a>
+            </div>
+            <a ui-sref="home.dondePago" onclick=" ga('send', 'event', 'login', 'Click', 'dondePago');" ui-sref-active="tabActivo">¿Dónde pago?</a>
+        </div>
+    </div>
+    <div ui-view class="tabsYei"></div>
+</section>
+<script type="text/javascript">
+	ga('set', 'contentGroup3', 'Login');
+</script>

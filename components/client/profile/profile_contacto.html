@@ -1,0 +1,61 @@
+<section class="small-12 medium-9 large-9 columns">
+    <div class="tabContacto">
+        <div class="small-12 medium-12 large-10 large-centered">
+            <form class="small-10 medium-8 large-6 columns" name="updateClientData" ng-submit="updateData()" method="post">
+             
+
+                <h3>Correo Electrónico</h3>
+                <p class="texto-bold">{{user.email}}</p>
+
+            <div class="space-blank veinte"></div>
+            <h5>Correo alternativo</h5>
+            <p>{{user.correoOpcional2}}</p>
+            <div class="input-field con-mensaje">
+            <input type="text" ng-class="{'invalid':updateClientData.correo.$invalid && updateClientData.correo.$dirty && visitedEmail}" name="correo" ng-model="user.correoOpcional" class="validate" ng-pattern="emailFormat" ng-blur="visitedEmail = true" ng-show="verActualizarMail" ng-hide="ocultarInput" maxlength="80" required>
+            <span class="mensaje" ng-show="correosIguales">El correo alternativo debe ser diferente al principal.</span>
+            <div class="space-blank" ng-show="updateClientData.correo.$touched == true && updateClientData.correo.$valid === false"></div>
+            <div ng-if="mostrarInvalido">
+                <span class="mensaje" ng-show="updateClientData.correo.$touched == true && updateClientData.correo.$valid === false">email no valido</span>
+            </div>
+
+            </div>
+            <button type="button" class="button hollow" ng-click="mostrarActualizarMail()" ng-show="verBotonCambiar">{{textoCorreoAlternativo}}</button>
+            <button type="submit" class="button" ng-disabled="updateClientData.$invalid || dataloadingMail || correosIguales || correoDuplicado" ng-show="verActualizarMail" ng-hide="ocultarInput">Guardar <i ng-show="dataloadingMail" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+
+                <div class="clear space-blank"></div>
+                
+                <div class="clear space-blank"></div>
+            </form>  
+
+            <div class="clear space-blank"></div>
+            <div class="separador-orion small-12 small-centered show-for-large"></div>
+            <div class="space-blank veinte"></div>
+
+            <form class="small-10 medium-8 large-6 columns" name="updateClientDataTel" ng-submit="updateDataTel()" method="post"> 
+
+                
+
+                <h3>Teléfono celular</h3>
+                <p class="texto-bold">{{user.celular}}</p>
+
+                <div class="space-blank veinte"></div>
+                <h5>Teléfono casa o celular alternativo</h5>
+                <p>{{user.telefonoCasaLabel}}</p>
+                <div class="input-field con-mensaje">
+                <input type="text" ng-class="{'invalid':updateClientDataTel.tel.$invalid && updateClientDataTel.tel.$dirty && visitedTel}" name="tel" ng-model="user.telefonoCasa" class="validate" ng-pattern="textTelephone" replace="[^0-9]" maxlength="10" onkeypress="return isNumeric(event)" oninput="this.value=this.value.replace(/[^0-9]/g,'');" ng-blur="visitedTel = true" ng-show="verActualizarTel" required ng-hide="ocultarInputTel">
+                <span class="mensaje" ng-show="telefonosIguales">El telefono alternativo debe ser diferente al principal.
+                </span>
+                 <button type="button" class="button hollow" ng-click="mostrarActualizarTel()" ng-show="verBotonCambiarTel">{{textoTelefonoAlternativo}}</button>                
+                </div>
+                <button type="submit" class="button" ng-disabled="updateClientDataTel.$invalid || dataloadingTel || telefonosIguales || telefonoDuplicado" ng-show="verActualizarTel" ng-hide="ocultarInputTel">Guardar <i ng-show="dataloadingTel" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+                <div class="clear space-blank"></div>
+                
+                <div class="clear space-blank"></div>
+            </form>         
+
+            <div class="space-blank veinte"></div>
+          
+           
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+<div class="calculoPrestamo">
+    <div class="calculoCondiciones small-12 medium-11 large-8 large-centered medium-centered">
+        <div class="text-center">
+            <span>Préstamo: $ </span>
+            <label>{{producto.prestamo | number:2}}</label><span> + Interés: </span>
+            <label>${{producto.interes | number:2}}</label><span> + IVA del interés: $</span>
+            <label>{{producto.ivaInteres | number:2}}</label>
+            <span> Tasa fija: </span>
+            <label>{{producto.tasa}}%</label>
+            <div ng-show="mostrar">
+                <span> CAT Promedio: </span>
+                <label>{{producto.cat | number:1}}%</label>
+                <span> sin IVA. Informativo.</span>
+                <span> Fecha de cálculo 13/08/2019 con una Tasa Anual fija de 100%</span>
+            </div>
+        </div>
+        <div class="space-blank hide-for-medium"></div>
+        <div class="float-right">
+        </div>
+    </div>
+</div>

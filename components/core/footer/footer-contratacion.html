@@ -1,0 +1,90 @@
+<div class="deshabilitar"></div>
+<div ng-controller="footerCtrl" class="wow fadeIn">
+<p ng-show="user.ultimoLogin" class="ultimaVisita text-center">Última visita <span>{{user.ultimoLogin}}</span></p>
+<div class="display-flex centered contenedorRedes">
+    <div class="padding-row wow zoomIn">
+        <a href="https://www.facebook.com/" target="_blank" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Facebook" class="has-tip top button icono-circulo anaranjado margin-row"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+    </div>
+    <div class="padding-row wow zoomIn">
+        <a href="https://twitter.com/?lang=es" target="_blank" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Twitter" class="has-tip top button icono-circulo anaranjado margin-row"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+    </div>
+    <div class="padding-row wow zoomIn">
+        <a href="https://www.instagram.com/" target="_blank" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Instagram" class="has-tip top button icono-circulo anaranjado margin-row"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+    </div>
+</div>
+<div class="footer-base" id="contacto" data-magellan-target="contacto">
+    <div class="row">
+        <div class="margin-bottom small-12 medium-4 large-3 column">
+            <h4>Contacto</h4>
+            <div class="separador-orion"></div>
+            <address>
+                <a class="hide-for-large" href="tel:{{yeiInfo.phone}}">{{yeiInfo.phone}}</a>
+                <span class="show-for-large">{{yeiInfo.phone}}</span><br />
+                <a href="mailto:{{yeiInfo.email}}">{{yeiInfo.email}}</a><br />
+                {{yeiInfo.address}}
+                <br />{{yeiInfo.city}}
+            </address>
+        </div>
+        <div class="margin-bottom small-12 medium-4 large-2 large-offset-2 column">
+            <h4>Ayuda</h4>
+            <div class="separador-orion"></div>
+            <a ui-sref="preguntasFrecuentes" onclick=" ga('send', 'event', 'homePublica', 'Click', 'preguntasFrecuentes');">Preguntas frecuentes</a>
+            <br />
+            <a ng-click="initChat()">Inicia nuestro chat</a>
+            <!--
+            <br />
+            <a href="#">Atención al cliente</a>
+            <br />
+            <a href="#">¿Cómo funciona?</a>-->
+        </div>
+        <div class="margin-bottom small-12 medium-4 large-3 large-offset-2 column end conocenos">
+            <h4>Conócenos</h4>
+            <div class="separador-orion"></div>
+            <a ui-sref="acercade" onclick=" ga('send', 'event', 'homePublica', 'Click', 'acercaDe');">Acerca de ORION FINTECH</a>
+            <br />
+            <a ui-sref="costosComisiones" onclick=" ga('send', 'event', 'homePublica', 'Click', 'costosComisiones');">Costos y comisiones</a>
+            <br />
+            <a ui-sref="terminosCondiciones" onclick=" ga('send', 'event', 'homePublica', 'Click', 'terminosCondiciones');">Terminos y Condiciones</a>
+            <br />
+            <a ui-sref="politicaPrivacidad" onclick=" ga('send', 'event', 'homePublica', 'Click', 'politicaPrivacidad');">Aviso de privacidad</a><br />
+            <a ui-sref="derechosArco" onclick=" ga('send', 'event', 'homePublica', 'Click', 'derechosArco');">Derechos Arco</a>
+            <br />
+        </div>
+        <div class="margin-bottom small-12 medium-6 columns">
+            <p class="text-justify texto-pequeno">orion.mx es una marca registrada en México. El uso de este sitio web implica la aceptación de los Términos y Condiciones y el Aviso de Privacidad de ORION FINTECH, Sociedad Anónima de Capital Variable, Sociedad Financiera de Objeto Múltiple, Entidad No Regulada.<br />
+            El Buró de Entidades Financieras contiene información de ORION FINTECH, Sociedad Anónima de Capital Variable, Sociedad Financiera de Objeto Múltiple, Entidad No Regulada sobre nuestro desempeño frente a los Usuarios, por la prestación de productos y servicios. El Buró de Entidades Financieras puede ser consultado en la página <a href="http://www.buro.gob.mx">www.buro.gob.mx</a> ó a través de <a href="http://www.orion.mx">orion.mx</a>
+            </p>
+        </div>
+        <div class="margin-bottom small-12 medium-6 columns">
+            <p class="text-justify texto-pequeno">
+            De conformidad con lo dispuesto por el Artículo 87-J de la Ley General de Organizaciones y Actividades Auxiliares del Crédito, ORION FINTECH Sociedad Anónima de Capital Variable,  Sociedad Financiera de Objeto Múltiple, Entidad No Regulada, no requiere de autorización de la Secretaria de Hacienda y Crédito Público para su constitución ni para la celebración del presente contrato, y está sujeta a la supervisión o vigilancia de la Comisión Nacional Bancaria y de Valores, únicamente en materia de prevención y detección de Operaciones con Recursos de Procedencia Ilícita, Terrorismo y Terrorismo Internacional, de conformidad a lo establecido en el artículo 56 de la Ley antes citada.
+            </p>
+        </div>
+        <div class="clear"></div>
+        <div class="margin-bottom small-12 medium-8 columns">
+            <p class="text-left texto-pequeno">Unidad de Atención Especializada (ORION FINTECH) </p>
+            <p class="text-justify texto-pequeno">
+            Visítanos o escríbenos a: ORION FINTECH SA DE CV, SOFOM, ENR, Calle Florencia 31, piso 7, CP 06600, Col Juárez, Delegación Cuauhtemoc, CDMX.
+            Comunícate a nuestro Centro de Atención Telefónico: (55) 12345678 Ciudad de México, Zona Metropolitana e interior de la República.
+            Envía un correo electrónico a: <a href="mailto:uneyei@yei.mx?Subject=Hola%20Yei!" target="_top">orion@orion.mx</a> ante el Titular o Encargado regional de la ORION FINTECH.
+            Puede consultar el directorio en la página del sistema de Prestadores de Servicios Financieros (SIPRES) o bien dando clic a la siguiente liga: <a href="">ORIEN FINTECH</a>
+            </p>
+        </div>
+        <div class="margin-bottom small-12 medium-4 columns entidades">
+            <a href="http://www.buro.gob.mx/" target="_blank"><img src="assets/img/logoBuro.svg" /></a>
+            <a href="http://www.gob.mx/condusef" target="_blank"><img src="assets/img/logoCondusef.svg" /></a>
+            <a href="https://www.gob.mx/cnbv" target="_blank"><img src="assets/img/logoCNBV.svg" /></a>
+        </div>
+    </div>
+    <div class="center">
+        <img src="assets/img/logoOrion.png" />
+    </div>
+    <div class="center">
+        <p>© Orion FINTECH - Préstamos en línea 2019</p>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    ga('set', 'contentGroup1', 'Portal público');
+</script>
+

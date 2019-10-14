@@ -1,0 +1,20 @@
+<div class="space-blank veinte"></div>
+<section class="row ampliador" ng-show="status === 'PENDIENTE'">
+	<div class="text-center">
+	<div class="delay1 animated bounceInDown">
+		<i class="yei icon-reloj texto-limon x7"></i>
+	</div>
+		
+			<h3 class="texto-turquesa text-center">¡Bienvenido, {{userBasicInfo.firstName}} {{userBasicInfo.middleName}}  {{userBasicInfo.lastName}}!</h3>
+			<div class="space-blank"></div>
+			<p>Tienes una solicitud de préstamo en proceso, ¿quieres continuarla?</p>
+		<div class="space-blank"></div>
+		<loan-table producto="producto"> 
+    	</loan-table> 
+    	<div class="space-blank veinte"></div>
+        <div class="text-center">
+            <button class="button" ng-click="siguiente()">Continuar </button>
+        </div>
+		<div class="space-blank"></div>
+	</div>
+</section>

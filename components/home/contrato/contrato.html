@@ -1,0 +1,35 @@
+<section class="small-12 medium-9 large-9 columns">
+    <div class="tabContrato text-center">
+        <div class="small-12 medium-6 columns">
+            <button class="button" ng-disabled="dataloading" ng-click="descargar()">Descargar contrato<i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+        </div>
+        <div class="small-12 medium-6 columns">
+            <button class="button" ng-disabled="dataloadingPagare" ng-click="descargarPagare()">Descargar pagaré<i ng-show="dataloadingPagare" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+        </div>
+        <div class="space-blank"></div>
+     	<div class="callout alert" ng-show="invalido">
+            <div class="alert">
+                {{mensaje}}
+            </div>
+        </div>
+         <div class="callout alert" ng-show="invalidPDF">
+            <div class="alert">
+                {{mensajePDF}}
+            </div>
+        </div>
+        <div ng-show="descargado" hidden>
+        Contrato
+            <embed ng-src="{{content}}" style="width:100%;height:500px;">
+        </div>
+        <div class="space-blank veinte"></div>
+        <div ng-show="descargadoPagare" hidden>
+        Pagaré
+            <embed ng-src="{{content}}" style="width:100%;height:500px;">
+        </div>
+        <div class="space-blank veinte"></div>
+    </div>
+</section>
+<section class="small-12 medium-3 large-3 column hide-for-small-only">
+    <payments pagos-realizados="payments.pagosRealizados" pagos-pendientes="payments.pagosPendientes" pagos-parciales="payments.pagosParciales" pagos-tardios="payments.pagosVencidos" desplegar-realizados="payments.desplegarRealizados" desplegar-transacciones="payments.desplegarTransacciones" transacciones-realizadas="payments.transaccionesRealizadas"  
+     desplegar-pendientes="payments.desplegarPendientes" desplegar-parciales="payments.desplegarParciales"  desplegar-tardios="payments.desplegarTardios"></payments> 
+</section>

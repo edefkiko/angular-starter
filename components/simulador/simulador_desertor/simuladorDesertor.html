@@ -1,0 +1,82 @@
+<div>
+    <div class="space-blank cuarenta show-for-medium"></div>
+    <div class="space-blank veinte hide-for-medium"></div>
+    <section class="row" ng-hide="newTasa === 0">
+        <h3 class="texto-verdemarino text-center small-10 small-centered">¡Hola {{userBasicInfo.firstName}} {{userBasicInfo.middleName}}, aprovecha tu descuento!</h3>
+    </section>
+    <div class="space-blank"></div>
+    <div class="small-12 medium-10 large-8 medium-centered large-centered  wow fadeIn" ng-hide="newTasa === 0"> 
+        <div class="cupon">
+            <p class="">Tu préstamo anterior</p>
+            <p class="cifrasCupon">${{prestamoAnt.monto | number:0}}</p>
+            <div class="clear"></div>
+            <div class="margin-top-5 separador-cupon"></div>
+            <div class="clear"></div>
+            <p class="">Ahora con</p>
+            <p class="cifrasCupon">{{newTasa}}%</p>
+
+            <p class="texto-bold">de interés</p>
+        </div>
+        <div class="verificaPrestamo">
+            <div class="top">
+                <div class="prestamoAnterior">
+                    <div class="text-center">
+                        <h5 class="antesPagaste texto-bold text-center texto-bold">ANTES PAGASTE</h5>
+                    </div>
+                    <div class="space-blank diez hide-for-medium"></div>
+                    <div class="text-center">
+                        <h5>Pago total</h5>
+                        <span class="texto-strike">${{prestamoAnt.total | number:2}}</span>
+                    </div>
+                    <div class="text-center">
+                        <h5>{{prestamoAnt.plazo}} pagos {{prestamoAnt.frecuencia | plural}} de:</h5>
+                        <span class="texto-strike">${{prestamoAnt.pago | number:2}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="calculoDetalle nuevoDetalle">
+                <div class="suma">
+                    <p class="texto-turquesa texto-bold x2">¡AHORA!</p>
+                    <div class="space-blank diez hide-for-medium"></div>
+                    <!-- <span>+</span> -->
+                    <div class="elemento">
+                        <p class="left-align">Total a pagar</p>
+                        <label>${{producto.total | number:2}}</label>
+                    </div>
+                    <!-- <span>=</span> --> 
+                    <div class="elemento">
+                        <p class="left-align">{{producto.plazo}} pagos {{producto.frecuencia | plural}} de:</p>
+                        <label>${{producto.pago | number:2}}</label>
+                    </div>
+                    <div class="space-blank diez hide-for-medium"></div>
+                    <div>
+                        <img class="logo-mediano" src="assets/img/logoOrion.png">
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="margin-top-5 separador-orion"></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <section class="row calculoPrestamo wow fadeIn">
+        <simulator class="simuladorTemp" producto="producto"></simulator>
+        <div class="clear"></div>
+        <div class="calculoResultado reset-margin">
+            <div class="small-12 medium-7 large-4 columns large-offset-2 right-align">
+                <div class="plazo"><label>{{producto.totalPagos}}</label><span> pagos de</span></div>
+                <div class="pago"><span>$</span><label>{{producto.pago | number:2}}</label></div>
+                <div class="total"><span>Total a pagar $</span><label>{{producto.total | number:2}}</label></div>
+            </div>
+            <div class="space-blank diez hide-for-medium"></div>
+            <div class="small-12 medium-6 large-3 end columns">
+                <a class="button texto-normal" ng-click="loQuiero()" ng-disabled="loQuieroClicked === true" ng-click="loQuieroClicked = true"><img src="assets/img/yeiSinSlogan.png"> Lo quiero</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="space-blank"></div>
+        <loan-table producto="producto" ocultar="false">
+        </loan-table>
+        <div class="space-blank"></div>
+    </section>
+</div>

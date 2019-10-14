@@ -1,0 +1,23 @@
+<section class="row" ng-init="setStatusView({statusView:'paso1'})">
+    <div class="margin-top-bottom small-10 medium-6 large-5 small-centered medium-centered large-centered columns">
+        <p>Para darte un mejor servicio indícanos donde te encuentras ahora*</p>
+    </div>    
+    <div class="space-blank"></div>
+    <!-- form -->
+    <div class="small-10 medium-7 large-5 small-centered medium-centered large-centered columns">
+        <form name="formDondeEstas" ng-submit="continuar(dondeEstas)">
+            <div ng-repeat="opcion in opciones">
+              <p>
+                <input type="radio" name="opcionDondeEstas" id="{{'opcionDondeEstas' + $index}}" ng-model="dondeEstas.opcion" ng-value="opcion" required/>            
+                <label for="{{'opcionDondeEstas' + $index}}">{{opcion}}</label>
+              </p>
+            </div>
+            <div class="space-blank"></div>
+            <div class="center">
+                <button type="submit" ng-disabled="formDondeEstas.$invalid || dataloading" class="button large" value="Continuar">Continuar <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+            </div>
+        </form>  
+    </div>
+    <div class="clear"></div>
+</section>
+<div class="space-blank veinte"></div>

@@ -1,0 +1,30 @@
+<section class="row medium-centered center">
+
+	<row class="row expanded diez">
+
+		<div class="small-12 large-8 columns">
+			<canvas class="animated zoomIn" ng-class="{'selfiePrevisualizacion' : origen =='selfie'}" id="snapshot"></canvas>
+		</div>
+		<div class="small-12 large-4 columns">
+			<webcam class="animated zoomIn selfieEnVivo" channel="channel" 
+		        on-streaming="onSuccess()" 
+		        on-error="onError(err)" 
+		        on-stream="onStream(stream)">        	
+		    </webcam>
+		    
+			<div class="space-blank diez"></div>
+			<div class="botonesSelfie animated zoomIn">
+			    <button ng-click="makeSnapshot()" class="button large-12 columns diez">
+				    <span class="" ng-hide="isFirst">
+				    <i class="material-icons ">add_a_photo</i>Tomar Foto</span>
+				    <span class="" ng-show="isFirst">
+				    <i class="material-icons ">refresh</i>Repetir</span>
+		    	</button>
+		    	<button ng-click="takePictureSuccess(snapshotData)" class="button large-12 columns" ng-show="isFirst">
+					<span class="" style><i class="material-icons ">check</i>Aceptar</span>
+				</button>
+			</div>
+	    </div>
+	</row>
+
+</section>

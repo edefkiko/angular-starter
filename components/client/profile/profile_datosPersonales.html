@@ -1,0 +1,71 @@
+    <section class="small-12 medium-9 large-9 columns">
+        <div class="tabPersonales">
+            <div class="small-12 medium-12 large-10 large-centered">
+                <div class="small-10 medium-8 large-6 columns">
+                    <h3>Personal</h3>
+                    <label>Fecha de nacimiento</label>
+                    <p ng-show="user.fachaNacimiento">{{user.fachaNacimiento | date:'dd/MM/yyyy'}}</p>
+                    <label>Lugar de nacimiento</label>
+                    <p>{{user.lugarNacimiento}}</p>
+                    <label>Género</label> 
+                    <p>{{sexoClientes}}</p> 
+                    <label>CURP</label>
+                    <p>{{user.curp}}</p>
+                    <label>Estado Civil</label>
+                    <p>{{user.estadoCivil}}</p>
+                </div>
+                <div class="space-blank veinte"></div>
+                <div class="separador-orion"></div>
+                <div class="space-blank veinte"></div>
+                <div class="small-10 medium-8 large-6 columns">
+                    <h3>Domicilio</h3>
+                    <label>Calle</label>
+                    <p>{{address.calle}}</p>
+                    <label>No Ext</label>
+                    <p>{{address.numExt}}</p>
+                    <label>{{labelNumInt}}</label>
+                    <p>{{address.numInt}}</p>
+                    <label>{{labelDepartamento}}</label>
+                    <p>{{address.departamento}}</p>
+                    <label>C.P.</label>
+                    <p>{{address.codigoPostal}}</p>
+                    <label>Municipio / Alcaldía</label>
+                    <p>{{address.municipio}}</p>
+                    <label>Ciudad</label>
+                    <p>{{address.ciudad}}</p>
+                    <label>Estado</label>
+                    <p>{{address.estado}}</p>
+                </div>
+                <div class="space-blank veinte"></div>
+                <div class="separador-orion"></div>
+                <div class="space-blank veinte"></div>
+                <div class="small-10 medium-8 large-6 columns">
+                    <h3>Laboral</h3>
+                    <label>{{tipoTrabajoClienteLabel}}</label>
+                    <p>{{work.tipoTrabajoCliente}}</p>
+                    <label>{{sinTrabajoClientesLabel}}</label>
+                    <p>{{work.sinTrabajoClientes}}</p>
+                    <label>{{giroDeLaEmpresa}}</label>
+                    <p>{{work.giroEmpresa}}</p>
+                     <label>{{nombreEmpresaClientesLabel}}</label>
+                    <p>{{work.nombreEmpresaClientes}}</p>
+                    <label>{{actividadEconomicaClientes}}</label>
+                    <p>{{work.actividadEconomica}}</p>
+                    <label>{{puesto}}</label>
+                    <p>{{work.puesto}}</p>
+                    <label>{{area}}</label>
+                    <p>{{work.area}}</p>
+                    <label>{{desde}}</label> 
+                    <p>{{work.desde}} {{desdeAnios}}</p> 
+                    <label>{{desdeNegocioClientes}}</label> 
+                    <p>{{work.desdeNegocio}} {{desdeAniosNegocio}}</p>
+                    <label>{{sueldoClientesLabel}}</label> 
+                    <p ng-show="mostrarSueldo">${{work.sueldoClientes | number:2}}</p>
+                    <label>{{dependientesEconomicosClientesLabel}}</label> 
+                    <p>{{work.dependientesEconomicosClientes}}</p> 
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="space-blank treinta"></div>
+        </div>
+    </section>

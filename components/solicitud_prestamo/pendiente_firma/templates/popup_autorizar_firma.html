@@ -1,0 +1,22 @@
+<form name="autorizacionForm" ng-submit="continuarAutorizacion( password )" method="post">
+    <div class="dialogCuerpo sinAspa">
+        <i class="yei icon-candado texto-limon"></i>
+        <div class="text-center tituloImagen">
+            <p class="text-center">Ingresa tu contraseña</p>
+        </div>
+        <label class="texto-normal text-center">Para autorizar la firma electrónica de tu contrato y pagaré</label>
+        <div class="space-blank diez"></div>
+
+        <div class="input-field con-mensaje small-10 medium-6 large-6 small-offset-1 medium-offset-3 large-offset-3">
+            <input id="password" name="password" type="password" maxlength="30" ng-model="password" required>
+            <label for="password">Contraseña*</label>
+            <span class="posfix"><img src="assets/img/logoOrionNaranja.png"></span>
+            <span ng-show="invalido" class="mensaje">¡Verificar datos! {{mensaje}}</span>
+        </div>
+        
+    </div>
+    <div class="margin-bottom separador-orion"></div>
+    <div class="dialogFooter text-center">
+        <button class="button" type="submit" ng-disabled="dataloading">Continuar <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+    </div>
+</form>

@@ -1,0 +1,230 @@
+<nav class="topbar-fixed animated slideInDown" ng-controller="headerCtrl">
+    <div class="nav-wrapper">
+        <div class="row show-for-medium">
+            <div class="logoPrincipal padding-row">
+                <a ui-sref="root" class="brand-logo"><img src="assets/img/logoOrion.png" /></a>
+            </div>
+            <div class="top-bar-left">
+                <ul>
+                    <li ng-repeat="menu in menus">
+                        <a ui-sref="{{menu.action}}">{{menu.title}}
+                            <i ng-class="menu.icon"></i>
+                        </a>
+                        <ul>
+                            <li ng-repeat="submenu in menu.menus">
+                                <a href="{{submenu.action}}">{{submenu.title}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="modoNousuario" ng-show="!user">
+                <div class="contactarYei">
+                    <div class="telefono">
+                        <div>
+                            <label>¡Hola!, ¿necesitas ayuda?</label>
+                            <a class="hide-for-large" href="tel:{{yeiInfo.phoneHelp}}">{{yeiInfo.phoneHelp}}</a>
+                            <span class="show-for-large">{{yeiInfo.phoneHelp}}</span>
+                        </div>
+                        <i class="yei icon-callCenter x3" aria-hidden="true"></i>
+                    </div>
+                    <div class="contrata-ahora">
+                    <a ui-sref="simuladorProspecto({id:'calculoPrestamo'})" class="button blanco-Orion boton-corto">
+                            Contrata <span class="texto-normal">ahora</span><i class="yei icon-exclamacion"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="acceso">
+                    <a ui-sref="login"><!--a ng-click="loadSession()"-->
+                    <i class="yei icon-usuario"></i>
+                    Iniciar sesión</a>
+                </div>
+            </div>
+            <div class="modoUsuario" ng-show="user">
+                <div class="contactarYei">
+                    <div class="telefono" ng-show="!buscadorMovil">
+                        <div>
+                            <label>¡Hola!, ¿necesitas ayuda?</label>
+                            <a class="hide-for-large" href="tel:{{yeiInfo.phoneHelp}}">{{yeiInfo.phoneHelp}}</a>
+                            <span class="show-for-large">{{yeiInfo.phoneHelp}}</span>
+                        </div>
+                        <i class="yei icon-callCenter x3" aria-hidden="true"></i>
+                    </div>
+                    <div class="buscadorMovil" ng-show="buscadorMovil">
+                        <div class="input-field">
+                            <!--input id="buscador" type="text" class="autocomplete"/>
+                            <label for="buscador">¿Tienes dudas?</label-->
+                            <angucomplete-alt id="search"
+                              placeholder="¿Qué es...?"
+                              pause="400"
+                              selected-object="selectedWord"
+                              remote-api-handler= "searchAPI"
+                              description-field="descOpcion"
+                              text-searching="buscando..."
+                              text-no-results="No se encontraron resultados"
+                              input-class="hola"
+                              maxlength = 30/>
+                        </div>
+                    </div>
+                    <div class="buscador">
+                        <div class="input-field show-for-large">
+                            <!--input id="buscador" type="text" class="autocomplete"/>
+                            <label for="buscador">¿Tienes dudas?</label-->
+                            <angucomplete-alt id="search"
+                              placeholder="¿Qué es...?"
+                              pause="400"
+                              selected-object="selectedWord"
+                              remote-api-handler= "searchAPI"
+                              description-field="descOpcion"
+                              text-searching="buscando..."
+                              text-no-results="No se encontraron resultados"
+                              input-class="hola"
+                              maxlength = 30/>
+                        </div>
+                        <i class="material-icons posfixAutocomplete show-for-large">search</i>
+                        <a ng-click="buscadorMovil = !buscadorMovil" class="contactarYei-mobile iconoBuscar hide-for-large"><i ng-show="!buscadorMovil" class="yei icon-buscar x3" aria-hidden="true"></i>
+                        <i ng-show="buscadorMovil" class="yei icon-chevronLeft x3" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="opcionesUsuario">
+                    <div class="nav-wrapper notificaciones">
+                        <ul>
+                            <li>
+                                <a ui-sref="notificaciones"><i class="yei icon-notificaciones"><span class="contador" ng-show="unreadNotifications.length > 0">{{unreadNotifications.length}}</span></i><span class="tituloMenu">Notificaciones</span></a>
+                                <ul ng-init="limit1 = 2">
+                                    <li class="leida" ng-repeat="notificacion in notifications | limitTo: limit1">
+                                        <a ui-sref="notificacionDetalle({id:notificacion.idNotificacion})"><span>{{notificacion.texto}}</span><br/>{{notificacion.fechaAlta | date:'dd/MM/yyyy' }}</a>
+                                    </li>
+                                    <li class="botonVerTodo" ng-show="notifications.length > 2 && notifications.length != limit1">
+                                        <a ui-sref="notificaciones" class="button">Mostrar todos</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-wrapper">
+                        <ul>
+                            <li>
+                                <a><i class="yei icon-usuario"></i><span class="tituloMenu">{{userBasicInfo.firstName+' '+
+                userBasicInfo.middleName+' '+
+                userBasicInfo.lastName}}</span></a>
+                                <ul>
+                                    <li ng-show="user.situacion == 'Desertor' || user.situacion == 'Prospecto'">
+                                        <a ui-sref="redirect" onclick=" ga('send', 'event', 'login', 'Click', 'miPrestamo');">Mi solicitud</a>
+                                    </li>
+                                    <li ng-show="user.situacion == 'Cliente'">
+                                        <a ui-sref="home.miPrestamo" onclick=" ga('send', 'event', 'login', 'Click', 'miPrestamo');">Mi préstamo</a>
+                                    </li>
+                                    <li ng-show="user.situacion == 'Desertor' || (user.situacion == 'Cliente' && user.tieneHistorial == true)">
+                                        <a ui-sref="homeHistoricoPrestamo" onclick=" ga('send', 'event', 'login', 'Click', 'verHistorial');">Histórico de préstamos</a>
+                                    </li>
+                                    <li>
+                                        <a ui-sref="profile#contacto" onclick=" ga('send', 'event', 'login', 'Click', 'miPerfil');">Mi perfíl</a>
+                                    </li>
+                                    <li ng-show="user.situacion == 'Desertor' || user.situacion == 'Cliente'">
+                                        <a ui-sref="incidencias" onclick=" ga('send', 'event', 'login', 'Click', 'reportaIncidencia');">Reportar un problema</a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="logout()">Cerrar sesión</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="index.html" class="brand-logo hide-for-medium"><img src="assets/img/logoOrion.png" /></a>
+
+        <div ng-show="!user">
+            <a class="contactarYei-mobile llamar hide-for-medium" href="tel:{{yeiInfo.phoneHelp}}"><i class="yei icon-callCenter x3" aria-hidden="true"></i></a>
+            <a class="contactarYei-mobile sesion hide-for-medium" ui-sref="login"><i class="yei icon-usuario x3" aria-hidden="true"></i></a>
+        </div>
+
+        <div ng-show="user" class="modoUsuario hide-for-medium">
+            <div class="buscadorMovil" ng-show="buscadorMovil">
+                <div class="input-field">
+                    <!--input id="buscador" type="text" class="autocomplete"/>
+                    <label for="buscador">¿Tienes dudas?</label-->
+                    <angucomplete-alt id="search"
+                      placeholder="¿Qué es...?"
+                      pause="400"
+                      selected-object="selectedWord"
+                      remote-api-handler= "searchAPI"
+                      description-field="descOpcion"
+                      text-searching="buscando..."
+                      text-no-results="No se encontraron resultados"
+                      input-class="hola"/>
+                </div>
+            </div>
+            <a class="contactarYei-mobile llamar" href="tel:{{yeiInfo.phoneHelp}}"><i class="yei icon-callCenter x2" aria-hidden="true"></i></a>
+            <a ng-click="buscadorMovil = !buscadorMovil" class="contactarYei-mobile buscar" href=""><i class="yei icon-buscar x2" aria-hidden="true"></i></a>
+            <div class="opcionesUsuario menuMovil">
+                <div class="nav-wrapper notificaciones">
+                    <ul>
+                        <li>
+                            <a ui-sref="notificaciones"><i class="yei icon-notificaciones"><span class="contador" ng-show="unreadNotifications.length > 0">{{unreadNotifications.length}}</span></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-wrapper">
+                    <ul>
+                        <li>
+                            <a><i class="yei icon-usuario"></i><span class="tituloMenu"></span></a>
+                            <ul>
+                                <li ng-show="user.situacion == 'Desertor' || user.situacion == 'Prospecto'">
+                                    <a ui-sref="redirect" onclick=" ga('send', 'event', 'login', 'Click', 'miPrestamo');">Mi préstamo</a>
+                                </li>
+                                <li ng-show="user.situacion == 'Cliente'">
+                                    <a ui-sref="home" onclick=" ga('send', 'event', 'login', 'Click', 'miPrestamo');">Mi préstamo</a>
+                                </li>
+                                <li ng-show="user.situacion == 'Desertor'">
+                                    <a ui-sref="homeHistoricoPrestamo" onclick=" ga('send', 'event', 'login', 'Click', 'verHistorial');">Histórico de préstamos</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="profile#contacto" onclick=" ga('send', 'event', 'login', 'Click', 'miPerfil');">Mi perfíl</a>
+                                </li>
+                                <li ng-show="user.situacion == 'Desertor' || user.situacion == 'Cliente'">
+                                    <a ui-sref="incidencias" onclick=" ga('send', 'event', 'login', 'Click', 'reportaIncidencia');">Reportar un problema</a>
+                                </li>
+                                <li>
+                                    <a ng-click="logout()">Cerrar sesión</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<a href="#" data-activates="mobile-menu" class="button-collapse hide-for-medium"><i class="yei icon-hamburguesa" aria-hidden="true"></i></a>-->
+
+        <div class="side-nav" id="mobile-menu">
+
+            <ul>
+                <li ng-repeat="menu in menus" ng-controller="con">
+                    <a href="{{menu.action}}" ng-click="changeClass()">{{menu.title}}
+                        <i ng-class="menu.icon"></i>
+                    </a>
+                    <ul ng-class="class">
+                        <li ng-repeat="submenu in menu.menus">
+                            <a href="{{submenu.action}}">{{submenu.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--
+<div ng-show="user" class="row contenedorBreadcrumbs">
+    <ul class="breadcrumbs column">
+        <li><a ui-sref="homeRecontratacion" ng-hide='currentPage == 0' ng-click='currentPage = currentPage - 1'>Home</a></li>
+        <li>
+            <span class="show-for-sr">Current: </span> Histórico de préstamo
+        </li>
+    </ul>
+</div>
+-->

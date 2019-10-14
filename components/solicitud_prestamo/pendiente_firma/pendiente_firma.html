@@ -1,0 +1,661 @@
+<div class="space-blank veinte"></div>
+<section class="row">
+    <div class="small-12 large-8 columns small-centered text-center">
+        <i class="yei icon-formulario texto-limon x7"></i>
+        <h3 class="texto-verdemarino text-center">¡Bienvenido, {{userBasicInfo.firstName}} {{userBasicInfo.middleName}}  {{userBasicInfo.lastName}}!</h3>
+        <div class="space-blank"></div>
+        <p class=""> Ya tienes un préstamo aprobado, para disponer de tu dinero sólo debes firmar electrónicamente tu <a ng-click="mostrarContrato()">Contrato</a> y <a ng-click="mostrarPagare()">Pagaré</a></p>
+        <div class="space-blank"></div>
+
+        <!-- inicia el pagaré -->
+        <div class="contenedorPagare" ng-show="verPagare">
+            <h5>PAGARÉ</h5>
+            <div class="space-blank veinte"></div>
+            <div class="row pagare">
+                <div class="small-12 medium-6 medium-offset-6 text-right columns">
+                    <h5>BUENO POR ${{pagare[0].buenoPor}}</h5>
+                </div>
+                <div class="large-6 columns">
+                    <p class="text-left">Lugar de suscripción Ciudad de México </p>
+                </div>
+                <div class="large-6 columns">
+                    <p class="text-right">Fecha de suscripción: {{pagare[0].fechaSuscripcion}}</p>
+                </div>
+            </div>
+            <div class="space-blank veinte"></div>
+            <div class="pagare">
+                <p>
+                        Por este PAGARÉ prometo pagar incondicionalmente a la orden de ORION FINTECH, S.A. DE C.V., SOFOM, E.N.R. en el domicilio ubicado en Avenida Coyoacán número 1622, Edificio 4, Piso 2,  Colonia Del Valle, Alcaldía Benito Juárez, Ciudad de México, C.P. 03100, o cualquier otro lugar que el ACREEDOR o el tenedor del presente PAGARÉ designe por escrito, la cantidad de <span class="dato">${{pagare[0].buenoPor}} {{pagare[0].buenoPorLetra}}</span>. Valor recibido a mi entera satisfacción que incluye capital, intereses ordinarios y el Impuesto al Valor Agregado. El importe de este pagaré lo cubriré por medio de <span class="dato">{{pagare[0].totalAmortizaciones}}</span> amortizaciones que incluyen los conceptos expresados, en la forma y fechas que a continuación se describen:
+                </p>
+            </div>
+            <div class="space-blank diez"></div>
+            <div class="small-6 columns">
+                <table class="stack">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Fecha</th>
+                      <th>Monto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="dato in pagare">
+                      <td ng-show="$index % 2 == 0">{{dato.numeroAmortizacion}}</td>
+                      <td ng-show="$index % 2 == 0">{{dato.fechaAmortizacion}}</td>
+                      <td ng-show="$index % 2 == 0">{{dato.montoAmortizacion}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="small-6 columns">
+                <table class="stack">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Fecha</th>
+                      <th>Monto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="dato in pagare">
+                      <td ng-show="$index % 2 !== 0">{{dato.numeroAmortizacion}}</td>
+                      <td ng-show="$index % 2 !== 0">{{dato.fechaAmortizacion}}</td>
+                      <td ng-show="$index % 2 !== 0">{{dato.montoAmortizacion}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="space-blank diez"></div>
+            <div class="pagare">
+                <p>
+                    La falta de pago de una sola de las amortizaciones aquí pactadas, en la fecha que se indica, dará por vencida la totalidad del adeudo y <span class="dato">ORION FINTECH, S.A. DE C.V., SOFOM, E.N.R.,</span> podrá acudir ante los tribunales a reclamar el pago del total del importe de este pagaré con sus intereses correspondientes.
+                <br/><br/>
+                    El importe total de este documento incluye intereses ordinarios a la fecha de sus respectivos vencimientos a la tasa anual fija de <span class="dato">{{pagare[0].tasaMensual}}</span>%, que equivale al X.X% mensual, sobre el saldo insoluto del importe del capital. Los cuales deberán ser cubiertos conjuntamente con el capital de conformidad con la tabla de amortización inserta, pagaderos en el mismo lugar de pago designado para el pago de el principal.
+                <br/><br/>
+                    En caso de incumplimiento de uno o más pagos por vencimiento, el presente pagaré causará intereses moratorios a una tasa anual fija de <span class="dato">{{pagare[0].tasaInteresMoratorioDiario}}</span>% sobre saldos insolutos, equivalente a un interés mensual de X.X% sobre el saldo insoluto vencido, durante todo el tiempo que dure la mora y hasta su total liquidación; pagaderos en el mismo lugar de pago designado para el pago de el principal. Queda establecido que en caso de falta de pago oportuno, los pagos que realice el Suscriptor respecto del saldo insoluto de la suerte principal se aplicarán en primer término a los intereses moratorios generados hasta el momento en que se verifique el pago con su correspondiente Impuesto al Valor Agregado, después a los intereses ordinarios con su correspondiente Impuesto al Valor Agregado; y, por último, al saldo del principal del presente Pagaré hasta el monto que se alcance a liquidar de su suerte principal.
+                <br/><br/>
+                    Toda diligencia, presentación, demanda, protesto o aviso de falta de pago de este PAGARÉ son en este acto renunciados por el Suscriptor.
+                <br/><br/>
+                    El presente PAGARÉ se considera emitido y se interpretará conforme a las leyes de los Estados Unidos Mexicanos, y específicamente conforme a la Ley General de Títulos y Operaciones de Crédito.
+                <br/><br/>
+                    Para todo lo relativo a la interpretación, ejecución y cumplimiento del presente pagaré y para el requerimiento judicial del pago de su importe, el Suscriptor, el Acreedor, y en su caso cualquier otro beneficiario, convienen expresamente en someterse a la jurisdicción de los tribunales competentes de la Ciudad de México o cualquier otro domicilio que la acreedora elija a su exclusivo arbitrio, renunciando a cualquier otro fuero que pudiera corresponderles en razón de su domicilio presente o futuro.
+
+                </p>
+            </div>
+            <div class="space-blank veinte"></div>
+            <div class="pagare">
+                <div class="small-12 text-left">
+                    <h5>DATOS DEL ACREDITADO</h5>
+                </div>
+                <div class="small-12">
+                    <p>Nombre: <span class="dato">{{pagare[0].nombreCliente}} {{pagare[0].apellidoCliente}}</span></p>
+                    <p>Dirección: <span class="dato">{{pagare[0].calle}} {{pagare[0].numExterior}} {{pagare[0].colonia}}, {{pagare[0].ciudad}}, {{pagare[0].estado}}, C.P.{{pagare[0].cp}}</span></p>
+                    <!-- <p>Dirección: <span class="dato">Nuevo Leon 254 Hipódromo Condesa, CDMX, C.P. 06500</span></p> -->
+
+                    <p>Teléfono: <span class="dato">{{pagare[0].telefono}}</span></p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- inicia el contrato -->
+        <div class="contenedorContrato" ng-show="verContrato">
+
+            <div class="row contrato" data-equalizer data-equalize-on="large">
+                <div class="large-4 columns celda" data-equalizer-watch>
+                    <p>Nombre comercial del Producto: </p>
+                    <p class="dato">{{contrato.nombreProducto | uppercase}}</p>
+                </div>
+                <div class="large-4 columns celda" data-equalizer-watch>
+                    <p>No. de crédito: </p>
+                    <p class="dato">{{contrato.noCredito}}</p>
+                </div>
+                <div class="large-4 columns celda" data-equalizer-watch>
+                    <p>No. de vez: </p>
+                    <p class="dato">{{contrato.noVez}}</p>
+                </div>
+            </div>
+
+            <div class="clear space-blank"></div>
+
+
+            <div class="row contrato" data-equalizer data-equalize-on="large">
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>CAT PROMEDIO (Costo Anual Total) </p>
+                    <p class="dato">{{contrato.cat | number:1}} %</p>
+                </div>
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>Tasa de Interés Anual Ordinaria Fija y Moratoria: </p>
+                    <p>Ordinaria fija: <span class="dato">{{contrato.tasaInteresAnualOrdinariaFija}}</span></p>
+                    <p>Moratoria: <span class="dato">{{contrato.tasaInteresAnualMoratoriaFija}}</span> </p>
+                </div>
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>Monto o Línea de Crédito: </p>
+                    <p class="dato">${{contrato.montoLineaCredito | number:2}}</p>
+                </div>
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>Monto total a pagar: </p>
+                    <p class="dato">${{contrato.montoTotalPagar | number:2}}</p>
+                </div>
+            </div>
+
+            <div class="clear space-blank"></div>
+
+            <div class="row contrato" data-equalizer data-equalize-on="large">
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>Plazo de crédito </p>
+                    <p class="dato">{{contrato.plazoCredito}}</p>
+                </div>
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>Fecha límite de pago </p>
+                    <p class="dato">{{contrato.fechaLimitePago}}</p>
+                </div>
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>Fecha de corte: </p>
+                    <p class="dato">{{contrato.fechaCorte}}</p>
+                </div>
+                <div class="large-3 columns celda" data-equalizer-watch>
+                    <p>Frecuencia: </p>
+                    <p class="dato">{{contrato.frecuencia}}</p>
+                </div>
+            </div>
+            <div class="clear space-blank"></div>
+
+            <div class="margin-top-5 separador-orion"></div>
+            <div class="clear space-blank"></div>
+
+            <div class="row contrato">
+                <div class="large-12 columns celda">
+                    <h5>Datos de las partes:</h5>
+                    <p>{{contrato.datosPartes}}</p>
+                </div>
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>Advertencias:</h5>
+                    <p>“Incumplir tus obligaciones te puede generar comisiones e intereses moratorios.” “Contratar créditos por arriba de tu capacidad de pago puede afectar tu historial crediticio.” “CAT: El Costo Anual Total de financiamiento expresado en términos porcentuales anuales que, para fines informativos y de comparación, incorpora la totalidad de los costos y gastos inherentes a los Créditos.”
+                    </p>
+                </div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>Estado de Cuenta:</h5>
+                    <p><br />
+                    </p>
+                </div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>Aclaraciones y Reclamaciones:</h5>
+                    <h5>Unidad de Atención Especializada ({{contrato.nombreUnidadAtencionEspecializada}})</h5>
+                    <p>
+                        Para cualquier aclaración o duda favor de comunicarse sin costo a nuestro centro de atención al <span class="dato">{{contrato.numeroUnidadAtencionEspecializadaCdmx}}</span>. Ciudad de México, Zona Metropolitana e interior de la República o enviar correo electrónico a <span class="dato"><a>{{contrato.correoElectronicoUnidadAtencionEspecializada}}</a></span>, con domicilio en Calle Florencia 31, piso 7, CP 06600, Col Juárez, Delegación Cuauhtemoc, CDMX, México.
+                    </p>
+                </div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>Registro de Contratos de Adhesión:</h5>
+                    <p>No de registro en el RECA: <span class="dato">{{contrato.noRegistroReca}}</span></p>
+                </div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros (CONDUSEF)</h5>
+                    <p>En caso de dudas, quejas, reclamaciones o consultar información sobre las comisiones para fines informativos y de comparación podrá acudir a la CONDUSEF con domicilio en insurgentes sur no 762, Colonia del Valle, Alcaldía Benito Juárez, Código Postal 03100, Ciudad de México, correo electrónico <span class="dato"><a>asesoria@condusef.gob.mx</a></span>, teléfono <span class="dato">01 800 999 8080</span> y <span class="dato">53400999</span> o consultar la página electrónica en Internet <span class="dato"><a>www.condusef.gob.mx</a></span>.</p>
+                </div>
+
+
+                <div class="clear space-blank"></div>
+                <div class="margin-top-bottom separador-orion"></div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5 class="texto-bold text-right">No. de Contrato:<span class="dato">{{contrato.numeroContrato}}</span></h5>
+                    <p></p>
+                    <p class="texto-bold">
+                        CONTRATO DE CRÉDITO SIMPLE QUE CELEBRAN POR UNA PARTE ORION FINTECH, SOCIEDAD ANÓNIMA DE CAPITAL VARIABLE, SOCIEDAD FINANCIERA DE OBJETO MÚLTIPLE, ENTIDAD NO REGULADA, A QUIEN EN LO SUCESIVO Y PARA LOS EFECTOS DE ESTE CONTRATO SE LE DENOMINARÁ “ORION FINTECH”, REPRESENTADA POR LA PERSONA QUE SE INDICA AL FINAL DEL PRESENTE CONTRATO, Y POR OTRA PARTE LA PERSONA FÍSICA CUYO NOMBRE APARECE EN EL DOCUMENTO DENOMINADO “FORMATO DE IDENTIFICACIÓN DE CLIENTE”, CARÁTULA Y SOLICITUD DE CRÉDITO QUE FORMAN PARTE DEL PRESENTE CONTRATO, A QUIEN EN LO SUCESIVO Y PARA LOS EFECTOS DEL PRESENTE SE LE DENOMINARÁ “EL ACREDITADO”, AL TENOR DE LOS SIGUIENTES ANTECEDENTE, DECLARACIONES Y CLÁUSULAS:
+                    </p>
+                </div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>ANTECEDENTE</h5>
+                    <p>
+                        EL ACREDITADO ha solicitado expresamente el otorgamiento de una línea de Crédito a través del procedimiento electrónico determinado en la aplicación o sitio electrónico de ORION FINTECH <span class="dato">{{contrato.sitioElectronico}}</span> y ha aceptado los términos y condiciones previstos en la Carátula, Solicitud de Crédito y el “Formato de Identificación de Cliente” integrantes del presente contrato. Para este efecto, EL ACREDITADO le ha proporcionado a ORION FINTECH toda la información necesaria en relación con el Crédito.
+                    </p>
+                </div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>DECLARACIONES</h5>
+                    <p>
+                        I.- Declara ORION FINTECH, por conducto de su representante, de manera expresa y bajo protesta de decir verdad:
+                        <br />
+                        a) Ser una Sociedad Anónima de Capital Variable, Sociedad Financiera de Objeto Múltiple, Entidad No Regulada, que se encuentra legalmente constituida conforme a las leyes de los Estados Unidos Mexicanos, según consta en la escritura pública número ciento noventa y dos mil ochocientos setenta, de fecha once de octubre del año dos mil dieciséis, otorgada ante la fe del Licenciado Cecilio González Márquez, Titular de la Notaría Pública Número Ciento Cincuenta y Uno de la Ciudad de México, cuyo primer testimonio quedó inscrito en el Registro Público de Comercio de la Ciudad de México, bajo el folio mercantil electrónico N-2016028674. Y está obligada a dar cumplimiento a las Disposiciones de Carácter General dictadas por la Secretaría de Hacienda y Crédito Público y publicadas en el Diario Oficial de la Federación el día 17 de marzo del año 2011, así como sus respectivas reformas, en cumplimiento a lo establecido en el artículo 95 Bis de la Ley General de Organizaciones y Actividades Auxiliares del Crédito.<br />
+                        b) Que cuenta con registro vigente ante la Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros con folio: NPR13776-4_2/20160712/00669-WH5.<br />
+                        c) Que las personas que suscriben el presente contrato cuentan con las facultades suficientes para la celebración del mismo, las cuales a la fecha no les han sido revocadas ni en forma alguna modificadas.<br />
+                        d) Que cuenta con el Registro Federal de Contribuyentes DIG161011E87 y con domicilio en Avenida Coyoacán número 1622, Edificio 4, Piso 2, Colonia Del Valle, Alcaldía Benito Juárez, en la Ciudad de México, C.P. 03100; y la dirección de su página de internet o web es <span class="dato"> {{contrato.sitioElectronico}}</span> en el portal de Internet.
+                    </p>
+                    <p>
+                        e) Que se encuentra legalmente facultada para la prestación del servicio crediticio objeto del presente instrumento, ya que para su constitución y operación como sociedad financiera de objeto múltiple no requiere de autorización de la Secretaría de Hacienda y Crédito Público. Asimismo que es una Entidad No Regulada, por lo que las operaciones que se realizan al amparo del presente contrato no están sujetas a la supervisión y vigilancia de la Comisión Nacional Bancaria y de Valores, salvo y únicamente para efectos del artículo 56 de la Ley General de Organizaciones y Actividades Auxiliares del Crédito.
+                    </p>
+                    <p>
+                        f) Que el presente contrato se encuentra registrado ante la Comisión Nacional para la Protección y Defensa de los Usuarios de los Servicios Financieros, y que las operaciones realizadas al amparo del presente contrato se encuentran supervisadas por dicha dependencia.
+                    </p>
+                    <p>
+                        g) Que podrá rechazar la realización de cualquier operación y/o servicio al amparo del presente contrato en los casos en que el cliente se encuentre en la lista de personas bloqueadas emitida por la Unidad de Inteligencia Financiera, o bien, la lista “Specially Designated Nationals List (SDN)” de la “Office of Foreign Assets Control (OFAC)”.
+                    </p>
+                    <p>
+                        h) Que para la prestación del servicio crediticio objeto del presente instrumento, se basa en los reglamentos y/o manuales dirigidos a la organización de los clientes de ORION FINTECH. 
+                    </p>
+                    <p>
+                        i) Que cuenta con la tecnología y los recursos necesarios para recabar, procesar y almacenar en medios electrónicos todos y cada uno de los datos y documentos inherentes a la solicitud, otorgamiento y operación del presente crédito; los cuales aseguran que la totalidad de la información recabada se mantendrá de manera íntegra e inalterada a partir del momento en que se generó por primera vez en su forma definitiva; contando además con los medios de accesibilidad para su ulterior consulta, a fin de integrar, conservar y evidenciar las operaciones realizadas al amparo del presente contrato.
+                    </p>
+                    <p>
+                        j) Que al momento de la firma del presente contrato hizo entrega de un ejemplar del contrato de adhesión y de cada uno de sus anexos que fue enviado por correo electrónico.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        II.- Declara EL ACREDITADO de manera expresa y bajo protesta de decir verdad:<br />
+                        a) Que es una persona física cuyo nombre, nacionalidad, domicilio y demás datos generales aparecen en el “Formato de Identificación de Cliente” del presente contrato, donde incluye los objetivos para los cuales se va a destinar el crédito que motiva el presente contrato; el cual forma parte integrante del mismo para todos los efectos legales a que haya lugar; así como que actúa a nombre y por cuenta propia manifestando que tiene el conocimiento que actuar en nombre y por cuenta de un tercero o proporcionar datos y documentación falsa constituye un delito.
+                    </p>
+                    <p>
+                        b) Que sabe y le consta que ORION FINTECH es una Sociedad Anónima de Capital Variable, Sociedad Financiera de Objeto Múltiple, Entidad No Regulada y que por tal razón tiene la obligación ante las autoridades fiscales de presentar los documentos que le sean requeridos y que se relacionen con el presente acto jurídico o con los objetivos del mismo. Asimismo, que consiente que la información de cualquier naturaleza que se derive en virtud del presente contrato de crédito sea empleada por ORION FINTECH para efectos estadísticos y de estudios socioeconómicos.
+                    </p>
+                    <p>
+                        c) Previo a la celebración del presente Contrato, ORION FINTECH, a través de su sitio electrónico <span class="dato">{{contrato.sitioElectronico}}</span>, le proporcionó toda la información necesaria, relacionada con los términos y condiciones del Crédito, y que se le dio a conocer el Costo Anual Total (CAT) promedio de créditos similares para efectos informativos, establecido en términos porcentuales anuales, (en los sucesivo, la “Información del Crédito”), así como el costo total del presente crédito CAT plasmado en la carátula del presente contrato, incluyendo tasas de interés y comisiones.
+                    </p>
+                    <p>
+                        d) En términos del inciso anterior, el Acreditado acepta y reconoce la Información del Crédito relacionada con el Crédito que será otorgado por parte de ORION FINTECH, así como el alcance de las obligaciones que asume en este acto y las consecuencias que derivan del incumplimiento de las mismas. De igual forma, el Acreditado manifiesta bajo protesta de decir verdad, que ORION FINTECH puso a su disposición, toda la información y medios de conocimiento para manifestar su consentimiento en el presente Contrato.
+                    </p>
+                    <p>
+                        e) Que ha leído, comprendido y está de acuerdo con todas y cada una de las estipulaciones del presente contrato, por lo que al suscribirlo se obliga a sujetarse en los términos aquí pactados. Asimismo, es sabedor que el presente contrato lo suscribirá mediante su Firma Electrónica, que son los datos en forma electrónica consignados en un Mensaje de Datos, o adjuntados o lógicamente asociados al mismo por cualquier tecnología, que son utilizados para identificar al suscriptor u originador de la instrucción de alguna operación o servicio financiero e indicar que el firmante aprueba la información contenida en el Mensaje de Datos, y que produce los mismos efectos jurídicos que la firma autógrafa.
+                    </p>
+                    <p>
+                        f) Que autoriza a ORION FINTECH  obtener su geolocalización al momento del llenado de su solicitud y contratación del presente crédito, que son las coordenadas geográficas de latitud y longitud en que se encuentre el dispositivo o computadora desde la cual EL ACREDITADO realice su trámite.
+                    </p>
+                    <p>
+                        g) Que el presente producto crediticio lo adquiere de manera personal y no para uso ni beneficio de persona alguna ajena al presente contrato.
+                    </p>
+                    <p>
+                        h) Que se obliga a destinar el crédito otorgado a los objetivos lícitos que declara en la Solicitud de Crédito y “Formato de Identificación de Cliente” del presente contrato.
+                    </p>
+                    <p>
+                        i) Que sabe que ORION FINTECH puede rechazar la realización de cualquier operación y/o servicio al amparo del presente contrato en los casos en que el cliente se encuentre en la lista de personas bloqueadas emitida por la Unidad de Inteligencia Financiera, o bien, la lista “Specially Designated Nationals List (SDN)” de la “Office of Foreign Assets Control (OFAC)”.
+                    </p>
+                    <p>
+                        j) Que sabe que ORION FINTECH podrá bloquear en cualquier momento los recursos del cliente cuando así lo solicite la Unidad de Inteligencia Financiera de la Secretaria de Hacienda y Crédito Público por encontrarse este último en la Lista de Personas Bloqueadas.
+                    </p>
+                    <p>
+                        k) Que al momento de la firma del presente contrato recibió un ejemplar del contrato de adhesión y de cada uno de sus anexos que recibió por correo electrónico.
+                    </p>
+                    <p>
+                        <br/>
+                        Por lo expuesto, las partes acuerdan obligarse a las siguientes: 
+                    </p>
+                </div>
+
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>CLÁUSULAS</h5>
+                    <p class="texto-bold">
+                        PRIMERA. OBJETO.- En este acto, ORION FINTECH otorga un crédito simple en Pesos, Moneda Nacional, a EL ACREDITADO por la cantidad que aparece en la carátula del presente contrato, la cual forma parte integrante del mismo para todos los efectos legales a que haya lugar, el cual recibe en este acto en una sola exhibición y a su entera satisfacción, pudiendo disponer de dicha cantidad en efectivo mediante orden de pago o transferencia electrónica a su cuenta bancaria declarada en la Solicitud de Crédito y el “Formato de Identificación de Cliente”. EL ACREDITADO otorga a ORION FINTECH el recibo más amplio que en derecho proceda, y manifiesta su conformidad que el movimiento reflejado en la contabilidad de ORION FINTECH derivado del depósito a la cuenta del Acreditado hará prueba plena. Obligándose EL ACREDITADO a devolver la cantidad dispuesta junto con los intereses ordinarios y demás accesorios financieros derivados del presente contrato, en los términos establecidos en la cláusula tercera siguiente.
+                    </p>
+                    <p>
+                        “ORION FINTECH” podrá otorgar otro u otros créditos simples a EL ACREDITADO al amparo del presente contrato, siempre y cuando se liquide el crédito simple anterior, en el entendido de que EL ACREDITADO no podrá tener dos créditos simples vigentes al mismo tiempo. En este caso será suficiente que EL ACREDITADO firme de manera electrónica la respectiva Solicitud de Crédito que le será proporcionada por ORION FINTECH, a fin de que lo otorgue en caso de así autorizarlo y contra la liquidación del crédito anterior.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">SEGUNA. DESTINO.- EL ACREDITADO se obliga a destinar el importe del presente crédito para el objetivo señalado en la Solicitud de Crédito y el “Formato de Identificación de Cliente” del presente contrato, el cual manifiesta ser una actividad lícita y permitida por la ley.</span>
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">TERCERA. PAGO Y PLAZO.- EL ACREDITADO se obliga a pagar incondicionalmente a ORION FINTECH la cantidad señalada en la carátula del presente contrato, mediante pagos semanales, catorcenales, quincenales, a veintiocho días o mensuales, según lo indicado en la carátula y en la tabla de amortización del presente contrato; iguales y sucesivos, por la cantidad y en el plazo señalado en dichos documentos, la cual incluye el pago de los intereses ordinarios derivados del otorgamiento del presente crédito en su caso; pudiendo aceptarse pagos adelantados y pagos anticipados, en términos de la cláusula cuarta del presente contrato. Para este efecto al momento de la firma mediante aceptación electrónica del presente contrato se le hace entrega a EL ACREDITADO de la Tabla de Amortización a través de la página de ORION FINTECH <span class="dato">{{contrato.sitioElectronico}}</span>, la cual forma parte integrante del presente contrato, la cual incluye el saldo insoluto del principal, así como el número, periodicidad y cuantía de los pagos que debe efectuar hasta su total liquidación, así como los días de pago.
+                                A partir del día siguiente de la fecha de cada uno de los pagos conforme a la Tabla de Amortización y carátula del presente contrato, sin que dicho pago se hubiere efectuado, EL ACREDITADO incurrirán en mora y comenzará su obligación de pagar intereses moratorios.
+                        </span>
+                    </p>
+                    <p>
+                        <span class="texto-bold">
+                            El plazo para el pago del crédito inicia a partir del día en que EL ACREDITADO disponga total o parcialmente del importe del mismo.
+                        </span>
+                    </p>
+                    <p>
+                        <span class="texto-bold">
+                                La fecha de corte para determinar el día límite de pago y el cálculo de los intereses ordinarios y moratorios en su caso, se determinará conforme a lo establecido en la carátula integrante del presente contrato, y será el mismo día de la semana o mes calendario en que se hubiere realizado la disposición. En caso de que el día de pago sea inhábil, el pago deberá efectuarse al día hábil siguiente sin que proceda el cobro de comisiones o intereses moratorios.
+                        </span>
+                        Al momento de realizar el corte, ORION FINTECH determinará el importe del adeudo, el plazo restante para su pago y el monto de los intereses generados durante el periodo señalado en la carátula integrante del presente contrato según corresponda; misma información que podrá ser consultada por EL ACREDITADO en la página de ORION FINTECH <span class="dato">{{contrato.sitioElectronico}}</span>.
+                    </p>
+                    <p>
+                        <span class="texto-bold">
+                                EL ACREDITADO deberá efectuar los pagos a que está obligado en términos del presente contrato, mediante transferencia electrónica, depósito en las sucursales bancarias o comerciales que le presten el servicio de caja a ORION FINTECH, para lo cual ORION FINTECH informará expresamente a EL ACREDITADO las instituciones bancarias o casas comerciales en su caso donde puede realizar sus pagos así como el número de referencia para ese efecto; contra la entrega del comprobante respectivo que se hará al momento de recepcionar el pago. Para este efecto, ORION FINTECH pone a disposición de EL ACREDITADO un documento en el cual constan las cuentas bancarias y referencias donde EL ACREDITADO puede efectuar sus pagos, el cual también es visible en la página de ORION FINTECH <span class="dato">{{contrato.sitioElectronico}}</span> dentro del mismo perfil de EL ACREDITADO. Las operaciones realizadas a través de los corresponsales financieros podrán generar una comisión adicional, por lo que EL ACREDITADO deberá consultar antes de realizar su operación. 
+                        </span>
+                    </p>
+                    <p>
+                        <span class="texto-bold">
+                                EL ACREDITADO podrá efectuar sus pagos en efectivo, mediante transferencia electrónica u orden de pago. ORION FINTECH acreditará los pagos el mismo día en que esto se realice cuando sean mediante transferencia electrónica, efectivo u orden de pago.
+                        </span>
+                    </p>
+                    <p>
+                        <span class="texto-bold">
+                                En caso de incumplimiento en algunos de los pagos a que está obligado EL ACREDITADO, los pagos que efectivamente hubiere realizado se aplicarán en el siguiente orden: 1.- Al pago de los intereses moratorios que se hayan generado y que se sigan generando hasta el pago oportuno de las prestaciones reclamadas, sin que se cobren intereses por adelantado; 2.- Impuesto al Valor Agregado generado por los intereses moratorios; 3.- Al pago de los intereses ordinarios que se hayan generado y que se hubieren de generar hasta la total liquidación del adeudo, sin que se cobren intereses por adelantado; 4.- Impuesto al Valor Agregado generado por los intereses ordinarios; 5.- Al pago de las costas judiciales que hubieren sido declaradas judicialmente en su caso; 6.- A capital.
+                        </span>
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                CUARTA. PAGOS ANTICIPADOS Y ADELANTADOS.- EL ACREDITADO podrá en cualquier momento realizar pagos anticipados a la fecha del vencimiento del pago ya sea de forma parcial o total durante el plazo del crédito, con el único requisito que el pago anticipado sea por una cantidad igual o mayor a un pago semanal, catorcenal, quincenal, a veintiocho días o mensual según el caso, subsecuente al que esté obligado y que pretende anticipar. 
+                        </span>
+                        ORION FINTECH recibirá en todo momento los pagos anticipados, informando a EL ACREDITADO el saldo insoluto del crédito, siempre y cuando EL ACREDITADO se encuentre al corriente en el pago del crédito respectivo y sus intereses y demás accesorios en su caso; en caso contrario aplicará dichos pagos a cubrir los adeudos vencidos, y el remanente si lo hubiere, se aplicará al capital.
+                    </p>
+                    <p>
+                        Los pagos anticipados que realice EL ACREDITADO serán aplicados de manera exclusiva al saldo insoluto. Cuando dichos pagos no alcancen a cubrir en su totalidad el saldo insoluto, se reducirá el número de semanas, catorcenas, quincenas, a veintiocho días o mensualidades según el caso, para su pago previo acuerdo expreso con EL ACREDITADO. En cualquiera de estos casos, ORION FINTECH calculará el importe de los intereses por devengar de acuerdo al nuevo saldo insoluto y pondrá a disposición de EL ACREDITADO una nueva tabla de amortización que refleje dicho cálculo de intereses resultante. En caso de liquidarse en su totalidad, no se cobrarán intereses no devengados, penalizaciones ni comisiones de ninguna especie por ese concepto.
+                    </p>
+                    <p>
+                        <span class="texto-bold">
+                            Si EL ACREDITADO lo solicita podrá realizar pagos adelantados que aún no sean exigibles con el objeto de que los mismos se apliquen a cubrir pagos semanales, catorcenales, quincenales, a veintiocho días o mensuales según el caso, inmediatos siguientes.
+                        </span>
+                        Si dicho pago adelantado es superior al pago que debía cubrirse por una o más pagos subsecuentes, EL ACREDITADO deberá firmar y entregar un escrito a ORION FINTECH que contenga la leyenda “EL ACREDITADO autoriza que los recursos que se entregan en exceso a sus obligaciones exigibles, no se apliquen para el pago anticipado del principal, sino que se utilicen para cubrir por adelantado los pagos periódicos del crédito inmediato siguientes”. En caso de que el pago sea igual o inferior al importe de un pago semanal, catorcenal, quincenal, a veintiocho días o mensual según el caso, no será necesario el escrito. 
+                        <br/>
+                        <span class="texto-bold">
+                            Liquidado el importe total del crédito y no habiendo obligaciones de pago pendientes de cubrir, el presente contrato se dará por terminado sin responsabilidad alguna para las partes. 
+                        </span>
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                            QUINTA. DISPOSICIÓN.- La disposición del crédito se realizará en la fecha de firma del presente contrato mediante aceptación electrónica, una vez que EL ACREDITADO haya firmado igualmente mediante aceptación electrónica los documentos y pagaré inherentes al otorgamiento del crédito indicados en el presente. Cumplidos todos los requisitos, ORION FINTECH entregará la suma dispuesta mediante transferencia bancaria a la cuenta previamente designada por EL ACREDITADO.     
+                        </span> 
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                SEXTA. PAGARÉ. - A la firma del presente contrato mediante aceptación electrónica, EL ACREDITADO suscribirá a favor de ORION FINTECH igualmente de manera electrónica, un Pagaré por el importe del crédito simple señalado en la cláusula primera del presente contrato, con la aceptación otorgada en la página <span class="dato">{{contrato.sitioElectronico}}</span>, más los impuestos e intereses ordinarios correspondientes. Dicho pagaré será a plazos de vencimiento en términos de la cláusula tercera anterior, pero convienen las partes que en caso de que no se cubriera oportunamente cualquiera de los abonos que en ese documento se estipulan, podrá exigirse el pago total de dicho pagaré, sin perjuicio de las penas e intereses moratorios establecidos en el presente contrato por el incumplimiento en su caso de EL ACREDITADO.
+                        </span> 
+                        <br/>
+                        Una vez liquidado el importe del crédito simple objeto del presente contrato, así como el de sus accesorios a la entera satisfacción de ORION FINTECH, se procederá a la cancelación del Pagaré.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">SÉPTIMA. DOCUMENTACIÓN.- </span>EL ACREDITADO se obliga a guardar y custodiar los libros, registros contables y cualquier otra documentación que las leyes Fiscales le establezcan dentro de los plazos señalados por las mismas que se relacionen con el presente contrato o con sus objetivos. 
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">OCTAVA. RESPONSABILIDAD.- </span>De igual forma las partes convienen en que EL ACREDITADO es y será  en todo momento el responsable ante las autoridades civiles, laborales, administrativas o de cualquier otra índole por los convenios y contratos que él mismo realice por razón del presente acto jurídico o de la consecución de sus objetivos; en ningún caso se entenderá a ORION FINTECH como deudor solidario, patrón sustituto o corresponsable de EL ACREDITADO. 
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">NOVENA. COMISIONES. El presente crédito no genera comisiones de ninguna especie.  </span>
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">DÉCIMA. SUPERVISIÓN.- </span> ORION FINTECH se reserva el derecho de nombrar a las personas o instituciones que considere necesarias, según lo estime, para supervisar y dar seguimiento a los fines del presente contrato.
+                        <br/>
+                        EL ACREDITADO se obliga a presentar a requerimiento de ORION FINTECH o de las personas e instituciones autorizadas por éste, los documentos a que se refiere la cláusula séptima de este instrumento. 
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">DÉCIMA PRIMERA. DE LA INFORMACIÓN CREDITICIA.- EL ACREDITADO manifiesta expresamente que es de su conocimiento que las Sociedades de Información Crediticia tienen por objeto prestar servicios de información sobre las operaciones de crédito que se realizan, por lo que no tiene ningún inconveniente, está de acuerdo y autoriza expresamente a ORION FINTECH para que proporcione, a una o más de las sociedades anteriormente referidas, información relativa a las operaciones contempladas en el presente contrato. Asimismo, en este acto y por este conducto EL ACREDITADO autoriza expresamente a ORION FINTECH para que a través de sus funcionarios facultados lleve a cabo monitoreos periódicos sobre su comportamiento crediticio ante las Sociedades de Información Crediticia. EL ACREDITADO manifiesta que conoce la naturaleza y alcance de la información que se solicitará, del uso que ORION FINTECH hará de tal información y de que éste podrá realizar consultas periódicas de su historial crediticio, consintiendo que esta autorización se encuentre vigente por el plazo que la ley aplicable establezca y en todo caso durante el tiempo en que se mantenga una relación jurídica con ORION FINTECH. </span> 
+                        EL ACREDITADO, renuncia expresamente al ejercicio de cualquier acción legal en contra de ORION FINTECH que derive o sea consecuencia de que ésta haya hecho uso de las facultades conferidas en la presente cláusula. 
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                            DÉCIMA SEGUNDA. INTERESES ORDINARIOS.- EL ACREDITADO se obliga a pagar a ORION FINTECH los intereses ordinarios que se generen semanal, catorcenal, quincenal, a veintiocho días o mensualmente según corresponda sobre saldos insolutos, a una tasa anual fija igual a la señalada en la carátula del presente contrato, que deberán pagarse junto con cada amortización por periodos vencidos. El monto del interés se calculará con base en la multiplicación de la tasa de interés antes señalada, por el monto principal insoluto. El pago de intereses no podrá ser exigido por adelantado, solo por períodos vencidos. 
+                            <br/>
+                            Para la mecánica del cálculo de los intereses, semanal, catorcenal, quincenal, a veintiocho días o mensualmente según corresponda, al final del día del vencimiento de cada semana, catorcena, quincena, a veintiocho días o mensualidad según corresponda, se considera el saldo insoluto, el cual se multiplica por la parte proporcional de la tasa de interés anual fija (360 días) cuyo resultado se aplica al pago correspondiente.
+                        </span>                         
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                            DÉCIMA TERCERA. INTERESES MORATORIOS.- Las partes acuerdan que para el caso de incumplimiento de uno o más pagos semanales, catorcenales, quincenales, a veintiocho días o mensuales según corresponda del crédito otorgado a EL ACREDITADO, se aplicará la tasa anual fija de interés moratorio señalado en la carátula del presente contrato, cuyo cálculo se regirá por el siguiente procedimiento:
+                            <br/>
+                            Por cada atraso EL ACREDITADO pagará intereses moratorios equivalentes a multiplicar el importe por uno por ciento diario sobre el saldo vencido, de manera mensual, durante todo el tiempo que dure la mora y hasta su total liquidación. Más el correspondiente Impuesto al Valor Agregado. Siguiendo para ello la mecánica establecida en la cláusula anterior.
+                            <br/>
+                            El pago de intereses no podrá ser exigido por adelantado sino por períodos vencidos.
+                        </span>                         
+                    </p>
+                    <p>
+                        <span class="texto-bold">
+                            DÉCIMA CUARTA. ACCESORIOS FINANCIEROS.- 
+                        </span>                         
+                        Para efecto del presente contrato se entenderá por accesorios financieros los siguientes conceptos:
+                        <br/>
+                        (i)	Tasa de interés moratorio anual fija por incumplimiento en la fecha de pago de conformidad con la cláusula décima tercera del presente contrato, junto con sus respectivos impuestos en su caso.<br/>
+                        (ii)	Intereses ordinarios e impuestos correspondientes, generados hasta la fecha del pago.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                            DÉCIMA QUINTA. VENCIMIENTO ANTICIPADO.- ORION FINTECH podrá dar por vencido anticipadamente el plazo para el pago del monto principal dispuesto y sus accesorios, o bien rescindir el presente contrato, dando aviso por escrito y sin necesidad de mandamiento o declaración judicial, si EL ACREDITADO incumple cualquiera de las obligaciones a su cargo derivadas del presente contrato, de manera enunciativa más no limitativa: A) Si cualquiera de las declaraciones, información o documentación hecha o entregada por EL ACREDITADO con el objeto de obtener el presente préstamo, resultaren falsas o inexactas o dejaren de ser ciertas; B) Si EL ACREDITADO deja de pagar en tiempo y forma cualquier cantidad que adeude a ORION FINTECH de acuerdo con este contrato por más de dos cuotas periódicas a las cuales se encuentra obligado, ya sean semanales, catorcenales, quincenales, a veintiocho días o mensuales según el caso; C)  Si EL ACREDITADO destina el uso del crédito con fines distintos para los que fue concedido, conforme a lo manifestado por él en la Solicitud de Crédito del presente contrato; D) El incumplimiento de cualquiera de las cláusulas del presente contrato.
+                            <br/>
+                            Una vez declarado el vencimiento anticipado del plazo para el pago del crédito, EL ACREDITADO deberá pagar de inmediato a ORION FINTECH el saldo insoluto del crédito, más sus accesorios financieros y cualquier otra cantidad que se adeude a ORION FINTECH, en una sola exhibición, en moneda nacional, en el domicilio de ORION FINTECH establecido en las declaraciones del presente contrato, o en su defecto, en el domicilio que ésta indique.
+                            <br/>
+                            Igualmente se obligan a pagar además de la suerte principal, los intereses ordinarios y moratorios que se hayan generado, así como las costas que en su caso se llegaren a declarar por la autoridad judicial correspondiente que se originen por la recuperación judicial del presente crédito.
+                        </span>                         
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                DÉCIMA SEXTA. CESIÓN.- 
+                        </span>                        
+                        El presente contrato se podrá ceder exclusivamente por ORION FINTECH, bajo cualquier modalidad o forma, por el saldo insoluto del crédito dispuesto por parte de EL ACREDITADO de conformidad con la legislación aplicable.  
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                            DÉCIMA SÉPTIMA. CAT.- El CAT es el Costo Anual Total de financiamiento expresado en términos porcentuales anuales que, para fines informativos y de comparación, incorpora la totalidad de los costos y gastos inherentes a los créditos. El CAT relativo al presente contrato se encuentra indicado en la carátula del presente contrato, antes de impuestos, de conformidad con los pagos señalados en la “Tabla de amortización” anexo al presente contrato el cual forma parte integrante del mismo para todos los efectos legales a que haya lugar, calculado conforme a las disposiciones en vigor.
+                        </span>                        
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                DÉCIMA SEXTA. ATENCIÓN AL CLIENTE.- Con la finalidad de brindar un mejor servicio, ORION FINTECH pone a disposición de EL ACREDITADO la Unidad de Atención Especializada (ORION), por lo que a efecto de cualquier aclaración, reclamación, inconformidad o duda podrá comunicarse al centro de atención al teléfono 01-55-44454512 desde el  interior de la República Mexicana, presentar un escrito en su domicilio en Avenida Coyoacán número 1622, Edificio 4, Piso 2, Colonia Del Valle, Alcaldía Benito Juárez, en la Ciudad de México, C.P. 03100;  o enviar correo electrónico a orion@orion.mx.
+                                En cualquier caso, EL ACREDITADO deberán proporcionar su nombre completo, domicilio, fecha de nacimiento e indicar si cuenta o no con crédito vigente. El personal de ORION registrará la fecha de recepción, datos del usuario y el motivo de la consulta, reclamación, inconformidad o aclaración, indicando el área donde será turnado el caso, a efecto de integrar los documentos que soporten la misma, proporcionando a EL ACREDITADO el número de folio con el que se dará trámite a su solicitud. Una vez integrada y validada la respuesta, se enviará a EL ACREDITADO por el medio señalado por él mismo en un plazo máximo de 30 días hábiles contados a partir de la fecha de recepción de la solicitud, acompañada dicha respuesta del dictamen que ORION FINTECH hubiere elaborado para tal efecto, conteniendo un informe detallado que respondan los hechos contenidos en la solicitud, debidamente firmada por representante legal y acompañada de copia simple de la documentación que sustente el mismo.
+                            <br/>
+                            En caso de que resulten procedentes los cobros efectuados por ORION FINTECH motivo de la solicitud interpuesta por EL ACREDITADO, éste deberá proceder a su pago inmediato con los intereses ordinarios generados hasta esa fecha, sin que proceda el cobro de intereses moratorios y otros accesorios generados por la suspensión del pago motivados de la reclamación o inconformidad interpuesta.
+                            <br/>
+                            COMISIÓN NACIONAL PARA LA PROTECCIÓN Y DEFENSA DE LOS USUARIOS DE SERVICIOS FINANCIEROS (CONDUSEF). 
+                            <br/>
+                            En caso de dudas, quejas o reclamaciones podrá acudir a la CONDUSEF con domicilio en Avenida de los Insurgentes Sur No. 762, Colonia del Valle, Alcaldía Benito Juárez, Código Postal 03100, Ciudad de México, correo electrónico asesoria@condusef.gob.mx, teléfono 018009998080 y 53400999 o consultar la página electrónica en internet www.condusef.gob.mx.                                
+                        </span>                        
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                DÉCIMA OCTAVA. ESTADOS DE CUENTA. - Las partes convienen en este acto que EL ACREDITADO podrá consultar y obtener un estado de cuenta de manera mensual, 10 días después de la fecha de corte, a través de su perfil en el sitio electrónico de ORION FINTECH en la página <span class="dato">{{contrato.sitioElectronico}}</span>. No obstante lo anterior, EL ACREDITADO podrá consultar su saldo, pagos y demás información correspondiente al crédito materia del presente contrato, en cualquier momento que así lo solicite en dicho sitio electrónico. Para el caso que EL ACREDITADO opte por que ORION FINTECH envíe el estado de cuenta a su domicilio, deberá solicitarlo por escrito, indicando nombre del acreditado y domicilio al cual deba ser enviado el estado de cuenta solicitado. 
+                                <br/>
+                                En caso de inconformidad con la información contenida en el estado de cuenta, EL ACREDITADO gozará de un plazo de 90 días naturales contados a partir de la fecha de su emisión para presentar su inconformidad, debiendo en ese caso acudir al domicilio de ORION FINTECH, siguiendo el procedimiento establecido en la cláusula décima séptima del presente contrato. Una vez integrada y validada la respuesta podrá ser consultada de manera electrónica en el perfil de usuario de EL ACREDITADO, en un plazo máximo de 45 días naturales contados a partir de la fecha de recepción de la aclaración.
+                        </span>                        
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                DÉCIMA NOVENA. DOMICILIOS. -                                
+                        </span>                        
+                        Para los efectos del presente contrato, ORION FINTECH señala como domicilio el ubicado en: Avenida Coyoacán número 1622, Edificio 4, Piso 2, Colonia Del Valle, Alcaldía Benito Juárez, en la Ciudad de México, C.P. 03100. EL ACREDITADO señala como su domicilio el referido en el “Formato de Identificación de Cliente” y Solicitud de Crédito integrantes del presente contrato. En caso de cambio de domicilio de EL ACREDITADO, se obliga a notificarlo a ORION FINTECH con cuando menos 30 días naturales de anticipación. Asimismo, las partes contratantes convienen en que mientras EL ACREDITADO no comunique por escrito a ORION FINTECH el cambio de su domicilio, todos los avisos, comunicaciones, notificaciones y demás diligencias judiciales y extrajudiciales que se hagan en el citado domicilio surtirán plenamente los efectos legales correspondientes por lo que EL ACREDITADO libera a ORION FINTECH de toda responsabilidad si la correspondencia que se les envíe al domicilio registrado no es recibida por EL ACREDITADO, conviniéndose que lo expresado en ella surtirá todos sus efectos por el sólo hecho de su envío.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                VIGÉSIMA.- TÍTULO EJECUTIVO. 
+                        </span>                        
+                        De conformidad con los artículos 87-E y 87-F de la Ley General de Organizaciones y Actividades Auxiliares del Crédito, los contratos y los estados de cuenta certificados por el contador público facultado por la Sociedad Financiera de Objeto Múltiple, hará fe, salvo prueba en contrario, en los juicios respectivos para la fijación de los saldos resultantes del presente crédito; y será título ejecutivo mercantil, sin necesidad de reconocimiento de firma ni de requisito adicional alguno.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                                VIGÉSIMA PRIMERA. MODIFICACIONES AL CONTRATO.- 
+                        </span>                        
+                        Cualquier modificación a las condiciones del presente contrato, deberán ser registradas primeramente en el Registro de Contratos de Adhesión (RECA) de la Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros, CONDUSEF, y posteriormente deberán ser notificadas a EL ACREDITADO, por cualquier medio, y para lo cual EL ACREDITADO, contará con un plazo de 30 días naturales para expresar su inconformidad y no consentimiento con dicha modificación a efecto de que el presente contrato se mantenga con las mismas condiciones y cláusulas pactadas al momento de su firma y hasta su total terminación, sin responsabilidad alguna para ellos; ante la falta de inconformidad en el plazo establecido, se entiende el consentimiento de dicha modificación por parte de EL ACREDITADO. Salvo que dichas modificaciones sean como consecuencia de adecuarlo a los cambios que se realicen en la normatividad vigente al momento de celebración del presente contrato, en cuyo caso, al tratarse del cumplimiento de una norma de observancia general, no se requerirá el consentimiento de EL ACREDITADO, quien desde este momento manifiesta expresamente su conformidad con dichos cambios.<br/>
+                        EL ACREDITADO puede solicitar la terminación del contrato dentro de los treinta días posteriores al aviso de la modificación sin responsabilidad alguna a su cargo, y bajo las condiciones pactadas originalmente, debiendo cubrir, en su caso, los adeudos que se generen hasta el término de la operación o el servicio, sin que ORION FINTECH pueda cobrarle penalización alguna por dicha causa.
+                        Sin que dichas modificaciones puedan incrementar la tasa de interés ordinario y moratorio pactada originalmente, durante toda la vigencia del presente contrato.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                        <span class="texto-bold">
+                            VIGÉSIMA SEGUNDA. CANCELACIÓN Y TERMINACIÓN ANTICIPADA. - EL ACREDITADO tendrá un plazo de diez días hábiles contados a partir del día siguiente al de la fecha de firma electrónica del presente contrato mediante aceptación electrónica, para solicitar la cancelación del mismo sin comisión, penalización ni responsabilidad alguna para él, siempre y cuando no hubiere dispuesto total o parcialmente de la línea de crédito objeto del mismo.
+                            <br/>
+                            Para dicho fin, EL ACREDITADO deberá elaborar un escrito libre expresando su voluntad de cancelar anticipadamente el presente contrato y presentarlo en el domicilio de ORION FINTECH, donde se le acusará recibo y se le proporcionará un folio de cancelación, siguiendo el procedimiento señalado en la cláusula décima séptima del presente contrato. Asimismo podrá llamar al 01-55-44454512, siguiendo el procedimiento establecido en la misma cláusula décima séptima del presente contrato para solicitar dicha cancelación, donde se le solicitarán sus datos de identificación para autentificarlo e igualmente se le proporcionará un número de folio de cancelación.
+                            <br/>
+                            Recibido el número de folio de cancelación por parte de EL ACREDITADO, traerá como consecuencia que se cancelen los medios de disposición contemplados en la cláusula quinta del presente contrato; cualquier disposición que pretenda efectuarse con posterioridad a la cancelación o terminación del presente contrato será debidamente rechazada para efecto de no generar cargos adicionales.
+                            <br/>
+                            Liquidado totalmente el adeudo, ORION FINTECH pondrá a disposición de EL ACREDITADO, el estado de cuenta que refleje que no existe saldo a cargo de EL ACREDITADO y que por ende ha concluido la relación contractual entre las partes.
+                            <br/>
+                            ORION FINTECH se obliga a reportar a las sociedades de información crediticia que la cuenta de EL ACREDITADO ha sido cerrada sin adeudo alguno dentro de los plazos establecidos en la Ley para Regular las Sociedades de Información Crediticia.
+                        </span>                                                
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                            <span class="texto-bold">
+                                VIGÉSIMA TERCERA. COMPROMISO ECOLÓGICO Y LEGAL.- 
+                            </span>                        
+                            EL ACREDITADO se compromete a que en los proyectos que desarrolle con el importe del crédito otorgado mediante el presente contrato, considerará y cumplirá con el ordenamiento ecológico, la preservación, restauración y mejoramiento del ambiente, la protección de las áreas naturales y la flora y fauna silvestre y acuáticas, el aprovechamiento racional de los elementos naturales; la preservación y el control de la contaminación del aire, agua y suelo, así como las demás disposiciones previstas en la Ley General del Equilibrio Ecológico y Protección al Ambiente. Además, acatará en su caso, las orientaciones, recomendaciones técnicas y demás disposiciones dictadas por los organismos oficiales que para el efecto corresponda.
+                            <br/>
+                            Igualmente se obliga a no realizar actividades ilícitas, tales como piratería, estupefacientes, entre otras.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                            <span class="texto-bold">
+                                VIGÉSIMA CUARTA. REGISTRO DEL CONTRATO. - 
+                            </span>                        
+                            ORION FINTECH manifiesta de manera expresa y bajo protesta de decir verdad, que el presente contrato de adhesión se encuentra registrado por la Comisión Nacional para la Protección y Defensa de los Usuarios de los Servicios Financieros, en el Registro de Contratos de Adhesión con el número _14798-439-029579/01-02230-0518, y se encuentra a disposición del público que lo requiera en cualquier sucursal de ORION FINTECH.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                            <span class="texto-bold">
+                                VIGÉSIMA QUINTA. VIGENCIA.- El presente contrato estará vigente hasta la total liquidación del crédito otorgado al amparo del mismo, en términos de la cláusula tercera del mismo. EL ACREDITADO solo podrá darlo por terminado anticipadamente, una vez que hubiere liquidado en su totalidad el importe del crédito, sus intereses ordinarios y moratorios en su caso, y demás accesorios financieros y legales en los términos del presente contrato.
+                            </span>    
+                            <br/>                    
+                            El presente contrato también concluirá en el caso de fallecimiento de EL ACREDITADO, en cuyo caso, una vez recibido el aviso por parte de cualquier persona de dicho evento, siguiendo el procedimiento señalado en la cláusula décima séptima del presente contrato, ORION FINTECH emitirá el número de folio de cancelación respectivo, lo cual traerá como consecuencia que se cancelen los medios de disposición contemplados en la cláusula quinta del presente contrato; cualquier disposición que pretenda efectuarse con posterioridad a la cancelación o terminación del presente contrato será debidamente rechazada para efecto de no generar cargos adicionales. 
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                            <span class="texto-bold">
+                                    VIGÉSIMA SEXTA. PRIVACIDAD. - 
+                            </span>    
+                            EL ACREDITADO autoriza a ORION FINTECH para utilizar sus datos personales para proveer los servicios y productos que ha solicitado, informarle sobre cambios o nuevos productos o servicios que estén relacionados con el contratado por EL ACREDITADO. 
+                            <br/>ORION FINTECH dará cumplimiento a las obligaciones contraídas con nuestros clientes y a las autoridades competentes en términos de la legislación financiera aplicable y evaluar la calidad del servicio que le brindamos. Siendo responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección. 
+                            <br/>Para mayor información acerca del tratamiento y de los derechos que puede hacer valer, Usted puede acceder a nuestro aviso de privacidad completo a través de nuestra página de Internet <span class="dato">{{contrato.sitioElectronico}}</span> (sección Aviso de Privacidad).  Adicionalmente, EL ACREDITADO declara que el contenido de dicho aviso de privacidad fue puesto a su disposición por ORION FINTECH con anterioridad a la fecha de firma del presente Contrato, por lo que EL ACREDITADO confirma y ratifica, por este medio, que otorgó su consentimiento expreso con la finalidad de que ORION FINTECH pueda recopilar, usar, procesar y almacenar su información personal con anterioridad a la celebración del presente Contrato de conformidad con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
+
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                            <span class="texto-bold">
+                                VIGÉSIMA SÉPTIMA. CONFIDENCIALIDAD DE LA INFORMACIÓN. - 
+                            </span>    
+                            La información y documentación de las operaciones y servicios motivo del presente contrato serán confidenciales, así que en ningún caso ORION FINTECH podrá dar noticias o información de los depósitos, operaciones o servicios, sino a EL ACREDITADO, titulares o beneficiarios.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                            <span class="texto-bold">
+                                    VIGÉSIMA OCTAVA. CONSENTIMIENTO Y ACEPTACIÓN.- 
+                            </span>    
+                            Las Partes acuerdan el alcance y términos del presente Contrato, y EL ACREDITADO otorga de forma indubitable e irrevocable su consentimiento en términos del Artículo 1803 del Código Civil Federal en la fecha prevista en el “Formato de Identificación de Cliente” integrante del presente contrato, y dicho lugar y fecha deberá considerarse como el lugar y fecha de celebración del presente Contrato para todos los efectos legales a que haya lugar, quedando un tanto en poder de cada una de las Partes, incluyendo sus respectivos anexos, el cual será enviado al Acreditado al correo electrónico proporcionado en el Perfil del Acreditado mediante copia digitalizada en formato “.PDF” (portable document format; por sus siglas en inglés); el Acreditado acepta que el otorgamiento de su consentimiento se realizará de forma electrónica y en los términos establecidos en el presente Contrato.
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <p>
+                            <span class="texto-bold">
+                                    VIGÉSIMA NOVENA. JURISDICCIÓN.- Para la interpretación y cumplimiento del presente contrato, las partes se someten a la jurisdicción de los tribunales competentes de la Entidad Federativa donde se firme el presente contrato a elección de la parte actora, renunciando a cualquier otro fuero que pudiera corresponderles en razón de su domicilio presente o futuro.
+                            </span>    
+                    </p>
+                    <div class="clear space-blank"></div>
+                    <!--p>
+                            <span class="texto-bold">
+                                    El presente instrumento fue leído por las partes, y enteradas las mismas de su contenido y del alcance de las obligaciones y derechos que se pactan, lo firman de manera electrónica, quedando un ejemplar junto con todos sus anexos en poder de cada una de las partes, a su entera y plena satisfacción, en la Ciudad de México, a los _____ días del mes de  ______  de  200___.
+                            </span>    
+                    </p-->
+                </div>
+                <div class="clear space-blank"></div>
+
+
+
+                <div class="large-12 columns celda">
+                    <h5 class="texto-bold">TRANSCRIPCIÓN DE ARTÍCULOS RELACIONADOS EN EL CONTRATO DE CRÉDITO INDIVIDUAL</h5>
+                    <h5 class="texto-bold text-left">LEY GENERAL DE ORGANIZACIONES Y ACTIVIDADES AUXILIARES DEL CRÉDITO</h5>
+                    <p>
+                        <span class="texto-bold">Artículo 56.-</span>La inspección y vigilancia de las organizaciones auxiliares del crédito, casas de cambio y sociedades financieras de objeto múltiple reguladas queda confiada a la Comisión Nacional Bancaria y de Valores, la que tendrá, en lo que no se oponga a esta Ley, respecto de dichas organizaciones auxiliares del crédito, casas de cambio y sociedades financieras de objeto múltiple reguladas, todas las facultades que en materia de inspección y vigilancia le confiere la Ley de Instituciones de Crédito para instituciones de banca múltiple, quien la llevará a cabo sujetándose a lo previsto en su ley, en el Reglamento respectivo y en las demás disposiciones que resulten aplicables. 
+                        <br/>En lo que respecta a las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero, la inspección y vigilancia de estas sociedades, se llevará a cabo por la mencionada Comisión, exclusivamente para verificar el cumplimiento de los preceptos a que se refiere el artículo 95 Bis de esta Ley y las disposiciones de carácter general que de éste deriven. 
+                        <br/>Las organizaciones auxiliares del crédito y casas de cambio deberán rendir a la Secretaría de Hacienda y Crédito Público y a la Comisión Nacional Bancaria y de Valores, en la forma y términos que al efecto establezcan, los informes, documentos y pruebas que sobre su organización, operaciones, contabilidad, inversiones o patrimonio les soliciten para fines de regulación, supervisión, control, inspección, vigilancia, estadística y demás funciones que, conforme a esta Ley u otras disposiciones legales y administrativas, les corresponda ejercer. 
+                    </p>
+                    <p>
+                        <span class="texto-bold">Artículo 87-E.-</span>En los contratos de arrendamiento financiero, factoraje financiero y crédito que celebren las sociedades financieras de objeto múltiple y en los que se pacte que el arrendatario, el factorado o el acreditado pueda disponer de la suma acreditada o del importe del préstamo en cantidades parciales o esté autorizado para efectuar reembolsos previos al vencimiento del término señalado en el contrato, el estado de cuenta certificado por el contador de la sociedad correspondiente hará fe, salvo prueba en contrario, en el juicio respectivo para la fijación del saldo resultante a cargo del deudor.
+                    </p>
+                    <p>
+                        <span class="texto-bold">Artículo 87-F.-</span>El contrato en que se haga constar el crédito, arrendamiento financiero o factoraje financiero que otorguen las sociedades financieras de objeto múltiple, siempre que dicho instrumento vaya acompañado de la certificación del estado de cuenta respectivo a que se refiere el artículo anterior, será título ejecutivo mercantil, sin necesidad de reconocimiento de firma ni de otro requisito alguno.
+                        <br/>Tratándose del factoraje financiero, además del contrato respectivo, las sociedades financieras de objeto múltiple deberán contar con los documentos que demuestren los derechos de crédito transmitidos por virtud de dicha operación, así como la notificación al deudor de dicha transmisión cuando ésta deba realizarse de acuerdo con las disposiciones aplicables.
+                        <br/>El estado de cuenta citado en el primer párrafo de este artículo deberá contener los datos sobre la identificación del contrato o convenio en donde conste el crédito, el factoraje financiero o el arrendamiento financiero que se haya otorgado; el capital inicial dispuesto o, en su caso, el importe de las rentas determinadas; el capital o, en su caso, las rentas vencidas no pagadas; el capital o, en su caso, las rentas pendientes por vencer; las tasas de interés del crédito o, en su caso, la variabilidad de la renta aplicable a las rentas determinables a cada período de pago; los intereses moratorios generados; la tasa de interés aplicable a intereses moratorios, y el importe de accesorios generados.                        
+                    </p>
+                    <p>
+                        <span class="texto-bold">Artículo 95 Bis.-</span>Las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero, en términos de las disposiciones de carácter general que emita la Secretaría de Hacienda y Crédito Público, con la previa opinión de la Comisión Nacional Bancaria y de Valores, estarán obligados, en adición a cumplir con las demás obligaciones que les resulten aplicables, a: 
+                        <br/><span class="texto-bold">I.</span> Establecer medidas y procedimientos para prevenir y detectar actos, omisiones u operaciones que pudieran favorecer, prestar ayuda, auxilio o cooperación de cualquier especie para la comisión de los delitos previstos en los artículos 139 ó 148 Bis del Código Penal Federal o que pudieran ubicarse en los supuestos del artículo 400 Bis del mismo Código; 
+                        <br/><span class="texto-bold">II.</span> Presentar a la Secretaría de Hacienda y Crédito Público, por conducto de la Comisión Nacional Bancaria y de Valores, reportes sobre: 
+                        <br/><span class="texto-bold">a.</span> Los actos, operaciones y servicios que realicen con sus clientes y usuarios, relativos a la fracción anterior, y 
+                        <br/><span class="texto-bold">b.</span> Todo acto, operación o servicio, que pudiesen ubicarse en el supuesto previsto en la fracción I de este artículo o que, en su caso, pudiesen contravenir o vulnerar la adecuada aplicación de las disposiciones señaladas en la misma, que realice o en el que intervenga algún miembro del consejo de administración, administrador, directivo, funcionario, empleados, factor y apoderado. 
+                        <br/><span class="texto-bold">III.</span> Registrar en su contabilidad cada una de las operaciones o actos que celebren con sus clientes o usuarios, así como de las operaciones que celebren con instituciones financieras. 
+                        <br/>Los reportes a que se refiere la fracción II de este artículo, de conformidad con las disposiciones de carácter general previstas en el mismo, se elaborarán y presentarán tomando en consideración, cuando menos, las modalidades que al efecto estén referidas en dichas disposiciones; las características que deban reunir los actos, operaciones y servicios a que se refiere este artículo para ser reportados, teniendo en cuenta sus montos, frecuencia y naturaleza, los instrumentos monetarios y financieros con que se realicen, y las prácticas comerciales que se observen en las plazas donde se efectúen; así como la periodicidad y los sistemas a través de los cuales habrá de transmitirse la información. Los reportes deberán referirse cuando menos a operaciones que se definan por las disposiciones de carácter general como relevantes, internas preocupantes e inusuales, las relacionadas con transferencias internacionales y operaciones en efectivo realizadas en moneda extranjera. 
+                        <br/>Asimismo, la Secretaría de Hacienda y Crédito Público, en las citadas disposiciones de carácter general, emitirá los lineamientos sobre el procedimiento y criterios que las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero deberán observar respecto de: 
+                        <br/><span class="texto-bold">a.</span> El adecuado conocimiento de sus clientes y usuarios, para lo cual aquéllas deberán considerar los antecedentes, condiciones específicas, actividad económica o profesional y las plazas en que operen; 
+                        <br/><span class="texto-bold">b.</span> La información y documentación que dichas sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero deban recabar para la celebración de las operaciones y servicios que ellas presten y que acrediten plenamente la identidad de sus clientes;
+                        <br/><span class="texto-bold">c.</span> La forma en que las mismas sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero deberán resguardar y garantizar la seguridad de la información y documentación relativas a la identificación de sus clientes y usuarios o quienes lo hayan sido, así como la de aquellos actos, operaciones y servicios reportados conforme al presente artículo;
+                        <br/><span class="texto-bold">d.</span> Los términos para proporcionar capacitación al interior de sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero sobre la materia objeto de este artículo. Las disposiciones de carácter general a que se refiere el presente artículo señalarán los términos para su debido cumplimiento;
+                        <br/><span class="texto-bold">e.</span> El uso de sistemas automatizados que coadyuven al cumplimiento de las medidas y procedimientos que se establezcan en las propias disposiciones de carácter general a que se refiere este artículo, y.
+                        <br/><span class="texto-bold">f.</span> El establecimiento de aquellas estructuras internas que deban funcionar como áreas de cumplimiento en la materia, al interior de cada sociedad financiera de objeto múltiple no regulada, centro cambiario y transmisor de dinero.
+                        <br/>Las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero, en términos de las disposiciones de carácter general previstas en el primer párrafo de este artículo, deberán conservar, por al menos diez años, la información y documentación a que se refiere el inciso c) del párrafo anterior, sin perjuicio de lo establecido en éste u otros ordenamientos aplicables.
+                        <br/>La Secretaría de Hacienda y Crédito Público estará facultada para requerir y recabar, por conducto de la Comisión Nacional Bancaria y de Valores, información y documentación relacionada con los actos, operaciones y servicios a que se refiere la fracción II de este artículo. Las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero estarán obligados a proporcionar dicha información y documentación.
+                        <br/>Las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero, deberán suspender de forma inmediata la realización de actos, operaciones o servicios con   los clientes o usuarios que la Secretaría de Hacienda y Crédito Público les informe mediante una lista de personas bloqueadas que tendrá el carácter de confidencial. La lista de personas bloqueadas tendrá la finalidad de prevenir y detectar actos, omisiones u operaciones que pudieran ubicarse en los supuestos previstos en los artículos referidos en la fracción I de este artículo.
+                        <br/>La obligación de suspensión a que se refiere el párrafo anterior dejará de surtir sus efectos cuando la Secretaria de Hacienda y Crédito Público elimine de la lista de personas bloqueadas al cliente o usuario
+                        en cuestión.
+                        <br/>La Secretaría de Hacienda y Crédito Público establecerá, en las disposiciones de carácter general a que se refiere este artículo, los parámetros para la determinación de la introducción o eliminación de personas en la lista de personas bloqueadas.
+                        <br/>El cumplimiento de las obligaciones señaladas en este artículo no implicará trasgresión alguna a la obligación de confidencialidad legal, ni constituirá violación a las restricciones sobre revelación de información establecidas por vía contractual.
+                        <br/>Las disposiciones de carácter general a que se refiere este artículo deberán ser observadas por las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero, así como por los miembros del consejo de administración, administradores, directivos, funcionarios, empleados, factores y apoderados respectivos, por lo cual, tanto las sociedades como las personas mencionadas serán responsables del estricto cumplimiento de las obligaciones que mediante
+                        dichas disposiciones se establezcan.
+                        <br/>La violación a las disposiciones a que se refiere este artículo será sancionada por la Comisión Nacional Bancaria y de Valores conforme al procedimiento previsto en el artículo 88 Bis de la presente Ley, con multa equivalente del diez por ciento al cien por ciento del monto del acto, operación o servicio que se realice con un cliente o usuario que se haya informado que se encuentra en la lista de personas bloqueadas a que se refiere este artículo; con multa equivalente del diez por ciento al cien por ciento de la operación inusual no reportada o, en su caso, de la serie de operaciones relacionadas entre sí del
+                        mismo cliente o usuario, que debieron haber sido reportadas como operaciones inusuales; tratándose de operaciones relevantes, internas preocupantes, las relacionadas con transferencias internacionales y operaciones en efectivo realizadas en moneda extranjera, no reportadas, así como los incumplimientos a cualquiera de los incisos a., b., c., e. y f. del tercer párrafo de este artículo, se sancionará con multa de 10,000 a 100,000 días de salario y en los demás casos de incumplimiento a este precepto y a las disposiciones que de él emanen multa de 2,000 a 30,000 días de salario.
+                        <br/>Las mencionadas sanciones podrán ser impuestas a las sociedades financieras de objeto múltiple no reguladas, los centros cambiarios y los transmisores de dinero, así como a sus miembros del consejo de administración, administradores, directivos, funcionarios, empleados, factores y apoderados respectivos, así como a las personas físicas y morales que, en razón de sus actos, hayan ocasionado o intervenido para que dichas entidades financieras incurran en la irregularidad o resulten responsables de la misma.
+                        <br/>La Comisión Nacional Bancaria y de Valores tendrá la facultad de supervisar, vigilar e inspeccionar el cumplimiento y observancia de lo dispuesto por este artículo, así como por las disposiciones de carácter
+                        general que emita la Secretaría de Hacienda y Crédito Público en términos del mismo. 
+                        <br/>Asimismo, la Comisión Nacional Bancaria y de Valores podrá ordenar a las instituciones de crédito, casas de bolsa y casas de cambio con las que operen los centros cambiarios y los transmisores de dinero, que suspendan o cancelen los contratos que tengan celebrados con dichas personas y se abstengan de realizar nuevas operaciones, cuando presuma que se encuentran violando lo previsto en
+                        este artículo o las disposiciones de carácter general que de éste emanen.
+                        <br/>Los servidores públicos de la Secretaría de Hacienda y Crédito Público y de la Comisión Nacional Bancaria y de Valores, los centros cambiarios, las sociedades financieras de objeto múltiple no reguladas y los transmisores de dinero, sus miembros del consejo de administración, administradores, directivos, funcionarios, empleados, factores y apoderados, deberán abstenerse de dar noticia de los reportes y demás documentación e información a que se refiere este artículo, a personas o autoridades distintas a las facultadas expresamente en los ordenamientos relativos para requerir, recibir o conservar tal documentación e información. La violación a estas obligaciones será sancionada en los términos de las leyes correspondientes.                        
+                    </p>
+                </div>
+                <div class="clear space-blank"></div>
+                <div class="large-12 columns celda">
+                    <h5>CÓDIGO CIVIL FEDERAL</h5>
+                    <p><span class="texto-bold">Artículo 1803.- </span>El consentimiento puede ser expreso o tácito, para ello se estará a lo siguiente:
+                        <br/>I.- Será expreso cuando la voluntad se manifiesta verbalmente, por escrito, por medios electrónicos, ópticos o por cualquier otra tecnología, o por signos inequívocos, y
+                        <br/>II.- El tácito resultará de hechos o de actos que lo presupongan o que autoricen a presumirlo, excepto en los casos en que por ley o por convenio la voluntad deba manifestarse expresamente.”                        
+                    </p>
+                </div>
+                <div class="large-12 columns celda">
+                    <h5>CÓDIGO PENAL FEDERAL</h5>
+                    <p><span class="texto-bold">Artículo 139.-  </span>Se impondrá pena de prisión de seis a cuarenta años y hasta mil doscientos días multa, sin perjuicio de las penas que correspondan por los delitos que resulten, al que utilizando sustancias tóxicas, armas químicas, biológicas o similares, material radioactivo o instrumentos que emitan radiaciones, explosivos o armas de fuego, o por incendio, inundación o por cualquier otro medio violento, realice actos en contra de las personas, las cosas o servicios públicos, que produzcan alarma, temor o terror en la población o en un grupo o sector de ella, para atentar contra la seguridad nacional o presionar a la autoridad para que tome una determinación.
+                        <br/>La misma sanción se impondrá al que directa o indirectamente financie, aporte o recaude fondos económicos o recursos de cualquier naturaleza, con conocimiento de que serán utilizados, en todo o en parte, en apoyo de personas u organizaciones que operen o cometan actos terroristas en el territorio nacional.                        
+                    </p>
+                    <p><span class="texto-bold">Artículo 148 Bis.- </span>Se impondrá pena de prisión de quince a cuarenta años y de cuatrocientos a mil doscientos días multa, sin perjuicio de las penas que correspondan por los delitos que resulten:
+                        <br/>I) A quien utilizando sustancias tóxicas, armas químicas, biológicas o similares, material radioactivo o instrumentos que emitan radiaciones, explosivos o armas de fuego, o por incendio, inundación o por cualquier otro medio violento, realice en territorio mexicano, actos en contra de bienes o personas de un Estado extranjero, o de cualquier organismo u organización internacionales, que produzcan alarma, temor o terror en la población o en un grupo o sector de ella, para tratar de menoscabar la autoridad de ese estado extranjero, u obligar a éste o a un organismo u organización internacionales para que tomen una determinación.
+                        <br/>II) Al que directa o indirectamente financie, aporte o recaude fondos económicos o recursos de cualquier naturaleza, con conocimiento de que serán utilizados, en todo o en parte, para cometer actos terroristas internacionales, o en apoyo de personas u organizaciones terroristas que operen en el extranjero, y
+                        <br/>III) Al que acuerde o prepare en territorio mexicano un acto terrorista que se pretenda cometer o se haya cometido en el extranjero.                        
+                    </p>
+                    <p><span class="texto-bold">Artículo 400 Bis.- </span>Se impondrá de cinco a quince años de prisión y de mil a cinco mil días multa al que por sí o por interpósita persona realice cualquiera de las siguientes conductas: adquiera, enajene, administre, custodie, cambie, deposite, dé en garantía, invierta, transporte o transfiera, dentro del territorio nacional, de éste hacia el extranjero o a la inversa, recursos, derechos o bienes de cualquier naturaleza, con conocimiento de que proceden o representan el producto de una actividad ilícita, con alguno de los siguientes propósitos: ocultar o pretender ocultar, encubrir o impedir conocer el origen, localización, destino o propiedad de dichos recursos, derechos o bienes, o alentar alguna actividad ilícita.
+                        <br/>La misma pena se aplicará a los empleados y funcionarios de las instituciones que integran el sistema financiero, que dolosamente presten ayuda o auxilien a otro para la comisión de las conductas previstas en el párrafo anterior, sin perjuicio de los procedimientos y sanciones que correspondan conforme a la legislación financiera vigente.
+                        <br/>La pena prevista en el primer párrafo será aumentada en una mitad, cuando la conducta ilícita se cometa por servidores públicos encargados de prevenir, denunciar, investigar o juzgar la comisión de delitos. En este caso, se impondrá a dichos servidores públicos, además, inhabilitación para desempeñar empleo, cargo o comisión públicos hasta por un tiempo igual al de la pena de prisión impuesta.
+                        <br/>En caso de conductas previstas en este artículo, en las que se utilicen servicios de instituciones que integran el sistema financiero, para proceder penalmente se requerirá la denuncia previa de la Secretaría de Hacienda y Crédito Público.
+                        <br/>Cuando dicha Secretaría, en ejercicio de sus facultades de fiscalización, encuentre elementos que permitan presumir la comisión de los delitos referidos en el párrafo anterior, deberá ejercer respecto de los mismos las facultades de comprobación que le confieren las leyes y, en su caso, denunciar hechos que probablemente puedan constituir dicho ilícito.
+                        <br/>Para efectos de este artículo se entiende que son producto de una actividad ilícita, los recursos, derechos o bienes de cualquier naturaleza, cuando existan indicios fundados o certeza de que provienen directa o indirectamente, o representan las ganancias derivadas de la comisión de algún delito y no pueda acreditarse su legítima procedencia.
+                        <br/>Para los mismos efectos, el sistema financiero se encuentra integrado por las instituciones de crédito, de seguros y de fianzas, almacenes generales de depósito, arrendadoras financieras, sociedades de ahorro y préstamo, sociedades financieras de objeto limitado, uniones de crédito, empresas de factoraje financiero, casas de bolsa y otros intermediarios bursátiles, casas de cambio, administradoras de fondos de retiro y cualquier otro intermediario financiero o cambiario.                        
+                    </p>
+                </div>
+                
+
+				</div>
+            </div>
+            <!-- termina el contrato -->
+        </div>
+        <div class="space-blank diez"></div>
+        <div class="center">
+            <button class="button" ng-click="firmar()">Firma Electrónica</button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,17 @@
+<div class="dialogCuerpo">
+    <div class="small-10 medium-8 large-8 small-centered" ng-show="isFBSelected">
+        <pre>{{response | json}} </pre>
+    </div>
+	<button class="button facebook" ng-click="FBLogin()" style="display: none;">
+	    <i class="fa fa-facebook"></i>
+	    Iniciar sesión con Facebook
+    </button>
+	<br />
+	<a ui-sref="login" ng-click="closeThisDialog()" class="button">Prefiero iniciar sesión con correo electrónico</a>
+</div>
+<div class="margin-top-bottom separador-orion"></div>
+<div class="dialogFooter small-12 medium-10 large-11 small-centered">
+	<label class="float-left">¿No tienes cuenta?</label>
+	<button class="button float-right" ui-sref="datos" ng-click="closeThisDialog()">Registrate</button>
+	<div class="clear"></div>
+</div>

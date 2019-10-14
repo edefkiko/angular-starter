@@ -1,0 +1,204 @@
+<div class="space-blank cuarenta"></div>
+<section class="row">
+    <h3 class="texto-anaranjado-dark text-center">Registro</h3>
+    <br />
+    <div class="small-10 medium-10 large-6 small-centered text-center">
+        <p>¡Bienvenido a ORION FINTECH! Registrate para continuar con tu solicitud de préstamo.</p>
+    </div>
+</section>
+<div class="margin-top-bottom separador-orion"></div>
+<section class="row">
+    <div class="margin-top-5 center columns callout secondary large-6 large-centered">
+        <p class="indicacionRequeridos text-center">Los campos marcados con asterisco<span class="texto-bold"> *</span> son obligatorios</p>
+    </div>
+    <div class="clear space-blank "></div>
+    <form name="formularioDatos" ng-submit="crear()" novalidate>
+    <div class="wow fadeIn">
+        <div class="input-field small-12 medium-3 large-2 medium-offset-3 large-offset-4 columns">
+            <input stopccp ng-class="{'invalid':formularioDatos.nombre.$invalid && formularioDatos.nombre.$dirty && visitedNombre}" id="nombre" name="nombre" type="text" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$" ng-model="cliente.firstName" maxlength="30" required ng-blur="visitedNombre = true">
+            <label for="nombre" ng-class="{'active': activedNombre}">Nombre*</label>
+        </div>
+        <!-- input del segundo nombre -->
+        <div class="input-field small-12 medium-3 large-2 columns">
+            <input stopccp id="segundoNombre" name="segundoNombre" type="text" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$" ng-model="cliente.middleName" maxlength="30" ng-class="{'invalid':formularioDatos.segundoNombre.$invalid && formularioDatos.segundoNombre.$dirty && visitedSegundoNombre}" ng-blur="visitedSegundoNombre = true">
+            <label for="segundoNombre">Segundo nombre</label>
+        </div>
+        <!-- input de apellido paterno -->
+        <div class="input-field small-12 medium-3 large-2 medium-offset-3 large-offset-4 columns">
+            <input stopccp ng-class="{'invalid':formularioDatos.apellidoPaterno.$invalid && formularioDatos.apellidoPaterno.$dirty && visitedApellidoPaterno}" id="apellidoPaterno" name="apellidoPaterno" type="text" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$" ng-model="formData.aPaterno" maxlength="30" ng-blur="visitedApellidoPaterno = true" required>
+            <label for="apellidoPaterno" ng-class="{'active': activedLastName}">Primer Apellido*</label>
+        </div>
+        <!-- input de apellido materno -->
+        <div class="input-field small-12 medium-3 large-2 columns">
+            <input stopccp id="apellidoMaterno" name="apellidoMaterno" type="text" ng-class="{'invalid':formularioDatos.apellidoMaterno.$invalid && formularioDatos.apellidoMaterno.$dirty && visitedApellidoMaterno}" ng-blur="visitedApellidoMaterno = true" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$" ng-model="formData.aMaterno" required maxlength="30">
+            <label for="apellidoMaterno">Segundo Apellido*</label>
+        </div>
+        <!-- correo electronico -->
+        <div class="has-tip right input-field con-mensaje small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" data-disable-for-touch="true" title="Recuerda que tu correo electrónico será tu usuario Yei!">
+            <input stopccp ng-class="{'invalid':formularioDatos.email.$invalid && formularioDatos.email.$dirty && visitedEmail}" ng-pattern="emailFormat" id="email" name="email" type="email" maxlength="80" ng-model="cliente.email" ng-blur="visitedEmail = true" required/>
+            <label for="email" ng-class="{'active': activedEmail}">Correo electrónico* (Será tu usuario ORION)</label>
+            <!-- <span data-tooltip aria-haspopup="true" class="has-tip right posfix" data-disable-hover="false" tabindex="3" title="Recuerda que tu correo electrónico será tu usuario Yei! para iniciar sesión"><i class="material-icons">help_outline</i></span> -->
+            <span class="mensaje" ng-show="formularioDatos.email.$touched == true && formularioDatos.email.$valid === false">email no valido</span>
+            <span class="mensaje" ng-show="cliente.emailDuplicated">email duplicado</span>
+            <!-- $touched":false," -->
+        </div>
+        <!-- input de contraseña -->
+        <div class="input-field contrasena con-mensaje small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns has-tip right" data-tooltip aria-haspopup="true" data-disable-hover="false" data-click-open="false" tabindex="3" title="Crea una contraseña yei! para iniciar sesión en tu cuenta">
+            <input stopccp ng-class="{'invalid':formularioDatos.password.$invalid && formularioDatos.password.$dirty && visitedPassword}" type="{{inputType}}" id="password" name="password" minlength="8" maxlength="30" autocomplete="off" ng-model="formData.password" required ng-pattern="passwordFormat" ng-blur="visitedPassword = true" />
+            <label for="password">Crea tu contraseña ORION FINTECH*</label>
+            <span class="posfix" data-disable-hover="false" tabindex="3" title=""><i ng-show="typePassword" class="fa fa-eye" ng-click="hideShowPassword()"></i><i ng-show="typeText" class="fa fa-eye-slash" ng-click="hideShowPassword()"></i></span>
+            <div class="mensaje" ng-show="formularioDatos.password.$touched == true && formularioDatos.password.$valid === false"> Entre 8 y 30 caracteres, 1 mayúscula, 1 minúscula y 1 número
+
+            </div>
+            <a ng-click="abrirParaQueSirve()">¿Para que sirve?</a>
+        </div>
+
+        <div class="clear"></div>
+        </div>
+        <div class="margin-top-bottom separador-orion"></div>
+        <div class="wow fadeIn">
+        <div class="input-field con-mensaje small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns has-tip right" data-tooltip aria-haspopup="true" data-disable-hover="false" data-click-open="false" data-disable-for-touch="true" tabindex="3" title="Puedes encontrar tu curp en la parte frontal de tu INE / IFE">
+            <input stopccp id="curp" type="text" name="curp" ng-pattern="curpFormat" style="text-transform:uppercase" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9]*$" ng-model="cliente.curp" required minlength="18" maxlength="18">
+            <label for="curp" ng-class="{ 'active': validCURP==true}">CURP*</label>
+            <!-- <span data-tooltip aria-haspopup="true" class="has-tip right posfix" data-disable-hover="false" tabindex="3" title="Puedes encontrar tu curp en la parte frontal de tu INE / IFE"><i class="material-icons">help_outline</i></span> -->
+            <span class="mensaje" ng-show="formularioDatos.curp.$touched == true && formularioDatos.curp.$valid === false">El Formato del CURP es inválido.</span>
+            <span class="mensaje" ng-show="curpDiferente">El CURP no coincide con el nombre.</span>
+            <div class="space-blank" ng-show="diaNacimientoDiferente || mesNacimientoDiferente || anoNacimientoDiferente"></div>
+            <span class="mensaje" ng-show="diaNacimientoDiferente || mesNacimientoDiferente || anoNacimientoDiferente">El CURP no coincide con la fecha introducida.</span>
+            <div class="space-blank" ng-show="generoDiferente"></div>
+            <div class="space-blank" ng-show="generoDiferente"></div>
+            <span class="mensaje" ng-show="generoDiferente">El CURP no coincide con el genero introducido.</span>
+            <div class="space-blank" ng-show="estadoDiferente"></div>
+            <div class="space-blank" ng-show="estadoDiferente"></div>
+            <span class="mensaje" ng-show="estadoDiferente">El CURP no coincide con el estado introducido.</span>
+        </div>
+        <div class="input-field small-12 medium-6 large-4 columns medium-offset-3 large-offset-4">
+            <select class="browser-default" ng-model="cliente.lugarNac" name="born" ng-options="itemEstado as itemEstado for itemEstado in estados.values">
+
+            </select>
+            <label>Lugar de nacimiento*</label>
+        </div>
+        <!-- input de fecha nacimiento -->
+        <div class="variosInputs con-mensaje small-12 medium-6 large-4 columns medium-offset-3 large-offset-4">
+            <label class="literalForm small-12 columns padding-0">Fecha de nacimiento*</label>
+            <div class="input-field small-3 medium-2 large-2 columns padding-0">
+                <input stopccp id="diaNacimiento" type="number" name="diaNacimiento" ng-model="formData.diaNacimiento" ng-min="minDia" ng-max="maxDia" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" maxlength="2" ng-maxlength="2" min="{{minDia}}" max="{{maxDia}}" required>
+            </div>
+            <div class="input-field small-6 medium-7 large-7 columns">
+                <select class="browser-default" ng-class="{ 'invalid':formularioDatos.mes.$invalid && formularioDatos.mes.$dirty || mesNacimientoDiferente}" ng-model="formData.opcionMes" name="mes" ng-options="mes.id as mes.name for mes in meses" required>
+
+                </select>
+            </div>
+            <div class="input-field small-3 medium-3 large-3 columns padding-0">
+                <input stopccp id="anioNacimiento" type="number" ng-class="{ 'focus.invalid' : edadInvalida==true, 'invalid' : edadInvalida==true || anoNacimientoDiferente}" name="anoNacimiento" ng-model="formData.anioNacimiento" maxlength="4" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" min="{{minYear}}" required>
+                <!-- {{edadValida}} -->
+                <!-- <span class="mensaje" ng-if="edadValida">Fuera del rango permitido.</span> -->
+            </div>
+            <span class="mensaje" ng-show="edadInvalida">Rango de edad no valido.</span>
+        </div>
+
+        <!-- input de sexo -->
+        <div class="small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns margin-bottom-mitad">
+            <label class="literalForm small-12 columns padding-0">Género*</label>
+            <div class="float-left padding-row-right">
+                <input type="radio" value="{{sexo.values[0]}}" id="h" name="genero" ng-model="cliente.gender" required/>
+                <label for="h">Masculino</label>
+            </div>
+            <div class="float-left padding-row-left">
+                <input type="radio" value="{{sexo.values[1]}}" id="m" name="genero" ng-model="cliente.gender" required/>
+                <label for="m">Femenino</label>
+            </div>
+        </div>
+
+        <div class="input-field con-mensaje small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns has-tip right">
+            <input stopccp id="rfc" type="text" name="rfc" ng-pattern="rfcFormat" style="text-transform:uppercase" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9]*$" ng-model="cliente.rfc" minlength="13" maxlength="13">
+            <label for="rfc" ng-class="{ 'active': validClientCurp && formularioDatos.rfc.$valid === true || formularioDatos.rfc.$dirty == true}">RFC</label>
+            <!-- <span data-tooltip aria-haspopup="true" class="has-tip right posfix" data-disable-hover="false" tabindex="3" title="Puedes encontrar tu curp en la parte frontal de tu INE / IFE"><i class="material-icons">help_outline</i></span> -->
+            <span class="mensaje" ng-show="formularioDatos.rfc.$touched == true && formularioDatos.rfc.$valid === false">El Formato del RFC es inválido</span>
+        </div>
+        <div class="input-field small-12 medium-6 large-4 columns medium-offset-3 large-offset-4">
+            <select class="browser-default" name="nacionalidad" required>
+                <option value="México" selected="selected">México</option>
+            </select>
+            <label for="nacionalidad">Pais de Nacionalidad*</label>
+        </div>
+        <div class="input-field small-12 medium-6 large-4 columns medium-offset-3 large-offset-4">
+            <select class="browser-default" name="paisOrigen" required>
+                <option value="México" selected="selected">México</option>
+            </select>
+            <label for="paisOrigen">Pais de Nacimiento*</label>
+        </div>
+        <!-- input estado civil -->
+        <div class="input-field small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns">
+            <select class="browser-default" ng-model="cliente.estadoCivil" name="estadoCivil" ng-options="estadoC as estadoC for estadoC in estadoCivil.values" required>
+
+            </select>
+            <label>Estado Civil*</label>
+        </div>
+        <!-- input nivel de estudios -->
+        <div class="input-field small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns">
+            <select class="browser-default" ng-model="cliente.nivelEstudios" name="nivelEstudios" ng-options="nivel as nivel for nivel in nivelEstudios.values" required>
+
+            </select>
+            <label>Máximo nivel de estudios*</label>
+        </div>
+
+        <!-- correo electronico alternativo -->
+        <div class="input-field small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns">
+            <input stopccp ng-class="{ 'invalid':formularioDatos.emailOpcional.$invalid && formularioDatos.emailOpcional.$dirty && visitedEmailOpcional || correoDiferente}" id="email_alternativo" name="emailOpcional" type="email" ng-model="cliente.emailOpcional" ng-blur="visitedEmailOpcional=true" ng-pattern="emailFormat" maxlength="80" />
+            <label for="email_alternativo">Correo electrónico alternativo (Opcional)</label>
+            <span class="mensaje" ng-show="correoDiferente">El correo alternativo debe ser diferente al principal.</span>
+        </div>
+        <!-- input de num Celular -->
+        <div class="input-field small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns">
+            <input stopccp placeholder="los 10 digitos de tu celular" ng-class="{ 'invalid':formularioDatos.telCelular.$invalid && formularioDatos.telCelular.$dirty && visitedTelCelular}" id="telCel" type="text" name="telCelular" replace="[^0-9]" ng-model="cliente.mobilePhone1" ng-pattern="textTelephone" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" maxlength="10" ng-blur="visitedTelCelular=true" required>
+            <label class="active" for="telCel">Teléfono celular*</label>
+        </div>
+        <!-- input de num Domicilio -->
+        <div class="input-field small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns">
+            <input stopccp ng-class="{ 'invalid':formularioDatos.segundoTelefono.$invalid && formularioDatos.segundoTelefono.$dirty && visitedTelDomicilio || telefonoDiferente}" id="telDom" type="text" name="segundoTelefono" replace="[^0-9]" ng-pattern="textTelephone" ng-model="cliente.homePhone" onkeypress="return isNumeric(event)" oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10" ng-blur="visitedTelDomicilio=true">
+            <label for="telDom">Teléfono alternativo (Opcional)</label>
+            <span class="mensaje" ng-show="telefonoDiferente">El Teléfono alternativo debe ser diferente al principal.</span>
+        </div>
+
+        <div class="clear"></div>
+        </div>
+        <div class="margin-top-bottom separador-orion"></div>
+        <div class="wow fadeIn"></div>
+        <!-- input nosotros -->
+        <div class="input-field small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns">
+            <select class="browser-default" ng-model="cliente.adquisicion" name="nosotros" ng-options="itemAdquisicion as itemAdquisicion for itemAdquisicion in adquisicion.values" required>
+
+            </select>
+            <label>¿Como te enteraste de nosotros?*</label>
+        </div>
+        <!-- input codigo promocion -->
+        <div class="input-field small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns">
+            <input stopccp id="promocion" type="text" class="validate" ng-model="cliente.codigoPromocion" maxlength="15">
+            <label for="promocion">Código de Promoción</label>
+        </div>
+        <!-- capcha -->
+        <div class="small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns margin-top-bottom">
+            <div class="captchaYei" vc-recaptcha theme=" 'light' " key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()" name="captcha" required="!isMobileApp" ng-hide="isMobileApp"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="row">
+        <!-- check aviso de privacidad -->
+        <div class="small-10 medium-6 large-7 medium-offset-3 small-offset-1 text-left texto-gris" ng-hide="mostrarBoton">
+                <input class="filled-in checkDocs" type="checkbox" id="checkbox1" ng-model="cliente.aceptoAvisoPrivacidad" required/>
+                <label for="checkbox1">He leído y manifiesto mi expresa conformidad con el &nbsp<a ng-click="abrirPolitica()"> Aviso de Privacidad</a></label>
+        </div>
+       <!-- datos personales -->
+        <div class="small-10 medium-6 large-7 medium-offset-3 small-offset-1 text-left texto-gris margin-top-bottom" ng-hide="mostrarBoton">
+            <input class="filled-in checkDocs" type="checkbox" id="checkbox2" ng-model="cliente.aceptoProporcionarDatos"/>
+            <label for="checkbox2">Acepto que mis datos personales sean utilizados para los fines no necesarios de mi relación jurídica con ORION FINTECH S.A. de C.V., SOFOM, E.N.R. mencionados en su Aviso de Privacidad.</label>
+        </div>
+    </div>
+        <!-- boton siguiente -->
+        <div class="center columns">
+            <button type="submit" class="button large" ng-disabled="formularioDatos.$invalid || dataloading || diaNacimientoDiferente || mesNacimientoDiferente || anoNacimientoDiferente || generoDiferente || estadoDiferente || telefonoDiferente || correoDiferente || edadInvalida || !cliente.aceptoAvisoPrivacidad">Registrame <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+        </div>
+        </div>
+    </form>
+</section>
+<div class="space-blank veinte"></div>

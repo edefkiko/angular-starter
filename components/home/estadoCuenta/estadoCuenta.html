@@ -1,0 +1,44 @@
+<section class="small-12 medium-9 large-9 columns">
+    <div class="tabEstado text-center">
+        <div class="text-center cuerpo">
+            <h5 class="texto-normal texto-negro">
+            A través de tu estado de cuenta podrás visualizar los pagos que has realizado
+        </h5>
+            <p>Por tu seguridad, para generar tu Estado de cuenta, introduce tu contraseña ORION FINTECH</p>
+            <form name="loginForm" ng-submit="validPassword( credentials )" method="post" ng-show="!content" class="small-10 medium-8 large-4 small-offset-1 medium-offset-2 large-offset-4" ng-show="!tieneAutorizacion">
+                <div class="callout alert" ng-show="invalido">
+                    <div class="alert">
+                        {{mensaje}}
+                    </div>
+                </div>
+                 <div class="callout alert" ng-show="invalidPDF">
+                    <div class="alert">
+                        {{mensajePDF}}
+                    </div>
+                </div>
+                <div class="input-field">
+                    <div class="input-field">
+                        <input id="password" name="password" type="password" ng-model="credentials.password" maxlength="30" required>
+                        <label for="password">Contraseña*</label>
+                        <span class="posfix"><img src="assets/img/logoOrionNaranja.png"></span>
+                        <div class="space-blank"></div>
+                    </div>
+                </div>
+                <div class="space-blank"></div>
+                <div class="">
+                    <button class="button large-10" type="submit" ng-disabled="loginForm.$invalid || dataloading">Generar <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+                </div>
+            </form>
+            <div class="space-blank"></div>
+            <div ng-show="descargado">
+                <embed ng-src="{{content}}" style="width:100%;height:500px;">
+            </div>
+
+            <div class="space-blank veinte"></div>
+        </div>
+    </div>
+</section>
+<section class="small-12 medium-3 large-3 column hide-for-small-only">
+    <payments pagos-realizados="payments.pagosRealizados" pagos-pendientes="payments.pagosPendientes" pagos-parciales="payments.pagosParciales" pagos-tardios="payments.pagosVencidos" desplegar-realizados="payments.desplegarRealizados" desplegar-transacciones="payments.desplegarTransacciones" transacciones-realizadas="payments.transaccionesRealizadas"  
+     desplegar-pendientes="payments.desplegarPendientes" desplegar-parciales="payments.desplegarParciales"  desplegar-tardios="payments.desplegarTardios"></payments> 
+</section>

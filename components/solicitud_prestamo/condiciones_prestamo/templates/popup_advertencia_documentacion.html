@@ -1,0 +1,15 @@
+<div class="ngdialog-message">
+  <h5>Te recomendamos tener a la mano</h5><br>
+  	<div style="display: inline-block;" ng-show="mostrarDocumentacion == 'Prospecto' || mostrarDocumentacion == 'Desertor'">
+  		<h6>INE/IFE</h6>
+  	</div>
+  	
+  	<div style="display: inline-block;" ng-show="mostrarDocumentacion == 'Prospecto'">
+  		<h6>Comprobante de domicilio</h6><br>
+  		(máx. 3 meses de antigüedad)<br>
+  	</div>
+  	<br>
+    <div class="large-12">
+      <button class="button large-10" type="button" ng-click="closeThisDialog()">Entendido</button> 
+    </div>
+  </div>

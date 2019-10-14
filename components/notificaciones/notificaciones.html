@@ -1,0 +1,47 @@
+<div class="space-blank cuarenta"></div>
+<section class="row">
+    <div class="small-12 medium-9 large-9 column">
+        <div class="tabsAnchor">
+            <a class="tabActivo unico">Historial de notificaciones</a>
+        </div>
+    </div>
+    <section class="tabsYei">
+        <div class="small-12 medium-9 large-9 column">
+            <div class="tabHistoricoNotificaciones">
+                <ul>
+                    <li ng-repeat="notificacion in notificaciones | startFromGrid: currentPage * pageSize | limitTo: pageSize"">
+                        <a class="historialNotificaciones" ng-class="{'leida': notificacion.fechaLectura != null}" ui-sref="notificacionDetalle({id:notificacion.idNotificacion})">
+                            <span class="fecha">{{notificacion.fechaAlta | date:'dd/MM/yyyy'}}</span>
+                            <span class="descripcion">{{notificacion.texto}}</span>
+                            <div class="clear"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="right paginador">
+                    <!-- Navegar hacia atrás -->
+                    <button class="button sinFondo extremos" type='button' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1; goToTop()'><i class="material-icons">keyboard_arrow_left</i></button>
+
+                    <!-- Navegar a una página especifica-->
+                    <button class="button sinFondo" type='button' ng-disabled='currentPage == page.no - 1' ng-click='setPage(page.no); goToTop()' ng-repeat='page in pages'>{{page.no}}</button>
+
+                    <!-- Navegar hacia adelante -->
+                    <button class="button sinFondo extremos" type='button' ng-disabled='currentPage >= notificaciones.length/pageSize - 1' ng-click='currentPage = currentPage + 1; goToTop()'><i class="material-icons">keyboard_arrow_right</i></button>
+                </div>
+                <div class="space-blank diez"></div>
+            </div>
+        </div>
+        <section class="small-12 medium-3 large-3 column">
+            <div class="contenedorPublicidad show-for-medium">
+                <div class="ads">
+                    <img src="assets/img/publicidad.png" />
+                    <div class="background-amarilloverdoso">
+                        <a><img class="float-left" src="assets/img/APPLE_STORE.png" style="width: 120px;" /></a>
+                        <a><img class="" src="assets/img/GOOGLE_STORE.png" style="width: 120px;" /></a>
+                    </div>
+                </div>
+                <!-- <div class="ads">
+                <p>Publicidad</p>
+            </div> -->
+            </div>
+        </section>
+    </section>

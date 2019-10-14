@@ -1,0 +1,33 @@
+<!-- contenedorVistas.html -->
+<div class="space-blank veinte"></div>
+<div class="row" ng-controller="prestamoController">
+    <h3 class="texto-anaranjado-dark text-center">Solicitud de Préstamo</h3>
+    <div class="space-blank treinta"></div>
+    <!-- Agrega la clase activo si el estado coincide con su propio link ui-sref -->
+    <div id="contenedorBotones" class="">
+        <div class="w3-progress-container">
+            <div id="miBarra" class="w3-progressbar"></div>
+        </div>
+        <div class="indicadores">
+            <a id="paso1" class="activo"><span>1</span>Queremos conocerte</a>
+            <a class="paso1Intermedio" id="paso1Intermedio"></a>
+            <a id="paso2"><span>2</span>Verifica tu préstamo</a>
+            <a class="paso2Intermedio" id="paso2Intermedio"></a>
+            <a id="paso3"><span>3</span>Envía tus datos</a>
+        </div>
+    </div>
+    <div class="space-blank diez"></div>
+</div>
+
+
+
+<div class="space-blank cuarenta"></div>
+<section class="">
+    <div class="margin-top-bottom separador-orion"></div>
+    <!-- Todas las vistas serán inyectadas aquí -->
+    <div class="" id="contenedorVistas" ui-view></div>
+</section>
+
+<script type="text/javascript">
+    ga('set', 'contentGroup2', 'Contratacion');
+</script>

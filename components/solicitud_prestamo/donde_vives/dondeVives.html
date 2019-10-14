@@ -1,0 +1,95 @@
+<section class="row" ng-init="setStatusView({statusView:'paso1'})">
+    <!--<p>Para iniciar el proceso de aceptación de tu préstamo, es necesario que nos des algunos datos y realices algunas pruebas en línea. Esto te tomará aproximadamnete 30 minutos, y es muy importante que llenes los formularios con mucho cuidado, ya que de ell depende la aceptación del préstamo.</p>-->
+    <!-- <div class="medium-8 column medium-centered center"> -->
+    <h3 class="text-center">¿Donde vives?</h3>
+    <div class="margin-top-5 center columns callout secondary large-6 large-centered">
+        <p class="indicacionRequeridos text-center">Los campos marcados con asterisco<span class="texto-bold"> *</span> son obligatorios</p>
+    </div>
+    <div class="space-blank"></div>
+    <form name="formDomicilioCliente" ng-submit="guardar(domicilio)">
+        
+        <div class="input-field small-12 medium-7 large-5 medium-centered large-centered columns">
+            <input stopccp id="calle" name="calle" ng-model="domicilio.calle" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9.-]*$" replace="[^a-zA-ZñÑáéíóúÁÉÍÓÚ,0-9 ]" with="" type="text" class="validate" maxlength="100" required>
+            <label for="calle" ng-class="{'active': activedDesertor}">Calle*</label>
+        </div>
+        <div class="small-12 medium-7 large-5 medium-centered large-centered">
+            <div class="input-field small-12 medium-3 large-3 columns">
+                <input stopccp id="ext" name="numExt" replace="[^a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9.-]*$" with="" type="text" class="validate" maxlength="5" ng-model="domicilio.numExt" required>
+                <label for="ext" ng-class="{'active': activedDesertor}">Exterior *</label>
+            </div>
+            <div class="input-field small-12 medium-2 large-2 columns columnExtended">
+                <input stopccp id="numInt" name="numInt" ng-model="domicilio.numInt" replace="[^a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9.-]*$" with="" type="text" class="validate" maxlength="5">
+                <label for="numInt" ng-class="{'active': activedDesertorNumInt}">Interior</label>
+            </div>
+
+            <div class="input-field small-12 medium-3 large-3 columns">
+                <input stopccp id="numDepto" name="numDepto" ng-model="domicilio.numDepto" ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9.-]*$" replace="[^a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]" with="" type="text" class="validate" maxlength="5">
+
+                <label for="numDepto" ng-class="{'active': activedDesertorDepaClientes}">Departamento</label>
+            </div>
+            <div class="has-tip right input-field small-12 medium-4 large-4 columns" data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Ingresa tu Código Postal para autocompletar tu domicilio">
+                <input id="codigoPostal" name="codigoPostal" ng-model="domicilio.codigoPostal" replace="[^0-9]" with="" type="text" maxlength="5" minlength="5" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" ng-pattern-restrict="^[0-9]*$" class="validate" ng-class="{'invalid':codigoPostalInvalido}" required ng-change="cambiarEstado()">
+                <label for="codigoPostal" ng-class="{'active': activedDesertor}">Código Postal*</label>
+                <div class="mensaje" ng-show="codigoPostalInvalido">Código postal Invalido</div>
+                <!-- <span data-tooltip aria-haspopup="true" class="has-tip right posfix" data-disable-hover="false" tabindex="3" title="Ingresa tu Código Postal para autocompletar tu domicilio"><i class="material-icons">help_outline</i></span> -->
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div ng-show="mostrarColonia" class="input-field con-mensaje small-12 medium-7 large-5 medium-centered large-centered columns">
+            <select ng-model="domicilio.dataColonias.coloniaSeleccionada" name="colonia" ng-options="option.descOpcion for option in domicilio.dataColonias.opcionesColonia track by option.idOpcion" class="browser-default" required>
+            
+            </select>
+            <label>Colonia*</label>
+           <!--  <div ng-show="formDomicilioCliente.colonia.$error">
+                <div class="mensaje" ng-show="formDomicilioCliente.colonia.$error.required">Necesitas seleccionar un valor</div>
+            </div> -->
+        </div>
+        <div class="space-blank veinte"></div>
+        <div ng-show="mostrarMunicipio" class="input-field con-mensaje small-12 medium-7 large-5 medium-centered large-centered columns">
+            <select ng-model="domicilio.dataMunicipios.municipioSeleccionada" name="municipio" ng-options="option.descOpcion for option in domicilio.dataMunicipios.opcionesMunicipio track by option.idOpcion" class="browser-default" required>
+              
+            </select>
+            <label>Municipio / Alcaldía*</label>
+            <!-- <div ng-show="formDomicilioCliente.municipio.$error">
+                <div class="mensaje" ng-show="seleccionarValor">Necesitas seleccionar un valor</div>
+            </div> -->
+        </div>
+        <div class="space-blank veinte"></div>
+        <div ng-show="mostrarCiudad" class="input-field con-mensaje small-12 medium-7 large-5 medium-centered large-centered columns">
+            <select ng-model="domicilio.dataCiudades.ciudadSeleccionada" name="ciudad" ng-options="option.descOpcion for option in domicilio.dataCiudades.opcionesCiudad track by option.idOpcion" class="browser-default" required>
+            
+            </select>
+            <label>Ciudad*</label>
+          <!--   <div ng-show="formDomicilioCliente.ciudad.$error">
+                <div class="mensaje" ng-show="formDomicilioCliente.ciudad.$error.required">Necesitas Seleccionar un valor</div>
+            </div> -->
+        </div>
+        <div class="space-blank veinte"></div>
+        <div ng-show="mostrarEstado" class="input-field con-mensaje small-12 medium-7 large-5 medium-centered large-centered columns">
+            <select ng-model="domicilio.dataEstados.estadoSeleccionada" name="estado" ng-options="option.descOpcion for option in domicilio.dataEstados.opcionesEstado track by option.idOpcion" class="browser-default" required>
+            </select>
+            <label>Estado*</label>
+            <div ng-show="formDomicilioCliente.estado.$error.required">
+                <div class="mensaje" ng-show="formDomicilioCliente.ciudad.$error.required">Necesitas Seleccionar un valor</div>
+            </div>
+        </div>
+        <div class="space-blank veinte"></div>
+        <div class="input-field small-12 medium-7 large-5 medium-centered large-centered columns">
+            <select name="residencial" ng-model="domicilio.estatus" ng-options="item as item for item in estatusResidencial.values" class="browser-default" required>
+                 
+            </select>
+            <label>Estatus residencial*</label>
+            <!-- <div ng-show="formDomicilioCliente.residencial.$error.required">
+                <div class="mensaje" ng-show="formDomicilioCliente.residencial.$error.required">Necesitas Seleccionar un valor</div>
+            </div> -->
+        </div>
+        <div class="space-blank veinte"></div>
+        <!-- boton siguiente -->
+        <div class="center columns">
+            <button type="submit" id="paso2" class="button large" value="Continuar" ng-disabled="formDomicilioCliente.$invalid || dataloading">Continuar <i ng-show="dataloading" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+        </div>
+        
+    </form>
+
+</section>
+<div class="space-blank veinte"></div>

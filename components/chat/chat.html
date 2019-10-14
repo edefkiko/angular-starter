@@ -1,0 +1,160 @@
+<div ng-controller="chatController">
+<section ng-class="{'chatAgente': user.isAgent(), 'chat animated fadeInUp': !user.isAgent()}" ng-show="openChat">
+    <div class="contenedorPrincipal">
+        <div class="cabeceraChat" ng-hide="addPerson">
+            <div class="titulo">
+                <p ng-hide="user.isAgent()">Chat</p>
+                <p ng-show="user.isAgent()">{{user.getId()}}</p>
+            </div>
+            <button class="button sinFondo agregarPersona" ng-show="user.isAgent() && currentRoom.getId() !== undefined" ng-click="addPerson = true">
+                <i data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Redireccionar" class="material-icons has-tip top" aria-hidden="true" ng-hide="!maximizar"h>person_add</i>
+            </button>
+            <button class="button sinFondo minimizar" ng-click="maximizar = !maximizar" ng-show="!isMobile && !user.isAgent()">
+                <i title="Maximizar" ng-show="!maximizar" class="fa fa-window-maximize" aria-hidden="true"></i>
+                <i title="Minimizar" ng-show="maximizar" class="" aria-hidden="true">__</i>
+            </button>
+            <button title="Salir del chat" class="button sinFondo cerrar" ng-click="closeWindowChat()" ng-show="!user.isAgent()">
+                <i class="material-icons" aria-hidden="true">close</i>
+            </button>            
+            <!-- <button ng-click="connect()">connect...</button> -->
+        </div>
+        <div class="cabeceraChat" ng-show="addPerson">
+            <div class="titulo">
+                <p>Transferir a:</p>
+            </div>
+        </div>
+        <div class="cuerpo" ng-show="maximizar">
+            <div class="conversacionesConcurrentes" ng-hide="!user.isAgent()" ng-hide="addPerson">
+                <p class="text-center">Mis conversaciones</p>
+                <div class="cliente"  ng-class="{'conversacionActiva': currentRoom.getId() === room.getId()}" ng-repeat="room in rooms">
+                    <div ng-class="{'animated bounce infinite': room.hasMessage}">
+                        <button data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="{{room.getName()}}" class="seleccionar has-tip top" ng-click="setCurrentChat(room.getId());  room.hasMessage = false" ng-class="{'background-gris': room.hasMessage}">{{room.room.name}}</button>
+                        <button data-tooltip aria-haspopup="true" data-disable-hover="false" tabindex="3" title="Cerrar conversación" class="button sinFondo cerrar has-tip top" ng-click="closeChat(room.getId())">
+                            <i class="material-icons" aria-hidden="true">close</i>
+                        </button>
+                    </div>
+                </div>
+       
+            </div>
+            <div class="column contenedorMensajes" ng-hide="addPerson" schroll-bottom="currentRoom.messages">
+                <div ng-repeat="message in currentRoom.messages">       
+                    <div class="space-line azul" ng-show="message.type === 'SEPARATOR'"></div>  
+                    <div ng-class="[message.class]" ng-hide="message.type === 'SEPARATOR'">
+                        <span ng-hide="message.type === 'NOTIFICATION'">
+                            <div ng-show="message.source == user.getId()">
+                                <i class="fa fa-check-circle-o" aria-hidden="true" ng-show="message.status === 2"></i>
+                                <i class="fa fa-check-circle" aria-hidden="true" ng-show="message.status === 3"></i>
+                            </div>
+                            {{ message.source == user.getId() ? "yo": message.source }}: 
+                        </span>                       
+                        <p>{{message.msg}}</p>
+                        <p>{{message.createAt | date:'dd/MM/yyyy - hh:mm:ss'}}</p>
+                    </div>                    
+                </div>
+                <!--div class="accionUsuario"><i class="material-icons">mode_edit</i> Laura Castro tecleando</div-->
+            </div>
+            <div class="contenedorTransferir" ng-show="addPerson">
+                <ul>
+                    <li ng-repeat="opUser in connectedOpUsers" ng-class="{'seleccionado':opUser.externalId === selectedOpUser.externalId}" >
+                        <i class="material-icons">assignment</i>
+                        <a ng-click="selectOpUser(opUser)">{{opUser.externalId}}</a>
+                    </li>          
+                    <!--li>
+                        <i class="material-icons">assignment</i>
+                        <p>Este es el nombre de un ejecutivo que está muy largo</p>
+                    </li>
+                    <li class="seleccionado">
+                        <i class="material-icons">assignment</i>
+                        <p>Ejecutivo seleccionado</p>
+                    </li>
+                    <li class="ausente">
+                        <i class="material-icons">assignment</i>
+                        <p>Ejecutivo ausente</p>
+                    </li-->
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <div class="space-line sinMargen gris"></div>
+            <div class="contenedorInput" ng-hide="addPerson">
+                <div class="column input-field">
+                    <form ng-submit="send();">
+                        <div class="input-group">
+                            <input placeholder="Escribe tu mensaje" ng-model="msg" id="txtInput" type="text" class="validate" ng-disabled="currentRoom.getId() === undefined" autocomplete="off">
+                            <div class="input-group-button">
+                                <button class="button" type="ng-submit"><i class="material-icons" aria-hidden="true">send</i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="row large-collapse contenedorBotonesTransferir" ng-show="addPerson">
+                <div class="bloque small-6 columns">
+                    <button class="button expanded" ng-click="addPerson = false; selectedOpUser = null">Cancelar</button>
+                </div>
+                <div class="bloque small-6 columns">
+                    <button class="button expanded" ng-disabled="!selectedOpUser" ng-click="transferir()">Transferir</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bloqueLateral" ng-show="user.isAgent()">
+    <div class="listadoConversaciones">
+        <div class="cabecera">
+            <p>Conversaciones actuales:</p>
+        </div>
+        <ul>
+            <li ng-repeat="user in connectedUsers" ng-class="{'ausente': user.attended, 'pendiente': !user.attended}">
+                <i class="material-icons" ng-show="user.attended">chat_bubble_outline</i>
+                <i class="yei icon-globoExclamacion" ng-hide="user.attended"></i>
+                <a ng-click="joinUserToRoom(user)" ng-class="{'not-active ausente': user.attended}"><p>{{user.externalId}} <span ng-show="user.messageCount > 0">- New message:{{user.messageCount}}</span></p></a>
+            </li>
+            <!--li>
+                <i class="material-icons">chat_bubble_outline</i>
+                <p>Alfonso Urbán</p>
+            </li>
+            <li class="seleccionado">
+                <i class="material-icons">chat</i>
+                <p>Alejandro Jhonatan Pineda de Villegas</p>
+            </li>
+            <li>
+                <i class="material-icons">chat_bubble_outline</i>
+                <p>Alejandro Villegas Thorton</p>
+            </li>
+            <li class="ausente">
+                <i class="material-icons">chat_bubble_outline</i>
+                <p>David Ramos</p>
+            </li-->
+        </ul>
+    </div>
+    <div class="listadoConversaciones transferirA">
+        <div class="cabecera">
+            <p>Transferir a:</p>
+        </div>        
+        <ul>            
+            <li ng-repeat="asesor in connectedOpUsers">
+                <i class="material-icons">assignment</i>
+                <p>{{asesor.externalId}} <span class="material-icons">drag_handle</span></p>
+            </li>
+            <!--li>
+                <i class="material-icons">assignment</i>
+                <p>Ejecutivo 1 <span class="material-icons">drag_handle</span></p>
+            </li>
+            <li>
+                <i class="material-icons">assignment</i>
+                <p>Este es el nombre de un ejecutivo que está muy largo<span class="material-icons">drag_handle</span></p>
+            </li>
+            <li class="seleccionado">
+                <i class="material-icons">assignment</i>
+                <p>Ejecutivo seleccionado<span class="material-icons">drag_handle</span></p>
+            </li>
+            <li class="ausente">
+                <i class="material-icons">assignment</i>
+                <p>Ejecutivo ausente<span class="material-icons">drag_handle</span></p>
+            </li-->
+        </ul>
+    </div>
+</section>
+</div>

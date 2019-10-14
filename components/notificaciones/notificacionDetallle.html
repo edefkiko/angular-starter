@@ -1,0 +1,50 @@
+<div class="space-blank cuarenta"></div>
+<section class="row">
+    <div class="small-12 medium-9 large-9 column">
+        <div class="tabsAnchor">
+            <a class="tabActivo unico">Seguimiento de solicitud #{{notificacion.idNotificacion}}</a>
+        </div>
+    </div>
+    <section class="tabsYei">
+        <div class="small-12 medium-9 large-9 column">
+            <div class="contenedorGrisPrivada">
+                <a ui-sref="notificaciones" class="button sinFondo display-flex"><i class="material-icons">chevron_left</i> Regresar<i></i></a>
+                <div class="contenedorLineaVerde cliente">
+                    <label class="texto-bold texto-negro float-left">{{userBasicInfo.emailAddress}}</label>
+                    <label class="texto-negro float-right">
+                       {{notificacion.fechaAlta}}
+                    </label>
+                    <div class="space-blank treinta"></div>
+                    <p>
+                        {{notificacion.texto}} 
+                    </p>
+                </div>
+                <div class="space-blank"></div>
+                <div class="contenedorLineaVerde asesor" ng-show="notificacionResp">
+                    <label class="texto-bold texto-negro float-left">Sistema</label>
+                    <label class="texto-negro float-right">
+                       {{notificacionResp.fechaAlta}}
+                    </label>
+                    <div class="space-blank treinta"></div>
+                    <p>
+                        {{notificacionResp.texto}}
+                    </p>
+                </div>
+            </div>            
+            <div class="space-blank diez"></div>
+        </div>
+        <section class="small-12 medium-3 large-3 column">
+            <div class="contenedorPublicidad show-for-medium">
+                <div class="ads">
+                    <img src="assets/img/publicidad.png" />
+                    <div class="background-amarilloverdoso">
+                        <a><img class="float-left" src="assets/img/APPLE_STORE.png" style="width: 120px;" /></a>
+                        <a><img class="" src="assets/img/GOOGLE_STORE.png" style="width: 120px;" /></a>
+                    </div>
+                </div>
+                <!-- <div class="ads">
+                <p>Publicidad</p>
+            </div> -->
+            </div>
+        </section>
+    </section>

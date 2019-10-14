@@ -1,0 +1,49 @@
+<section class="row ampliador" ng-init="setStatusView({statusView:'paso2'})">
+	<div class="text-center">
+		<i class="fa fa-spinner fa-pulse texto-limon x7"></i>
+		<div ng-show="status === 'INICIAL'">
+			<strong>Enviando la información</strong>
+			<p>
+				Este proceso puede tardar unos minutos, por favor espere...
+			</p>
+		</div>
+		<div ng-show="status === 'PLD'">
+			<strong>Estamos analizando tu información</strong>
+			<p>
+				Este proceso puede tardar unos minutos, por favor espere...
+			</p>
+		</div>
+		<div ng-show="status === 'BURO'">
+			<strong>Esperando la autorización del sistema</strong>
+			<p>
+				Este proceso puede tardar unos minutos, por favor espere...
+			</p>
+		</div>
+		<div ng-show="status === 'EFLSOCIO'">
+			<strong>Enviando la información</strong>
+			<p>
+				Este proceso puede tardar unos minutos, por favor espere...
+			</p>
+		</div>
+		<div ng-show="status === 'EFLPSICO'">
+			<strong>Recibiendo respuesta del sistema</strong>
+			<p>
+				Este proceso puede tardar unos minutos, por favor espere...
+			</p>
+		</div>
+		<div ng-show="status === 'ANTERIOR'">
+			<strong>Recibiendo respuesta del sistema</strong>
+			<p>
+				Este proceso puede tardar unos minutos, por favor espere...
+			</p>
+		</div>
+		<div ng-show="status === 'HISTORIAL'">
+			<strong>Recibiendo respuesta del sistema</strong>
+			<p>
+				Este proceso puede tardar unos minutos, por favor espere...
+			</p>
+		</div>
+
+		<h4 class="text-center">{{responseMotor}}</h4>
+	</div>
+</section>

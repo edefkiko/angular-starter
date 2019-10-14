@@ -1,0 +1,40 @@
+<div class="space-blank cuarenta"></div>
+<section class="row resultadosBuscador">
+    <div class="small-12 medium-9 large-9 column" ng-show="result">
+        <div class="contenedorGrisPrivada">
+            <div class="contenedorLineaVerde">
+                <p class="texto-bold">{{result.title}}</p>
+                <p>{{result.description}}</p>
+                <div ng-show="!result">
+                    <h1>Not found</h1>
+                </div>
+                <div class="separador-orion"></div>
+                <div class="space-blank diez"></div>
+                <p>¿Esta información resolvió tu duda?</p>
+                <div class="botonesLike">
+                    <a ng-class="classButtonLike" ng-click="botonesAceptacion('like ' + result.title)" ng-disabled="disableBotonLikes"><span class="yei icon-pulgarLike"></span></a>
+                    <a ng-class="classButtonUnlike" ng-click="botonesAceptacion('unlike ' + result.title)" ng-disabled="disableBotonLikes"><span class="yei icon-pulgarUnLike"></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="space-blank diez"></div>
+        <incidencias incidencias="incidencias"></incidencias>
+    </div>
+    <div class="space-blank veinte hide-for-medium"></div>
+    <div class="small-12 medium-3 large-3 column">
+        <div class="contenedorRelacionados">
+            <p>También te puede interesar</p> 
+            <ul>
+                <li ng-repeat="ayuda in ayudasRelacionadas">
+                    <div class="datos">
+                        <label><a ui-sref="{item: ayuda.identificador, descOpcion: ayuda.descripcionCorta}">{{ayuda.descripcionCorta}}</a></label>                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="space-blank treinta hide-for-medium"></div>
+</section>
+    
+
+

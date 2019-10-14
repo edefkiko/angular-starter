@@ -1,0 +1,126 @@
+<div>
+    <section class="imagen-header" ng-hide="isMobile">
+        <div class="carrusel">
+            <div class="carrusel-header">
+                <div class="item" data-magellan>
+                    <div class="imagen1"></div>
+                    <div class="texto">
+                        <div class="row">
+                            <div class="small-12 medium-6 large-6 medium-offset-7 large-offset-7">
+                                <h2 class="small-6 medium-6 large-6 texto-anaranjado-dark">
+                                ¡Bienvenido, confiamos en ti!
+                                </h2>
+                                <a id="calculoPrestamo" href="#calcular" class="button">Pídelo ahora</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="imagen2"></div>
+                    <div class="texto">
+                        <div class="row">
+                            <div class="small-12 medium-6 large-6 medium-offset-7 large-offset-7">
+                                <h2 class="small-7 medium-7 large-7 texto-blanco">
+                                Nosotros s&iacute; te prestamos hasta ${{producto.montoMax | number:0}} por transferencia o en efectivo
+                                </h2>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section ng-show="isMobile">
+        <div class="small-12 column text-center">
+            <div class="space-blank diez"></div>
+            <h1 class="texto-anaranjado-dark">Bienvenido, ¡contrata tu préstamo ahora!</h1>
+        </div>
+    </section>
+    <section class="row calculoPrestamo wow fadeIn">
+        <simulator class="simuladorTemp" producto="producto" mostrar="true"></simulator>
+        <div class="clear"></div>
+        <div class="calculoResultado">
+        <div class="small-12 medium-7 large-4 columns large-offset-2 right-align">
+                <div class="plazo"><label>{{producto.totalPagos}}</label><span> pagos de</span></div>
+                <div class="pago"><span>$</span><label>{{producto.pago | number:2}}</label><span class="x2 texto-gris">*</span></div>
+                <div class="total"><span>Total a pagar $</span><label>{{producto.total | number:2}}</label></div>
+            </div>
+            <div class="space-blank diez hide-for-medium"></div>
+            <div class="small-12 medium-6 large-3 end columns">
+                <a class="button texto-normal" ng-click="loQuiero()" ng-disabled="loQuieroClicked === true" ng-click="loQuieroClicked = true"><img src="assets/img/star.png"> Lo quiero</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <loan-table producto="producto" mostrar="true">
+        </loan-table>
+            <p class="texto-gris text-center">*En tu último pago podría variar el monto</p>
+    </section>
+    <section>
+            <div class="row">
+                    <div class="space-blank veinte"></div>
+                    <div class="small-12 medium-6 large-4 large-offset-2 columns center icono-titulo hide-for-small-only">
+                        <object id="svg_check" type="image/svg+xml" data="assets/img/check.svg"></object>
+                    </div>
+                    <div class="small-12 medium-6 large-4 columns center end icono-titulo">
+                        <object id="svg_check2" type="image/svg+xml" data="assets/img/check.svg"></object>
+                    </div>
+                </div>
+            <div class="row">
+                    <div class="small-12 medium-6 large-4 large-offset-2 columns center icono-titulo">
+                        <h4 class="texto-normal">Sin aval o garantías, ni comprobante de ingresos.</h4>
+                    </div>
+                    <div class="small-12 medium-6 large-4 columns center end icono-titulo">
+                        <h4 class="texto-normal">Sin cobro de comisiones o gastos adicionales.</h4>
+                    </div>
+                    <div class="space-blank veinte"></div>
+                </div>
+    </section>
+    <section class="background-anaranjado">
+        <div class="space-blank cuarenta show-for-medium"></div>
+        <h3 class="show-for-medium center">Tu préstamo en <span class="texto-normal">3 simples pasos</span></h3>
+        <div class="space-blank treinta"></div>
+        <div class="row pasos-prestamo">
+            <div class="small-6 large-4 columns center">
+                <object id="svg_solicitud" type="image/svg+xml" data="assets/img/clic.svg"></object>
+
+                <p class="large-10 large-centered"><span>1</span>Llena la solicitud aquí mismo</p>
+            </div>
+            <div class="small-6 large-4 columns center">
+                <object id="svg_selfie" type="image/svg+xml" data="assets/img/persona.svg"></object>
+
+                <p><span>2</span>Envía tu "selfie" con la palabra clave que te indicaremos</p>
+            </div>
+            <div class="large-4 columns center">
+             <object id="svg_dinero" type="image/svg+xml" data="assets/img/dinero.svg"></object>
+
+                <p><span>3</span>Recibe tu dinero</p>
+            </div>
+        </div>
+        <div class="space-blank veinte show-for-medium"></div>
+        <div class="space-line hide-for-medium"></div>
+        <div class="subrayado small-6 medium-3 blanco"></div>
+        <h3 class="center texto-normal">Sólo necesitas</h3>
+        <div class="space-blank treinta"></div>
+        <div class="row">
+            <div class="small-12 medium-6 large-4 large-offset-2 columns center icono-titulo">
+                <object id="svg_identificacion" type="image/svg+xml" data="assets/img/id.svg"></object>
+                <p>Identificación oficial</p>
+            </div>
+            <div class="small-12 medium-6 large-4 columns center end icono-titulo">
+                <object id="svg_domicilio" type="image/svg+xml" data="assets/img/domicilio.svg"></object>
+                <p>Comprobante de domicilio</p>
+            </div>
+            <div class="space-blank veinte"></div>
+        </div>
+    </section>
+</div>
+<script>
+    new Vivus('svg_solicitud', {type: 'oneByOne', duration: 100, start: 'inViewport'});
+    new Vivus('svg_selfie', {type: 'oneByOne', duration: 100, start: 'inViewport'});
+    new Vivus('svg_dinero', {type: 'oneByOne', duration: 100, start: 'inViewport'});
+    new Vivus('svg_identificacion', {type: 'oneByOne', duration: 100, start: 'inViewport'});
+    new Vivus('svg_domicilio', {type: 'oneByOne', duration: 100, start: 'inViewport'});
+    new Vivus('svg_check', {type: 'oneByOne', duration: 100, start: 'inViewport'});
+    new Vivus('svg_check2', {type: 'oneByOne', duration: 100, start: 'inViewport'});
+    ga('set', 'contentGroup1', 'Portal público');
+</script>

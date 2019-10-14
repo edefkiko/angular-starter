@@ -1,0 +1,68 @@
+<section class="small-12 medium-9 large-9 columns">
+    <div class="tabConfiguracion">
+        <div class="small-10 medium-8 large-10 small-centered columns">
+            <p class="texto-bold">Enviar notificaciones:</p>
+            <div class="space-blank"></div>
+            <p>Cuando he realizado un pago:</p>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" name="pagoRealizadoSms" ng-model="pagoRealizadoSms.value1" ng-change="actualizarPagoRealizadoSms()" ng-disabled="dataloading">
+                    <span class="lever"></span> SMS / Notificación en APP 
+                </label>
+            </div>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" name="pagoRealizadoMail" ng-model="pagoRealizadoMail.value1" ng-change="actualizarPagoRealizadoMail()" ng-disabled="dataloadingPagoRealizadoMail">
+                    <span class="lever"></span> Mail
+                </label>
+            </div>
+            <div class="space-blank diez"></div>
+            <div class="separador-orion"></div>
+            <div class="space-blank diez"></div>
+            <p>Recordarme mi próximo pago</p>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" name="recordarPagoSms" ng-model="recordarPagoSms.value1" ng-change="actualizarRecordarPagoSms()" ng-disabled="dataloadingRecordarPagoSms">
+                    <span class="lever"></span> SMS / Notificación en APP 
+                </label>
+            </div>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" name="recordarPagoMail" ng-model="recordarPagoMail.value1" ng-change="actualizarRecordarPagoMail()" ng-disabled="dataloadingRecordarPagoMail">
+                    <span class="lever"></span> Mail
+                </label>
+            </div>
+            <div class="recordatorio">
+                <label>Recordarme</label>
+                <div class="input-field">
+                    <select name="mySelect" id="mySelect" ng-options="option.value for option in dataDias.availableOptions track by option.id" ng-model="dataDias.selectedOption" ng-change="diasRecordarPago()" class="browser-default" ng-disabled="dataloadingDiaspago"></select>
+                </div>
+                <label>días antes del pago</label>
+            </div>
+            <div class="space-blank diez"></div>
+            <div class="separador-orion"></div>
+            <div class="space-blank diez"></div>
+            <p>Notificaciones generales</p>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" name="generalesSms" ng-model="generalesSms.value1" ng-change="actualizarGeneralesSms()" ng-disabled="dataloadingGeneralesSms">
+                    <span class="lever"></span> SMS / Notificación en APP 
+                </label>
+            </div>
+            <div class="switch">
+                <label>
+                    <input type="checkbox" name="generalesMail" ng-model="generalesMail.value1" ng-change="actualizarGeneralesMail()" ng-disabled="dataloadingGeneralesMail">
+                    <span class="lever"></span> Mail
+                </label>
+            </div>
+            <button class="button" ng-click="guardarConfiguracion()" ng-disabled="dataloadingGuardar || desabilitarGuardarConfiguracion">Guardar <i ng-show="dataloadingGuardar" class="fa fa-spinner fa-pulse fa-fw"></i></button>
+        </div>
+        <div class="clear"></div>
+            <div class="text-center" ng-show="configuracionActualizada">
+                <span class="yei icon-check x6 texto-limon"></span>
+                <h4 class="texto-turquesa">Configuración Actualizada</h4>
+            </div>
+        <div class="space-blank treinta"></div>
+
+    </div>
+</section>

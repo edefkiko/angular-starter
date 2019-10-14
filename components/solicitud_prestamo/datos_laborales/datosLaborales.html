@@ -1,0 +1,319 @@
+<section class="row" ng-init="setStatusView({statusView:'paso1Intermedio'})">
+    <h3 class="text-center">¿Trabajas?</h3>
+    <div class="margin-top-5 center columns callout secondary large-6 large-centered">
+        <p class="indicacionRequeridos text-center">Los campos marcados con asterisco<span class="texto-bold"> *</span>
+            son obligatorios</p>
+    </div>
+    <div class="space-blank"></div>
+    <form name="formTrabajoCliente" ng-submit="guardar(laborales)">
+        <!-- radio button  -->
+        <div class="small-12 medium-6 large-4 medium-centered large-centered columns wow fadeIn">
+            <p>¿Trabajas actualmente?*</p>
+            <input type="radio" name="trabajo" id="si_trabajo_empresa" value="trabajoEmpresa"
+                ng-model="laborales.trabajoActual" value="empresa" ng-change="resetValues()"
+                ng-click="activarRequeridos()" required />
+            <label for="si_trabajo_empresa">Sí, en empresa o negocio</label><br />
+            <input type="radio" name="trabajo" id="si_trabajo_independiente" value="trabajoIndependiente"
+                ng-model="laborales.trabajoActual" ng-change="resetValues()" required />
+            <label for="si_trabajo_independiente">Sí, soy trabajador independiente</label><br />
+            <input type="radio" name="trabajo" id="noTrabaja" value="noTrabaja" ng-model="laborales.trabajoActual"
+                ng-change="resetValues()" ng-click="activarRequeridosNo()" required />
+            <label for="noTrabaja">No</label>
+        </div>
+        <div class="space-blank"></div>
+        <!-- empresa o negocio -->
+        <div class="animated zoomIn">
+            <div class="" ng-show="laborales.trabajoActual == 'trabajoEmpresa'">
+                <!-- giro de la empresa -->
+                <div class="input-field small-12 medium-6 large-4 medium-centered large-centered columns">
+                    <select class="browser-default" ng-model="laborales.giroEmpresa" name="giro"
+                        ng-options="item as item for item in giroEmpresa.values"
+                        ng-required="laborales.trabajoActual == 'trabajoEmpresa'">
+
+                    </select>
+                    <label>{{giroEmpresa.name}}*</label>
+                </div>
+                <div class="space-blank"></div>
+                <!-- nombre de la empresa -->
+                <div class="space-blank"></div>
+                <!-- puesto del trabajo -->
+                <div class="input-field small-12 medium-6 large-4 medium-centered large-centered columns">
+                    <input type="text" id="nombreEmpresa" name="nombreEmpresa"
+                        ng-pattern-restrict="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9.-]*$" ng-model="laborales.nombreEmpresa"
+                        maxlength="90" ng-required="laborales.trabajoActual == 'trabajoEmpresa'">
+
+                    <label for="nombreEmpresa" ng-class="{'active': activedDesertor}">¿En que empresa trabajas?*</label>
+                </div>
+                <div class="space-blank"></div>
+                <!-- area al que pertenece -->
+                <div class="input-field small-12 medium-6 large-4 medium-centered large-centered columns">
+                    <select class="browser-default" ng-model="laborales.areaClientes" name="areaTrabajo"
+                        ng-options="item as item for item in areaTrabajo.values"
+                        ng-required="laborales.trabajoActual == 'trabajoEmpresa'">
+
+                    </select>
+                    <label>{{areaTrabajo.name}}*</label>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!-- end empresa o negocio -->
+
+            <!-- trabajador independiente -->
+            <div class="" ng-show="laborales.trabajoActual == 'trabajoIndependiente'">
+                <!-- giro de la empresa -->
+                <div class="input-field small-12 medium-6 large-4 medium-centered large-centered columns">
+                    <!-- ¿Qué actividad económica realizas?* -->
+                    <select class="browser-default" ng-model="laborales.actividadClientes" name="actividadEconomica"
+                        ng-options="item as item for item in actividadCliente.values"
+                        ng-required="laborales.trabajoActual == 'trabajoIndependiente'">
+
+                    </select>
+                    <label>{{actividadCliente.name}}*</label>
+                </div>
+            </div>
+            <!-- no trabaja -->
+            <div class="" ng-show="laborales.trabajoActual == 'noTrabaja'">
+                <div class="input-field small-12 medium-6 large-4 medium-centered large-centered columns">
+                    <select class="browser-default" ng-model="laborales.situacionActual" name="situacionActual"
+                        ng-options="item as item for item in situacionActual.values"
+                        ng-required="laborales.trabajoActual == 'noTrabaja'">
+                    </select>
+                    <label>{{situacionActual.name}}*</label>
+                </div>
+            </div>
+            <!-- end no trabaja -->
+            <!-- preguntas de PLD -->
+            <div class=""
+                ng-show="laborales.trabajoActual == 'noTrabaja' || laborales.trabajoActual == 'trabajoIndependiente' || laborales.trabajoActual == 'trabajoEmpresa'">
+                <div class=""
+                    ng-show="laborales.trabajoActual == 'trabajoIndependiente' || laborales.trabajoActual == 'trabajoEmpresa'">
+                    <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                        <label for="antiguedadClientes" class="literalForm"
+                            ng-show="laborales.trabajoActual == 'trabajoEmpresa'">¿Desde hace cuántos años trabajas en
+                            tu empleo actual?*</label>
+                        <div class="small-12 medium-4 large-3 has-tip right" data-tooltip aria-haspopup="true"
+                            data-disable-hover="false" tabindex="3" title="Si tienes menos de un año selecciona '0'">
+                            <input stopccp id="antiguedadClientes" type="number"
+                                ng-show="laborales.trabajoActual == 'trabajoEmpresa'" name="antiguedadClientes"
+                                ng-model="laborales.antiguedadAniosClientes" maxlength="2"
+                                onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" min="{{minYear}}"
+                                ng-pattern-restrict="^[0-9]*$" max="60" required
+                                ng-required="laborales.trabajoActual == 'trabajoEmpresa'">
+                        </div>
+                    </div>
+                    <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                        <label for="antiguedadNegocio" class="literalForm"
+                            ng-show="laborales.trabajoActual == 'trabajoIndependiente'">¿Desde hace cuántos años está
+                            funcionando tu negocio?*</label>
+                        <div class="small-12 medium-4 large-3 has-tip right" data-tooltip aria-haspopup="true"
+                            data-disable-hover="false" tabindex="3" title="Si tienes menos de un año selecciona '0'">
+                            <input stopccp id="antiguedadNegocio" type="number"
+                                ng-show="laborales.trabajoActual == 'trabajoIndependiente'" name="antiguedadNegocio"
+                                ng-model="laborales.antiguedadNegocio" maxlength="2"
+                                onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)" min="{{minYear}}"
+                                max="60" required ng-required="laborales.trabajoActual == 'trabajoIndependiente'">
+                        </div>
+                        <!-- <span ng-if="edadValida">Usted esta fuera del rango permitido.</span> -->
+                    </div>
+                    <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                        <div class="input-field con-mensaje">
+                            <!-- $ -->
+                            <span>$ </span>
+                            <input stopccp format="number" id="sueldo" name="sueldo" type="text"
+                                ng-class="{'focus.invalid' :sueldoInvalido == true, 'invalid' : sueldoInvalido == true}"
+                                replace="[/^\d*$/]" ng-patern="textDependientes"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="6"
+                                onkeypress="return isNumeric(event)" ng-model="laborales.sueldo" min="1"
+                                max="{{maxSueldo}}" required
+                                ng-required="laborales.trabajoActual == 'trabajoIndependiente' || laborales.trabajoActual == 'trabajoEmpresa'" />
+                            <label for="sueldo" ng-class="{'active': activedDesertor}">¿Cuánto ganas al mes?*</label>
+                            <!-- <span for="error" ng-show="formTrabajoCliente.sueldo.$valid == false">La cantidad maxima es de $99,999</span> -->
+                            <span class="mensaje" ng-if="sueldoInvalido">La cantidad maxima es de $99,999</span>
+                            <!-- <pre>{{formTrabajoCliente.sueldo | json}}</pre> -->
+                        </div>
+                    </div>
+                    <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                        <div class="input-field con-mensaje">
+                            <!-- $ -->
+                            <span>$ </span>
+                            <input stopccp format="number" id="gasto" name="gasto" type="text"
+                                ng-class="{'focus.invalid':gastoInvalido == true, 'invalid' : gastoInvalido == true}"
+                                replace="[/^\d*$/]" ng-patern="textDependientes"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="6"
+                                onkeypress="return isNumeric(event)" ng-model="laborales.gasto" min="1"
+                                max="{{maxGasto}}" required
+                                ng-required="laborales.trabajoActual == 'trabajoIndependiente' || laborales.trabajoActual == 'trabajoEmpresa'" />
+                            <label for="gasto" ng-class="{'active': activedDesertor}">¿Cuánto gastas al mes?*</label>
+                            <!-- <span for="error" ng-show="formTrabajoCliente.sueldo.$valid == false">La cantidad maxima es de $99,999</span> -->
+                            <span class="mensaje" ng-if="gastoInvalido">La cantidad maxima es de $99,999</span>
+                            <!-- <pre>{{formTrabajoCliente.sueldo | json}}</pre> -->
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear space-blank"></div>
+                <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                    <label class="literalForm" for="dependientes">¿Cuantas personas mantienes además de ti?*</label>
+                    <div class="clear"></div>
+                    <div class="small-12 medium-4 large-3 has-tip tip-left" data-tooltip aria-haspopup="true"
+                        data-disable-hover="false" tabindex="3"
+                        title=" a nadie aparte de ti, selecciona 0">
+                        <input stopccp id="dependientes" type="number" class="validate" replace="[^0-9]"
+                            ng-patern="textDependientes" with="" ng-model="laborales.dependientes" min="0" max="99"
+                            onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"
+                            ng-pattern-restrict="^[0-9]*$" maxlength="2"
+                            ng-required="laborales.trabajoActual == 'noTrabaja'">
+                    </div>
+                </div>
+                <div class="small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns margin-bottom-mitad">
+                    <label class="literalForm"> ¿Desempeñas o has desempeñado un cargo público o puesto político en
+                        México o en el extranjero durante el último año?*</label>
+                    <div class="clear"></div>
+                    <div class="float-left padding-row-right">
+                        <input type="radio" name="funcion" id="funcionSi" value="Sí" ng-model="laborales.funcionPublica"
+                            required ng-click="activarRequeridoCargo()" />
+                        <label for="funcionSi">Sí</label>
+                    </div>
+                    <div class="float-left padding-row-left">
+                        <input type="radio" name="funcion" id="funcionNo" value="No" ng-model="laborales.funcionPublica"
+                            required ng-click="resetCargoPolitico()" />
+                        <label for="funcionNo">No</label>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 large-4 medium-centered large-centered columns"
+                    ng-show="laborales.funcionPublica === 'Sí'">
+                    <label class="literalForm" for="dependientes">Cargo Político*</label>
+                    <div class="small-12 medium-12 large-12">
+                        <input stopccp
+                            ng-class="{'invalid':formTrabajoCliente.cargoPolitico.$invalid && formularioDatos.cargoPolitico.$dirty && visitedCargoPolitico}"
+                            id="cargoPolitico" name="cargoPolitico" type="text" ng-pattern-restrict="^$|^[A-Za-z]+"
+                            ng-model="laborales.cargoPolitico" maxlength="30" ng-required="requiredCargoPolitico"
+                            ng-blur="visitedCargoPolitico = true" ng-disabled="laborales.funcionPublica === 'No'">
+                    </div>
+                </div>
+                <div class="small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns margin-bottom-mitad">
+                    <label class="literalForm">¿Eres socio, asociado o familiar consanguíneo o por afinidad hasta el
+                        segundo grado de una persona que desempeñe o haya desempeñado un cargo público o puesto político
+                        en México o en el extranjero durante el último año?*</label>
+                    <div class="clear"></div>
+                    <div class="float-left padding-row-right">
+                        <input type="radio" name="relacion" id="relacionSi" value="Sí"
+                            ng-model="laborales.relacionPublica" required ng-click="activarRequeridoFunncion()" />
+                        <label for="relacionSi">Sí</label>
+                    </div>
+                    <div class="float-left padding-row-left">
+                        <input type="radio" name="relacion" id="relacionNo" value="No"
+                            ng-model="laborales.relacionPublica" ng-click="resetRelacionPolitico()" required />
+                        <label for="relacionNo">No</label>
+                    </div>
+                </div>
+                <div ng-show="laborales.relacionPublica === 'Sí'">
+                    <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                        <label class="literalForm" for="dependientes">Nombre del funcionario*</label>
+                        <div class="small-12 medium-12 large-12">
+                            <input stopccp
+                                ng-class="{'invalid':formTrabajoCliente.relNomfuncionario.$invalid && formularioDatos.relNomfuncionario.$dirty && visitedRelNomfuncionario}"
+                                id="relNomfuncionario" name="relNomfuncionario" type="text"
+                                ng-pattern-restrict="^$|^[A-Za-z]+" ng-model="laborales.relNomfuncionario"
+                                maxlength="50" ng-required="requiredRelacionPolitico"
+                                ng-blur="visitedRelNomfuncionario = true"
+                                ng-disabled="laborales.relacionPublica === 'No'">
+                        </div>
+                    </div>
+                    <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                        <label class="literalForm" for="dependientes">Puesto del funcionario relacionado*</label>
+                        <div class="small-12 medium-12 large-12">
+                            <input stopccp
+                                ng-class="{'invalid':formTrabajoCliente.relPuestoFuncionario.$invalid && formularioDatos.relPuestoFuncionario.$dirty && visitedRelPuestoFuncionario}"
+                                id="relPuestoFuncionario" name="relPuestoFuncionario" type="text"
+                                ng-pattern-restrict="^$|^[A-Za-z]+" ng-model="laborales.relPuestoFuncionario"
+                                maxlength="50" ng-required="requiredRelacionPolitico"
+                                ng-blur="visitedRelPuestoFuncionario = true"
+                                ng-disabled="laborales.relacionPublica === 'No'">
+                        </div>
+                    </div>
+                    <div class="small-12 medium-6 large-4 medium-centered large-centered columns">
+                        <label class="literalForm" for="dependientes">Parentesco funcionario relacionado*</label>
+                        <div class="small-12 medium-12 large-12">
+                            <input stopccp
+                                ng-class="{'invalid':formTrabajoCliente.parentRelFuncionario.$invalid && formularioDatos.parentRelFuncionario.$dirty && visitedParentRelFuncionario}"
+                                id="parentRelFuncionario" name="parentRelFuncionario" type="text"
+                                ng-pattern-restrict="^$|^[A-Za-z]+" ng-model="laborales.parentRelFuncionario"
+                                maxlength="50" ng-required="requiredRelacionPolitico"
+                                ng-blur="visitedParentRelFuncionario = true"
+                                ng-disabled="laborales.relacionPublica === 'No'">
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="clear"></div>
+                <div class="small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns margin-bottom-mitad">
+                    <label class="literalForm">¿Pagarás el préstamo con tus propios recursos?*</label>
+                    <div class="clear"></div>
+                    <div class="float-left padding-row-right">
+                        <input type="radio" name="proveedor" id="proveedorSi" value="Sí" ng-model="laborales.proveedor"
+                            required ng-click="proveedorInvalido=false" />
+                        <label for="proveedorSi">Sí</label>
+                    </div>
+                    <div class="float-left padding-row-left">
+                        <input type="radio" name="proveedor" id="proveedorNo" value="No" ng-model="laborales.proveedor"
+                            required ng-click="proveedorInvalido=true" />
+                        <label for="proveedorNo">No</label>
+                    </div>
+                    <!--<span class="mensaje-error" ng-if="proveedorInvalido">Para continuar con el proceso debe ser el proveedor de los recursos</span>-->
+                </div>
+
+                <div class="clear"></div>
+                <div class="small-12 medium-6 large-4 medium-offset-3 large-offset-4 columns margin-bottom-mitad">
+                    <label class="literalForm">¿El préstamo es para ti? </label>
+                    <div class="clear"></div>
+                    <div class="float-left padding-row-right">
+                        <input type="radio" name="propietario" id="propietarioSi" value="Sí"
+                            ng-model="laborales.propietario" required ng-click="propietarioInvalido=false" />
+                        <label for="propietarioSi">Sí</label>
+                    </div>
+                    <div class="float-left padding-row-left">
+                        <input type="radio" name="propietario" id="propietarioNo" value="No"
+                            ng-model="laborales.propietario" required ng-click="propietarioInvalido=true" />
+                        <label for="propietarioNo">No</label>
+                    </div>
+                    <div class="clear"></div>
+                    <div  class="float-left padding-row-right" ng-show="propietarioInvalido">
+                        <label class="literalForm" for="propietarioRecursos">Entonces ¿para quién?*</label>
+                        <input stopccp
+                            ng-class="{'invalid':formTrabajoCliente.propietarioRecursos.$invalid && formularioDatos.propietarioRecursos.$dirty && visitedpropietarioRecursos}"
+                            id="propietarioRecursos" name="propietarioRecursos" type="text"
+                            ng-pattern-restrict="^$|^[A-Za-z]+" ng-model="laborales.propietarioRecursos"
+                            maxlength="50" ng-required="propietarioInvalido"
+                            ng-blur="visitedpropietarioRecursos = true">
+                    
+                    </div>
+                    <!--<span class="mensaje-error" ng-if="propietarioInvalido">Para continuar con el proceso debe ser el propietario de los recursos</span>-->
+                </div>
+
+                <div class="clear"></div>
+                <div class="input-field small-12 medium-6 large-4 medium-centered large-centered columns">
+                    <!-- ¿Para qué utilizarás el dinero del préstamo?* -->
+                    <select class="browser-default has-tip right" ng-model="laborales.destinoPrestamo" name="giro"
+                        ng-options="item as item for item in destinoPrestamo.values" required data-tooltip
+                        aria-haspopup="true" data-disable-hover="false" tabindex="3"
+                        title="Si no encuentras la opción, selecciona la que más se asemeje">
+
+                    </select>
+                    <label>{{destinoPrestamo.name}}*</label>
+                </div>
+
+                <div class="clear space-blank veinte"></div>
+            </div>
+        </div>
+        <div class="center columns">
+            <button type="submit" ng-disabled="dataloading || formTrabajoCliente.$invalid || sueldoInvalido"
+                id="paso2intermedio" class="button large" value="Continuar">Continuar <i ng-show="dataloading"
+                    class="fa fa-spinner fa-pulse fa-fw"></i></button>
+        </div>
+
+    </form>
+
+</section>
+<div class="space-blank veinte"></div>

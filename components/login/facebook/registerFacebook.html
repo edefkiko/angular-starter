@@ -1,0 +1,17 @@
+<div class="dialogCuerpo">
+    <div class="small-10 medium-8 large-8 small-centered">
+        <p>Regístrate para continuar tu solicitud de préstamo</p>
+    </div>
+	<button class="button facebook" ng-click="FBRegister()" ng-disabled="dataloading">
+	    <i class="fa fa-facebook"></i>
+	    Registrarme con Facebook
+    </button>
+	<br />
+	<button ng-click="showWarning()" class="button">Registrarme con email</button>
+</div>
+<div class="margin-top-bottom separador-orion"></div>
+<div class="dialogFooter small-12 medium-10 large-11 small-centered"> 
+	<label class="float-left">¿Ya estás registrado?</label>
+	<button class="button float-right hollow" ng-click="goToLogin(); closeThisDialog()">Iniciar sesión</button>
+	<div class="clear"></div>
+</div>

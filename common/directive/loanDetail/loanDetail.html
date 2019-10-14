@@ -1,0 +1,71 @@
+<div class="small-12 medium-10 large-8 medium-centered large-centered">
+    <div class="verificaPrestamo">
+        <div class="top">
+            <h5 class="text-center"><span class="texto-bold">{{producto.plazo}}</span> Pagos <span class="texto-bold">{{producto.frecuencia | plural }}</span> de</h5>
+            <p class="text-center pagoMensual">{{producto.pagos[0].total | currency}}</p>
+        </div>
+        <div class="lineaMeta"></div>
+        <div class="calculoDetalle">
+            <div class="suma">
+                <div class="elemento">
+                    <p>Préstamo:</p>
+                    <label>${{producto.prestamo | number:2}}</label>
+                </div>
+                <span>+</span>
+                <div class="elemento">
+                    <p>Interés:</p>
+                    <label>${{producto.interes | number:2}}</label>
+                </div>
+                <span>+</span>
+                <div class="elemento">
+                    <p>IVA del interés:</p>
+                    <label>${{producto.ivaInteres | number:2}}</label>
+                </div>
+                <span>=</span>
+                <div class="elemento">
+                    <p>Total a pagar:</p>
+                    <label>${{producto.total | number:2}}</label>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div class="clear"></div>
+            <div class="margin-top-5 separador-orion"></div>
+            <div class="float-left"><!-- Plazo {{producto.plazo}} {{combined(producto.frecuencia)}} -  -->Tasa {{producto.tasa}}%</div>
+            <div class="float-right">
+                <button class="button icono-texto" ng-model="detalle" ng-click="mostrarDetalle = !mostrarDetalle">
+                    <span ng-show="!mostrarDetalle"> Ver detalle <i class="fa fa-angle-down"></i></span>
+                    <span ng-show="mostrarDetalle"> Ocultar detalle <i class="fa fa-angle-up"></i></span>
+                </button>   
+            </div>
+            <div class="clear"></div>
+            <div ng-show="mostrarDetalle">
+                Detalle de pagos
+                <div class="contenedorTabla">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No. de Pago</th>
+                                <th>Fecha</th>
+                                <th>Abono</th>
+                                <th>Interés</th>
+                                <th>IVA del interés</th>
+                                <th>PAGO TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="pago in producto.pagos">
+                                <td>{{pago.num}}</td>
+                                <td>{{pago.fecha | date:'dd/MM/yyyy'}}</td>
+                                <td>{{pago.abono | currency}}</td>
+                                <td>{{pago.interes | currency}}</td>
+                                <td>{{pago.ivaInteres | currency}}</td>
+                                <td>{{pago.total | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- calculo detalle -->
+
+    </div>

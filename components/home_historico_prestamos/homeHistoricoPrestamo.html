@@ -1,0 +1,105 @@
+<div class="space-blank cuarenta"></div>
+<section class="row">
+    <div class="small-12 medium-9 large-9 column">
+        <div class="tabsAnchor">
+            <a class="tabActivo unico">Histórico de préstamos</a>
+        </div>
+    </div>
+    <section class="tabsYei">
+        <div class="small-12 medium-9 large-9 columns">
+            <div class="tabHistoricoPrestamo">
+                <div class="column">
+                    <!--Contenido acrodeon-->
+                    <accordion close-others="unoAlaVez">
+                        <accordion-group ng-repeat="resultado in resultadoCredito" ng-click="consultarPrestamos(resultado.objetoCredito.creditoId)">
+                         <accordion-heading >
+                            <div  class="desglose">
+                                <div class="elemento">
+                                    <p>Monto:</p>
+                                    <label>    {{resultado.objetoCredito.monto}}</label>
+                                </div>
+                                <div class="elemento">
+                                    <p>Plazo:</p>
+                                    <label>    {{resultado.objetoCredito.plazo}}</label>
+                                </div>
+                                <div class="elemento">
+                                    <p>Frecuencia de pagos:</p>
+                                    <label>    {{resultado.objetoCredito.frecuencia}}</label>
+                                </div>
+                                <div class="elemento">
+                                    <p>Contratación</p>
+                                    <label>    {{resultado.objetoCredito.fechaContratacion}}</label>
+                                </div>
+                            </div>
+                        </accordion-heading>
+                        <section class="contenedorTabla">
+                            <table ng-show="pagos.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>Núm. de pago</th>
+                                        <th>Fecha</th>
+                                        <th>Abono</th>
+                                        <th>Interés</th>
+                                        <th ng-show="pagosVencidos.pagos.length > 0">Interés moratorio</th>
+                                        <th>Saldo</th>
+                                        <th>IVA del interés</th>
+                                        <th ng-show="pagosVencidos.pagos.length > 0">IVA interés moratorio</th>
+                                        <th>Pago Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="pago in pagos">
+                                        <td>{{pago.num}}</td>
+                                        <td>{{pago.fechaPago | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{pago.abono | number:2}}</td>
+                                        <td>{{pago.interes | number:2}}</td>
+                                        <td class="moratorio" ng-show="pagosVencidos.pagos.length > 0"><span ng-if="pago.interesMoratorio > 0">{{pago.interesMoratorio | number:2}}</span></td>
+                                        <td>{{pago.saldo | number:2}}</td>
+                                        <td>{{pago.ivaInteres | number:2}}</td>
+                                        <td class="moratorio" ng-show="pagosVencidos.pagos.length > 0"><span ng-if="pago.ivaInteresMoratorio > 0">{{pago.ivaInteresMoratorio | number:2}}</span></td>
+                                        <td>{{pago.total | number:2}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </accordion-group>
+                </accordion>
+                <!--Fin contenido acordeon-->
+                <!--Contenido paginador-->
+                <div class="right paginador">
+                    <!-- Navegar hacia atrás -->
+                    <button class="button sinFondo extremos" type='button' ng-disabled='currentPage == 0' ng-click='currentPage = currentPage - 1'><i class="material-icons">keyboard_arrow_left</i></button>
+
+                    <!-- Navegar a una página especifica-->
+                    <button class="button sinFondo" ng-click="obtenerAcordeones(pagina)" ng-repeat="pagina in paginas">{{pagina}}</button>
+
+                    <!-- Navegar hacia adelante -->
+                    <button class="button sinFondo extremos" type='button' ng-disabled='currentPage >= pagos.length/pageSize - 1' ng-click='currentPage = currentPage + 1'><i class="material-icons">keyboard_arrow_right</i></button>
+                </div>
+                <!--Fin Contenido paginador-->
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</section>
+<section class="small-12 medium-3 large-3 column">
+    <div class="contenedorPublicidad show-for-medium">
+        <div ng-init="limit1 = 2">
+            <div class="ads">
+                <img src="assets/img/publicidad.png" />
+                <div class="background-amarilloverdoso">
+                    <a><img class="float-left" src="assets/img/APPLE_STORE.png" style="width: 120px;"/></a>
+                    <a><img class="" src="assets/img/GOOGLE_STORE.png" style="width: 120px;"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="clear space-blank diez"></div>
+<div class="small-10 medium-10 large-8 small-centered">
+    <p class="text-center">Si necesitas cambiar algún otro dato <a ui-sref="cha">Inicia nuestro chat</a> o llámanos al <strong>55 12345678</strong>, en un horario de 09:00 a 18:00 hrs de lunes a viernes, también puedes enviar tu petición a <a href="mailto:contacto@yei.mx">contacto@orion.mx</a></p>
+</div>
+</section>
+<script type="text/javascript">
+    ga('set', 'contentGroup3', 'Login');
+</script>
